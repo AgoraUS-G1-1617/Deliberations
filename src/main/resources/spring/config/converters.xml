@@ -22,17 +22,15 @@
 			Add your own converters using entries of the following form: 
 			<bean class="converters.Class1ToClass2" /> 
 		-->
-		<bean class="converters.StringToActorConverter" />
-<bean class="converters.StringToActorConverter" />
-<bean class="converters.ActorToStringConverter"/>
-<bean class="converters.StringToAdministratorConverter" />
-<bean class="converters.AdministratorToStringConverter"/>
-<bean class="converters.StringToUserConverter" />
-<bean class="converters.UserToStringConverter"/>
-<bean class="converters.StringToCommentConverter" />
-<bean class="converters.CommentToStringConverter"/>
-<bean class="converters.StringToThreadConverter" />
-<bean class="converters.ThreadToStringConverter"/>
+		<bean class="converters.CommentToStringConverter" />
+		<bean class="converters.RatingToStringConverter" />
+		<bean class="converters.StringToCommentConverter"/>
+		<bean class="converters.StringToRatingConverter"/>
+		<bean class="converters.StringToThreadConverter" />
+		<bean class="converters.StringToUserConverter" />
+		<bean class="converters.ThreadToStringConverter"/>
+		<bean class="converters.UserToStringConverter"/>
+
 	</util:list>
 	
 </beans>

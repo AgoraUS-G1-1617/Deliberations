@@ -22,6 +22,7 @@ import javax.persistence.Transient;
 import javax.validation.Valid;
 import javax.validation.constraints.Size;
 
+import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.util.Assert;
@@ -50,7 +51,7 @@ public class UserAccount extends DomainEntity implements UserDetails {
 	private String password;
 	private Collection<Authority> authorities;
 
-	@Size(min = 2, max = 32)
+	@NotBlank
 	@Column(unique = true)
 	@Override
 	public String getUsername() {
@@ -61,7 +62,7 @@ public class UserAccount extends DomainEntity implements UserDetails {
 		this.username = username;
 	}
 
-	@Size(min = 2, max = 32)
+	@NotBlank
 	@Override
 	public String getPassword() {
 		return password;

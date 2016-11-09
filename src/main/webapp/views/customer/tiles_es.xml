@@ -15,53 +15,14 @@
        "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
       
 <tiles-definitions>
-
-	<definition name="customer/action-1" extends="master.page">	
-		<put-attribute name="title" value="Cliente: Acción 1" />
-		<put-attribute name="body" value="/views/customer/action-1.jsp" />
-	</definition>
 	
-	<definition name="customer/action-2" extends="master.page">	
-		<put-attribute name="title" value="Cliente: Acción 2" />
-		<put-attribute name="body" value="/views/customer/action-2.jsp" />
-	</definition>
-	
-	
-	<definition name="unregister/listCabbagesUnregister" extends="master.page">	
-		<put-attribute name="title" value="Listar anuncion" />
-		<put-attribute name="body" value="/views/customer/listCabbagesUnregister.jsp" />
-	</definition>
-	
-		<definition name="customer/editCabbage" extends="master.page">	
-		<put-attribute name="title" value="Editar anuncion" />
-		<put-attribute name="body" value="/views/customer/editCabbage.jsp" />
-	</definition>
-	
-	
-	<definition name="customer/listOwnCabbages" extends="master.page">	
-		<put-attribute name="title" value="Listar anuncion propios" />
-		<put-attribute name="body" value="/views/customer/listOwnCabbages.jsp" />
-	</definition>
-	
-	
-	<definition name="customer/listThreads" extends="master.page">	
-		<put-attribute name="title" value="Listar hilos" />
-		<put-attribute name="body" value="/views/customer/listThreads.jsp" />
-	</definition>
-	
-	
-	<definition name="customer/seeThread" extends="master.page">	
-		<put-attribute name="title" value="Ver hilo" />
-		<put-attribute name="body" value="/views/customer/seeThread.jsp" />
-	</definition>
-	
-	
-	<definition name="customer/editThread" extends="master.page">	
-		<put-attribute name="title" value="Editar/Crear Hilo" />
-		<put-attribute name="body" value="/views/customer/editThread.jsp" />
-	</definition>
 	
 	<definition name="customer/login" extends="master.page">	
+		<put-attribute name="title" value="Login" />
+		<put-attribute name="body" value="/views/customer/login.jsp" />
+	</definition>
+	
+	<definition name="user/login" extends="master.page">	
 		<put-attribute name="title" value="Login" />
 		<put-attribute name="body" value="/views/customer/login.jsp" />
 	</definition>

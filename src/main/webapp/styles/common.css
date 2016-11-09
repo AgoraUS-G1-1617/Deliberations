@@ -7,23 +7,29 @@
  * http://www.tdg-seville.info/License.html
  * 
  */
-
 .error {
+	text-align: center;
 	color: red;
 	font-weight: bolder;
+}
+
+.info {
+	text-align: center;
+	font-weight: bolder;
+	color: #286090;
 }
 
 .message {
 	color: red;
 	font-weight: bolder;
 }
+
 body {
-    background-color: #E1EAF5;
+	background-color: #E1EAF5;
 }
-h1.welcome{
-	
-  font-family: "Homer Simpson", cursive; 
+
+h1.welcome {
+	font-family: "Homer Simpson", cursive;
 	text-align: center;
 }
 }
-

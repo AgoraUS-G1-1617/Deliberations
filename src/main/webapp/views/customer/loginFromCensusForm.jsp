@@ -19,9 +19,9 @@
 
 
 
-<form action="customer/loginFromCensus.do" method="post">
+<form action="loginFromCensus.do" method="post">
 
-<b1> <spring:message code="customer.user"/> </b1>
+<spring:message code="customer.user"/>
 <input type="text" name="username"/>
 
 <acme:submit name="save" code="customer.submit"/>

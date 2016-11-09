@@ -1,116 +1,177 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- 
- * PopulateDatabase.xml
- *
- * Copyright (C) 2014 Universidad de Sevilla
- * 
- * The use of this project is hereby constrained to the conditions of the 
- * TDG Licence, a copy of which you may download from 
- * http://www.tdg-seville.info/License.html
- -->
+<!-- * PopulateDatabase.xml * * Copyright (C) 2014 Universidad de Sevilla 
+	* * The use of this project is hereby constrained to the conditions of the 
+	* TDG Licence, a copy of which you may download from * http://www.tdg-seville.info/License.html -->
 
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 	">
-	
+
 	<!-- User accounts -->
 
 	<bean id="userAccount1" class="security.UserAccount">
-		<property name="username" value="admin" />
-		<property name="password" value="21232f297a57a5a743894a0e4a801fc3" />
+		<property name="username" value="user1" />
+		<property name="password" value="ee11cbb19052e40b07aac0ca060c23ee" />
 		<property name="authorities">
 			<list>
 				<bean class="security.Authority">
-					<property name="authority" value="ADMIN" />
+					<property name="authority" value="USER" />
 				</bean>
 			</list>
 		</property>
 	</bean>
 
 	<bean id="userAccount2" class="security.UserAccount">
-		<property name="username" value="customer" />
-		<property name="password" value="91ec1f9324753048c0096d036a694f86" />
+		<property name="username" value="user2" />
+		<property name="password" value="7e58d63b60197ceb55a1c487989a3720" />
 		<property name="authorities">
 			<list>
 				<bean class="security.Authority">
-					<property name="authority" value="CUSTOMER" />
+					<property name="authority" value="USER" />
 				</bean>
 			</list>
 		</property>
 	</bean>
+
 
 	<bean id="userAccount3" class="security.UserAccount">
-		<property name="username" value="super" />
-		<property name="password" value="1b3231655cebb7a1f783eddf27d254ca" />
+		<property name="username" value="customer3" />
+		<property name="password" value="92877af70a45fd6a2ed7fe81e1236b78" />
 		<property name="authorities">
 			<list>
 				<bean class="security.Authority">
-					<property name="authority" value="ADMIN" />
-				</bean>
-				<bean class="security.Authority">
-					<property name="authority" value="CUSTOMER" />
+					<property name="authority" value="USER" />
 				</bean>
 			</list>
 		</property>
 	</bean>
-	
-	<!-- Other domain beans come here -->	
-	
-	<bean id="user1" class="domain.User">
-		
-		<property name="name" value="nombre"/>
-		<property name="surname" value="surname"/>
-		<property name="email" value="caballeroalba@gmail.com"/>
-		<property name="location" value="sevilla"/>
-		<property name="userAccount" ref="userAccount2" />
-		<property name="banned" value="false"/>
-		<property name="numberOfMessages" value="0"/>
-		<property name="url" value="www.google.es"/>
-		<property name="threads">
-		<list>
-		
-		
-		</list>
-		
-		
-		</property>
-		
-		<property name="comments">
-		<list>
-		
-		
-		</list>
-		
-		
-		</property>
 
+
+	<!-- Other domain beans come here -->
+
+
+
+	<!-- User -->
+	<bean id="user1" class="domain.User">
+
+		<property name="name" value="nombre" />
+		<property name="surname" value="surname" />
+		<property name="email" value="caballeroalba@gmail.com" />
+		<property name="autonomous_community" value="Andalucía" />
+		<property name="userAccount" ref="userAccount1" />
+		<property name="genre" value="Hombre" />
+		<property name="threads">
+			<list>
+				<ref bean="thread1" />
+			</list>
+		</property>
+		<property name="ratings">
+			<list>
+				<ref bean="rating1" />
+			</list>
+		</property>
+		<property name="comments">
+			<list>
+				<ref bean="comment1" />
+				<ref bean="comment2" />
+			</list>
+		</property>
 	</bean>
-	
-	
-	<bean id="thread1" class="domain.Hilo">
-	<property name="user" ref="user1"></property>
-	<property name="creationMoment" value="11/11/2004 12:12"></property>
-	<property name="title" value="titulo"></property>
-	<property name="text" value="text"></property>
-	<property name="comments">
-	
-	<list>
-	
-	
-	</list>
-	</property>
-	
-	
+
+	<bean id="user2" class="domain.User">
+
+		<property name="name" value="Fran" />
+		<property name="surname" value="Developer" />
+		<property name="email" value="frandeveloper@gmail.com" />
+		<property name="autonomous_community" value="Madrid" />
+		<property name="userAccount" ref="userAccount3" />
+		<property name="genre" value="Hombre" />
+		<property name="threads">
+			<list>
+				<ref bean="thread2" />
+			</list>
+		</property>
+		<property name="ratings">
+			<list>
+
+			</list>
+		</property>
+		<property name="comments">
+			<list>
+				<ref bean="comment3" />
+			</list>
+		</property>
 	</bean>
-	
-	
-	
-	
-	
-	
-	
-	
+
+	<!-- Thread -->
+
+	<bean id="thread1" class="domain.Thread">
+		<property name="user" ref="user1"></property>
+		<property name="creationMoment" value="11/11/2004 12:12"></property>
+		<property name="title" value="titulo"></property>
+		<property name="decription" value="text"></property>
+		<property name="comments">
+			<list>
+				<ref bean="comment1" />
+				<ref bean="comment2" />
+			</list>
+		</property>
+		<property name="ratings">
+			<list>
+				<ref bean="rating1" />
+			</list>
+		</property>
+	</bean>
+
+	<bean id="thread2" class="domain.Thread">
+		<property name="user" ref="user2"></property>
+		<property name="creationMoment" value="12/11/2004 14:18"></property>
+		<property name="title" value="Hilando"></property>
+		<property name="decription" value="text2"></property>
+		<property name="comments">
+			<list>
+				<ref bean="comment3" />
+			</list>
+		</property>
+		<property name="ratings">
+			<list>
+			</list>
+		</property>
+	</bean>
+
+	<!-- Comment -->
+
+	<bean id="comment1" class="domain.Comment">
+		<property name="user" ref="user1"></property>
+		<property name="creationMoment" value="11/11/2004 12:15"></property>
+		<property name="text" value="tex1t"></property>
+		<property name="thread" ref="thread1" />
+	</bean>
+
+	<bean id="comment2" class="domain.Comment">
+		<property name="user" ref="user1"></property>
+		<property name="creationMoment" value="11/11/2004 12:16"></property>
+		<property name="text" value="text2"></property>
+		<property name="thread" ref="thread1" />
+	</bean>
+
+	<bean id="comment3" class="domain.Comment">
+		<property name="user" ref="user2"></property>
+		<property name="creationMoment" value="13/11/2004 12:18"></property>
+		<property name="text" value="text3"></property>
+		<property name="thread" ref="thread2" />
+	</bean>
+
+	<!-- Rating -->
+
+	<bean id="rating1" class="domain.Rating">
+		<property name="rate" value="4"></property>
+		<property name="user" ref="user1"></property>
+		<property name="thread" ref="thread1" />
+	</bean>
+
+
 </beans>
