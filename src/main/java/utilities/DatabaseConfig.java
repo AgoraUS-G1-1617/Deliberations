@@ -2,6 +2,6 @@ package utilities;
 
 public interface DatabaseConfig {
 
-	public final String PersistenceUnit = "Deliberations";
+	public final String PersistenceUnit = "deliberations";
 	
 }
