@@ -25,8 +25,8 @@
 		destroy-method="close">
 		<property name="driverClass" value="com.mysql.jdbc.Driver" />
 		<property name="jdbcUrl" value="jdbc:mysql://localhost:3306/Deliberations" />
-		<property name="user" value="acme-user" />
-		<property name="password" value="ACME-Us3r-P@ssw0rd" />
+		<property name="user" value="deliberations-user" />
+		<property name="password" value="deliberati0ns-us3r=p@$s" />
 	</bean>
 
 	<!-- JPA -->
