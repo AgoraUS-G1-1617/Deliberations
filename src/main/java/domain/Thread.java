@@ -7,6 +7,7 @@ import java.util.Date;
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
+import javax.persistence.Index;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -21,7 +22,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Access(AccessType.PROPERTY)
-@Table(name = "hilo")
+@Table(name = "hilo", indexes={ @Index(columnList= "title, erase" ) })
 public class Thread extends DomainEntity {
 
 	// Constructors ------------------------------------------------------------
