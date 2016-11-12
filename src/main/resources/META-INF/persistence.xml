@@ -14,7 +14,7 @@
 	xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
 	
-	<persistence-unit name="Deliberations">
+	<persistence-unit name="deliberations">
 		<class>domain.Comment</class>
 		<class>domain.DomainEntity</class>
 		<class>domain.Rating</class>
@@ -27,7 +27,7 @@
 		
 		<properties>
 			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
-			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/Deliberations" />
+			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/deliberations" />
 			<property name="javax.persistence.jdbc.user" value="deliberations-manager" />
 			<property name="javax.persistence.jdbc.password" value="DeliB3rat0n$=m@nag3R-P@S$" />
 
