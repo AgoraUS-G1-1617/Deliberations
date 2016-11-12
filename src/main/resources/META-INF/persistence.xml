@@ -32,6 +32,8 @@
 			<property name="javax.persistence.jdbc.password" value="DeliB3rat0n$=m@nag3R-P@S$" />
 
 			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect" />
+			<property name="hibernate.ejb.naming_strategy" value="org.hibernate.cfg.ImprovedNamingStrategy"/>
+
 			<!-- <property name="hibernate.hbm2ddl.auto" value="none" /> -->
 		</properties>
 
