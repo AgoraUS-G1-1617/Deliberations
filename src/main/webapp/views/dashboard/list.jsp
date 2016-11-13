@@ -18,67 +18,89 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@taglib prefix="acme" tagdir="/WEB-INF/tags"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <br/>
 <br/>
+
 <div class="container">
-	<h1><spring:message code="dashboard.threadMostComments" /></h1>
+	<h1>
+		<spring:message code="dashboard.threadMostComments" />
+	</h1>
 	<div class="table-responsive">
-		<display:table name="threadMostComments" id="row" requestURI="${requestURI}"
-			 class="table table-striped">
-	
-		
-		<spring:message code="dashboard.title" var="rowtitle" />
-		<display:column title="${rowtitle}" property="title" />
-		
+		<display:table name="threadMostComments" id="row" requestURI="${requestURI}" class="table table-striped">
+
+			<spring:message code="dashboard.title" var="rowtitle" />
+			<display:column title="${rowtitle}">
+				<jstl:out value="${row.title}" />
+			</display:column>
+
 			<spring:message code="dashboard.creationMoment" var="rowcreationMoment" />
-		<display:column title="${rowcreationMoment}" property="creationMoment" />
-		
-		<spring:message code="dashboard.decription" var="rowdecription" />
-		<display:column title="${rowdecription}" property="decription"  />
-		
-	</display:table >
+			<display:column title="${rowcreationMoment}">
+				<fmt:formatDate value="${row.creationMoment}" pattern="dd/MM/yyyy HH:mm"/>
+			</display:column>
+
+			<spring:message code="dashboard.decription" var="rowdecription" />
+			<display:column title="${rowdecription}">
+				<jstl:out value="${row.decription}"/>
+			</display:column>
+
+		</display:table>
 	</div>
-	
-	<br/>
-	
-	
-	<h1><spring:message code="dashboard.threadLeastComments" /></h1>
-	
+
+	<br />
+
+
+	<h1>
+		<spring:message code="dashboard.threadLeastComments" />
+	</h1>
+
 	<div class="table-responsive">
-		<display:table name="threadLeastComments" id="row" requestURI="${requestURI}"
-			 class="table table-striped">
-	
-			
-		<spring:message code="dashboard.title" var="rowtitle" />
-		<display:column title="${rowtitle}" property="title" />
-		
+		<display:table name="threadLeastComments" id="row" requestURI="${requestURI}" class="table table-striped">
+
+			<spring:message code="dashboard.title" var="rowtitle" />
+			<display:column title="${rowtitle}">
+				<jstl:out value="${row.title}" />
+			</display:column>
+
 			<spring:message code="dashboard.creationMoment" var="rowcreationMoment" />
-		<display:column title="${rowcreationMoment}" property="creationMoment" />
-		
-		<spring:message code="dashboard.decription" var="decription" />
-		<display:column title="${rowdecription}" property="decription"  />
-		
-	</display:table >
+			<display:column title="${rowcreationMoment}">
+				<fmt:formatDate value="${row.creationMoment}" pattern="dd/MM/yyyy HH:mm"/>
+			</display:column>
+
+			<spring:message code="dashboard.decription" var="rowdecription" />
+			<display:column title="${rowdecription}">
+				<jstl:out value="${row.decription}"/>
+			</display:column>
+
+		</display:table>
 	</div>
-	<br/>
-	
-	<h1><spring:message code="dashboard.threadMoreRating" /></h1>
-	
+	<br />
+
+	<h1>
+		<spring:message code="dashboard.threadMoreRating" />
+	</h1>
+
 	<div class="table-responsive">
-		<display:table name="threadMoreRating" id="row" requestURI="${requestURI}"
-			 class="table table-striped">
-			
-		<spring:message code="dashboard.title" var="rowtitle" />
-		<display:column title="${rowtitle}" property="title" />
-		
+		<display:table name="threadMoreRating" id="row" requestURI="${requestURI}" class="table table-striped">
+
+			<spring:message code="dashboard.title" var="rowtitle" />
+			<display:column title="${rowtitle}">
+				<jstl:out value="${row.title}" />
+			</display:column>
+
 			<spring:message code="dashboard.creationMoment" var="rowcreationMoment" />
-		<display:column title="${rowcreationMoment}" property="creationMoment" />
-		
-		<spring:message code="dashboard.decription" var="decription" />
-		<display:column title="${rowdecription}" property="decription"  />
-		
-	</display:table >
+			<display:column title="${rowcreationMoment}">
+				<fmt:formatDate value="${row.creationMoment}" pattern="dd/MM/yyyy HH:mm"/>
+			</display:column>
+
+			<spring:message code="dashboard.decription" var="rowdecription" />
+			<display:column title="${rowdecription}">
+				<jstl:out value="${row.decription}"/>
+			</display:column>
+
+		</display:table>
 	</div>
 </div>
-<br/>
-<br/>
+<br />
+<br />
