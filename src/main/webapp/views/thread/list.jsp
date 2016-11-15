@@ -56,7 +56,7 @@
 		</display:column>
 
 
-		<spring:message var="dateHeader" code="thread.date" />
+		<spring:message var="dateHeader" code="thread.creationMoment" />
 		<display:column title="${dateHeader}" property="creationMoment"
 			format="{0,date,dd/MM/yyyy HH:mm}">
 			<jstl:out value="${row.creationMoment}"></jstl:out>
