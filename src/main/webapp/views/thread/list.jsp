@@ -67,7 +67,10 @@
 			<display:column>
 				<a href="rating/edit.do?threadId=${row.id}">
 				<spring:message code="thread.rate" />
-			</a>
+				</a>
+				<jstl:if test="${messageThreadRating != null && ratingThreadModified==row.id}">
+					<span class="message"><spring:message code="${messageThreadRating}" /></span>
+				</jstl:if>	
 			</display:column>	
 
 	</display:table>

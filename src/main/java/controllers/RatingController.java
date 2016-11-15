@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import domain.Rating;
 import services.RatingService;
 import services.ThreadService;
 
@@ -37,6 +38,9 @@ public class RatingController extends AbstractController {
 
 	@Autowired
 	private ThreadService threadService;
+	
+	@Autowired
+	private ThreadController threadController;
 
 	// Constructors -----------------------------------------------------------
 
@@ -67,14 +71,26 @@ public class RatingController extends AbstractController {
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
 	public ModelAndView save(@Valid domain.Rating rating, BindingResult binding) {
 		ModelAndView result;
+		Rating oldRating;
 
 		if (binding.hasErrors()) {
 			System.out.println(binding.getAllErrors().get(0));
 			result = createEditModelAndView(rating);
 		} else {
 			try {
-				ratingService.save(rating);
-				result = new ModelAndView("redirect:../thread/list.do");
+				//System.out.println(!ratingService.findRatingsOfUser().isEmpty());
+				if(!ratingService.findRatingsOfUser().isEmpty()){
+					oldRating = new ArrayList<Rating>(ratingService.findRatingsOfUser()).get(0);
+					oldRating.setRate(rating.getRate());
+					ratingService.save(oldRating);
+					result = threadController.prueba().addObject("messageThreadRating", "rating.thread.modified")
+							.addObject("ratingThreadModified", rating.getThread().getId());
+				}else{
+					ratingService.save(rating);
+					result = threadController.prueba().addObject("messageThreadRating", "rating.thread.created")
+							.addObject("ratingThreadModified", rating.getThread().getId());
+					//result = new ModelAndView("redirect:../thread/list.do");
+				}
 			} catch (Throwable oops) {
 				result = createEditModelAndView(rating, "commit.error");
 				System.out.println(oops.getStackTrace());
