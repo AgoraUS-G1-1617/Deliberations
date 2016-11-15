@@ -17,16 +17,32 @@
 
 
 
-<div  class="alert alert-info alert-dismissable" id="mensaje-cookie">
-	
-  <div class="message-alert">
-  	<spring:message	code="header.cookie.message" />
-   	<strong><a href="./policy/cookies.do" class="cookie-moreinfo"><spring:message code="header.cookie.message.info" /></a></strong>
-  	<strong><a href="" class="cookie-close"><spring:message code="header.cookie.message.close"/></a></strong>
-  	
-    </div>
- </div>
+<div class="alert alert-info alert-dismissable" id="mensaje-cookie">
 
+	<div class="message-alert">
+		<spring:message code="header.cookie.message" />
+		<strong><a href="./policy/cookies.do" class="cookie-moreinfo"><spring:message
+					code="header.cookie.message.info" /></a></strong> <strong><a href=""
+			class="cookie-close"><spring:message
+					code="header.cookie.message.close" /></a></strong>
+
+	</div>
+</div>
+<script>
+
+<!-- Script para saber si el usuario ha leido el mensaje sobre el uso de cookies -->
+
+	var mensaje = document.cookie.split('mensaje=')[1]; // obtenemos la cookie "mensaje"
+
+	if(mensaje != null){
+		 $("#mensaje-cookie").alert('close');
+	}		
+	
+	$(".cookie-close").click(function() {
+		document.cookie = 'mensaje=visto;path=/'; // la agregamos
+		});
+	
+</script>
 <!-- <div> -->
 <!-- 	<img src="images/logo.png" alt="Sample Co., Inc." /> -->
 <!-- </div> -->
@@ -100,10 +116,13 @@
 
 <div class="header">
 	<div class="container">
+
 		<div class="logo">
-			<a href=""><img src="images/logo.png"
-				class="img-responsive" alt="Deliberations - Agora@US" /></a>
+			<a href="" > <img src="images/logo.png" class="img-responsive"
+				alt="Deliberations - Agora@US" />
+			</a>
 		</div>
+
 		<div class="head-mid"></div>
 		<div class="ad-ph">
 			<span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
@@ -156,14 +175,15 @@
 								class="glyphicon glyphicon-tasks " aria-hidden="true"></span> <spring:message
 									code="master.page.forum" />
 						</a></li>
-						
-						<li><a href="dashboard/list.do"> <span class="glyphicon glyphicon-align-center" aria-hidden="true"></span> <spring:message
-									code="master.page.dashboard" />
+
+						<li><a href="dashboard/list.do"> <span
+								class="glyphicon glyphicon-align-center" aria-hidden="true"></span>
+								<spring:message code="master.page.dashboard" />
 						</a></li>
 
 						<li class="dropdown"><a href="" class="dropdown-toggle"
 							data-toggle="dropdown"><spring:message
-											code="master.page.options" /><span class="caret"></span></a>
+									code="master.page.options" /><span class="caret"></span></a>
 							<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
 								<li><a href="j_spring_security_logout"><spring:message
 											code="master.page.signout" /></a></li>
@@ -177,7 +197,7 @@
 						<li class="dropdown"><a href="" class="dropdown-toggle"
 							data-toggle="dropdown"><span class="glyphicon glyphicon-cog "
 								aria-hidden="true"></span> <spring:message
-											code="master.page.options" /> <span class="caret"></span></a>
+									code="master.page.options" /> <span class="caret"></span></a>
 							<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
 								<li><a href="user/login.do"><spring:message
 											code="master.page.signin" /></a></li>

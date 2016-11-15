@@ -65,20 +65,7 @@
 	}
 	
 	
-	<!-- Script para saber si el usuario ha leido el mensaje sobre el uso de cookies -->
-    function check_cookie_message()
-    {
-    	var mensaje = document.cookie.split('mensaje=')[1]; // obtenemos la cookie "mensaje"
 
-		if(mensaje != null){
-			 $("#mensaje-cookie").alert('close');
-		}		
-		
-		$(".cookie-close").click(function() {
-			document.cookie = 'mensaje=visto;path=/'; // la agregamos
-			});
-    }
-    window.onload = check_cookie_message;
 </script>
 
 </head>
