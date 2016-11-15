@@ -40,7 +40,7 @@
 					<span class="glyphicon" aria-hidden="true">
 					<img alt="Github" src="images/Github.png">
 					</span>
-					<a href="https://github.com/juagarfer4/Deliberations"> GitHub</a>
+					<a href="https://github.com/AgoraUS-G1-1617/Deliberations"> GitHub</a>
 				</p>
 
 			</div>
@@ -60,7 +60,7 @@
 			<div class="clearfix"></div>
 
 			<div class="copyright">
-				<p>© 2015 Universidad de Sevilla
+				<p>© 2016 Universidad de Sevilla
 			</div>
 		</div>
 </div>
