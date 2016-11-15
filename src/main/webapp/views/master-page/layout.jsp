@@ -76,6 +76,10 @@
 	</div>
 		<div>
 			<tiles:insertAttribute name="body" />
+			<jstl:if test="${messageError != null}">
+			<br />
+			<span class="message"><spring:message code="${messageError}" /></span>
+		</jstl:if>	
 		</div>
 	<div>
 		<tiles:insertAttribute name="footer" />

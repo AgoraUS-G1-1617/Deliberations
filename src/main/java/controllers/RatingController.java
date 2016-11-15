@@ -117,7 +117,7 @@ public class RatingController extends AbstractController {
 		result = new ModelAndView("rating/edit");
 
 		result.addObject("rating", rating);
-		result.addObject("message", message);
+		result.addObject("messageError", message);
 
 		return result;
 	}

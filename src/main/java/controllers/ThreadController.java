@@ -320,7 +320,7 @@ public class ThreadController extends AbstractController {
 		result = new ModelAndView("thread/edit");
 
 		result.addObject("thread", thread);
-		result.addObject("message", message);
+		result.addObject("messageError", message);
 
 		return result;
 	}

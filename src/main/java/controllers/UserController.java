@@ -179,7 +179,7 @@ public class UserController extends AbstractController {
 		ModelAndView result;
 
 		result = new ModelAndView("user/login");
-		result.addObject("message", message);
+		result.addObject("messageError", message);
 
 		return result;
 	}
