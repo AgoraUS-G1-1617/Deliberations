@@ -145,10 +145,10 @@
 				<form:hidden path="thread" />
 
 				<div class="col-sm-9 col-sm-offset-2">
+				<form:errors class="error" path="text" />
 					<div class="input-group">
 						<form:textarea rows="2" path="text" code="thread.comment"
 							class="form-control noresize" />
-
 						<span class="input-group-addon"> 
 							<button type="submit" name="save" class="btn btn-primary"><spring:message code="comment.save" /></button>  
 						</span>
