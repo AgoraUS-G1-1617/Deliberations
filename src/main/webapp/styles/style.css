@@ -171,13 +171,13 @@ li.las a {
 
 .logo {
 	float: left;
-	width: 500px;
-	margin-left: -100px;
-	margin-top: -30px;
-	margin-bottom: -55px;
-	z-index: -1;
-	position: relative;
+	width: 40%;
+	margin-botton:-30%;
+	margin-bottom: -3%;
+	margin-top: -2%;
+	position:relative;
 }
+<!---->
 
 .ad-ph {
 	float: right;
