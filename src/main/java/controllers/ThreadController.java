@@ -92,25 +92,16 @@ public class ThreadController extends AbstractController {
 	public ModelAndView seeThread(@RequestParam int id, @RequestParam Integer p) {
 		ModelAndView result;
 		domain.Thread hilo;
-		Collection<Comment> comments;
-		Integer lastPage;
 
 		hilo = threadService.findOne(id);
-		comments = threadService.findCommentsByPage(id, p);
-		lastPage = threadService.calculateLastPage(null, hilo);
-
-		result = new ModelAndView("thread/display");
-		result.addObject("hilo", hilo);
-		result.addObject("comments", comments);
 
 		Comment comment = new Comment();
 
 		comment.setCreationMoment(new Date());
 		comment.setThread(hilo);
 		comment.setUser(userService.findOneByPrincipal());
-		result.addObject("comment", comment);
-		result.addObject("p", p);
-		result.addObject("lastPage", lastPage);
+
+		result = createListModelAndView(id, p, comment);
 		
 		return result;
 
@@ -122,20 +113,17 @@ public class ThreadController extends AbstractController {
 	@RequestMapping(value = "/saveComment", method = RequestMethod.POST)
 	public ModelAndView saveComment(@Valid Comment comment, BindingResult binding) {
 		ModelAndView result;
-		Integer page;
+		int page;
 
 		page = threadService.calculateLastPage(comment, null);
 
-		result = new ModelAndView("redirect:display.do?id=" + comment.getThread().getId() + "&p=" + page + "");
-
 		if (binding.hasErrors()) {
 
-			System.out.println(binding.toString());
+			result = createListModelAndView(comment.getThread().getId(), page, comment);
 
 		} else {
+			result = new ModelAndView("redirect:display.do?id=" + comment.getThread().getId() + "&p=" + page);
 			try {
-				// debemos comprobar si se guarda o no para guardar tambien el hilo
-
 				commentService.save(comment);
 			} catch (Throwable op) {
 				op.printStackTrace();
@@ -332,6 +320,27 @@ public class ThreadController extends AbstractController {
 
 		result.addObject("thread", thread);
 		result.addObject("message", message);
+
+		return result;
+	}
+
+	private ModelAndView createListModelAndView(int id, int p, Comment c){
+		ModelAndView result;
+		domain.Thread hilo;
+		Collection<Comment> comments;
+		Integer lastPage;
+
+		hilo = threadService.findOne(id);
+		comments = threadService.findCommentsByPage(id, p);
+		lastPage = threadService.calculateLastPage(null, hilo);
+
+		result = new ModelAndView("thread/display");
+		result.addObject("hilo", hilo);
+		result.addObject("comments", comments);
+
+		result.addObject("comment", c);
+		result.addObject("p", p);
+		result.addObject("lastPage", lastPage);
 
 		return result;
 	}
