@@ -81,6 +81,7 @@ public class ThreadController extends AbstractController {
 		result = new ModelAndView("thread/list");
 		result.addObject("threads", threads);
 		result.addObject("allThreads", threadService.findAll());
+		result.addObject("actUserId",userService.findOneByPrincipal().getId());
 		
 		return result;
 	}

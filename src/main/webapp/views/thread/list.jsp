@@ -42,6 +42,11 @@
 		<display:column title="${titleHeader}">
 			<a href="thread/display.do?id=${row.id}&p=1"><jstl:out
 					value="${row.title }"></jstl:out></a>
+			<security:authorize  access="isAuthenticated()">
+				<jstl:if test="${row.user.id == actUserId}">
+					&nbsp (<a href="thread/edit.do?threadId=${row.id}">edit</a>)
+				</jstl:if>
+			</security:authorize>
 		</display:column>
 
 
