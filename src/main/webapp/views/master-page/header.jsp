@@ -15,6 +15,18 @@
 <%@taglib prefix="security"
 	uri="http://www.springframework.org/security/tags"%>
 
+
+
+<div  class="alert alert-info alert-dismissable" id="mensaje-cookie">
+	
+  <div class="message-alert">
+  	<spring:message	code="header.cookie.message" />
+   	<strong><a href="./policy/cookies.do" class="cookie-moreinfo"><spring:message code="header.cookie.message.info" /></a></strong>
+  	<strong><a href="" class="cookie-close"><spring:message code="header.cookie.message.close"/></a></strong>
+  	
+    </div>
+ </div>
+
 <!-- <div> -->
 <!-- 	<img src="images/logo.png" alt="Sample Co., Inc." /> -->
 <!-- </div> -->
@@ -89,7 +101,7 @@
 <div class="header">
 	<div class="container">
 		<div class="logo">
-			<a href="/welcome.do"><img src="images/logo.png"
+			<a href=""><img src="images/logo.png"
 				class="img-responsive" alt="Deliberations - Agora@US" /></a>
 		</div>
 		<div class="head-mid"></div>
@@ -112,6 +124,7 @@
 		<div class="clearfix"></div>
 	</div>
 </div>
+
 <div class="header_nav" id="home">
 	<div class="container">
 		<nav class="navbar navbar-default chn-gd">

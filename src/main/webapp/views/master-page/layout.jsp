@@ -50,7 +50,7 @@
 			<script src="scripts/jquery-2.1.4.min.js"></script>
 		<!--bootstrap-js-->
 			<script src="scripts/bootstrap.min.js"></script>
-	
+		
 
 <title><tiles:insertAttribute name="title" ignore="true" /></title>
 
@@ -63,6 +63,22 @@
 		if (confirm(msg))
 			form.submit();
 	}
+	
+	
+	<!-- Script para saber si el usuario ha leido el mensaje sobre el uso de cookies -->
+    function check_cookie_message()
+    {
+    	var mensaje = document.cookie.split('mensaje=')[1]; // obtenemos la cookie "mensaje"
+
+		if(mensaje != null){
+			 $("#mensaje-cookie").alert('close');
+		}		
+		
+		$(".cookie-close").click(function() {
+			document.cookie = 'mensaje=visto;path=/'; // la agregamos
+			});
+    }
+    window.onload = check_cookie_message;
 </script>
 
 </head>
@@ -77,7 +93,7 @@
 	<div>
 		<tiles:insertAttribute name="footer" />
 	</div>
-	
+
 </body>
 
 </html>
