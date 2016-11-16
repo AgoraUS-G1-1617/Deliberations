@@ -171,6 +171,9 @@
 					<!---->
 
 					<security:authorize access="isAuthenticated()">
+						
+						
+					
 						<li><a href="thread/list.do"> <span
 								class="glyphicon glyphicon-tasks " aria-hidden="true"></span> <spring:message
 									code="master.page.forum" />
@@ -181,6 +184,12 @@
 								<spring:message code="master.page.dashboard" />
 						</a></li>
 
+
+						<li><a href="user/profile.do"> <span
+								class="glyphicon glyphicon-eye " aria-hidden="true"></span>
+								<spring:message code="master.page.profile" />
+						</a></li>
+						
 						<li class="dropdown"><a href="" class="dropdown-toggle"
 							data-toggle="dropdown"><spring:message
 									code="master.page.options" /><span class="caret"></span></a>
@@ -188,6 +197,8 @@
 								<li><a href="j_spring_security_logout"><spring:message
 											code="master.page.signout" /></a></li>
 							</ul></li>
+						
+						
 
 					</security:authorize>
 
