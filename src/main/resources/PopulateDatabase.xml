@@ -38,7 +38,7 @@
 
 
 	<bean id="userAccount3" class="security.UserAccount">
-		<property name="username" value="customer3" />
+		<property name="username" value="user3" />
 		<property name="password" value="92877af70a45fd6a2ed7fe81e1236b78" />
 		<property name="authorities">
 			<list>
@@ -87,6 +87,30 @@
 		<property name="surname" value="Developer" />
 		<property name="email" value="frandeveloper@gmail.com" />
 		<property name="autonomous_community" value="Madrid" />
+		<property name="userAccount" ref="userAccount2" />
+		<property name="genre" value="Hombre" />
+		<property name="threads">
+			<list>
+				<ref bean="thread2" />
+			</list>
+		</property>
+		<property name="ratings">
+			<list>
+
+			</list>
+		</property>
+		<property name="comments">
+			<list>
+				<ref bean="comment3" />
+			</list>
+		</property>
+	</bean>
+<bean id="user3" class="domain.User">
+
+		<property name="name" value="user3" />
+		<property name="surname" value="user3" />
+		<property name="email" value="user3@gmail.com" />
+		<property name="autonomous_community" value="Madrid" />
 		<property name="userAccount" ref="userAccount3" />
 		<property name="genre" value="Hombre" />
 		<property name="threads">
@@ -105,7 +129,6 @@
 			</list>
 		</property>
 	</bean>
-
 	<!-- Thread -->
 
 	<bean id="thread1" class="domain.Thread">
