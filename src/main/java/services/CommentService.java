@@ -3,6 +3,8 @@ package services;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.transaction.Transactional;
 
@@ -11,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import domain.Comment;
+import domain.Thread;
 import repositories.CommentRepository;
 import security.LoginService;
 
@@ -114,6 +117,30 @@ public class CommentService {
 		result = 0.0;
 		result = commentRepository.findRatioOfCommentsOfUserInHilo(idHilo, LoginService.getPrincipal().getId());
 		
+		return result;
+	}
+	
+	/**
+	 * Maps the id of a given thread in a collection of threads to the last comment of such a thread
+	 * @param threads A collection of threads
+	 * @return A map, indicating the last comment for each thread id in the map keys
+	 */
+	public Map<Integer,Comment> findLastComments(Collection<Thread> threads) {
+		Map<Integer,Comment> result;
+		Collection<Comment> comments;
+		
+		result = new HashMap<Integer,Comment>();
+		
+		for (Thread thread: threads) {
+			// WARNING! Two or more comments may be retrieved, since the creation moment precision is set at minutes, it is
+			// likely that a collection with more than one element will be retrieved. Although it may seem inaccurate to retrieve
+			// the first element of the iterator, it does not matter since the moment displayed will be exactly the same.
+			comments = commentRepository.findLastComment((int)thread.getId());
+			if(!comments.isEmpty()) {
+				result.put((int)thread.getId(),comments.iterator().next());
+			}
+		}
+
 		return result;
 	}
 }

@@ -19,7 +19,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Access(AccessType.PROPERTY)
-@Table(indexes={ @Index(columnList= "creationMoment, erase" ) })
+@Table(indexes={ @Index(columnList= "creationMoment, erase"),@Index(columnList= "thread, creationMoment") })
 public class Comment extends DomainEntity {
 
 	// Constructors ------------------------------------------------------------

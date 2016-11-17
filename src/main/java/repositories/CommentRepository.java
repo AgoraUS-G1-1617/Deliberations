@@ -30,4 +30,7 @@ public interface CommentRepository extends JpaRepository<Comment, Integer> {
 	
 	@Query("select count(c)*100/(select h.comments.size from Thread h where h.id=?1) from Comment c where c.user.userAccount.id=?2 and c.thread.id=?1)")
 	Double findRatioOfCommentsOfUserInHilo(int idHilo,int idUserAccount);
+	
+	@Query("select c from Comment c where c.thread.id = ?1 and c.creationMoment >= ALL(select comment.creationMoment from Comment comment where comment.thread.id = ?1)")
+	Collection<Comment> findLastComment(int threadId);
 }

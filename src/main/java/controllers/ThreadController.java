@@ -15,6 +15,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -39,8 +40,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import domain.CensusUser;
 import domain.Comment;
-import domain.User;
 import domain.Thread;
+import domain.User;
 import security.UserAccount;
 import services.CommentService;
 import services.ThreadService;
@@ -77,11 +78,15 @@ public class ThreadController extends AbstractController {
 	public ModelAndView list() {
 		ModelAndView result;
 		Collection<domain.Thread> threads;
+		Map<Integer,Comment> lastComments;
 		
 		threads = threadService.findAll();
+		lastComments = commentService.findLastComments(threads);
+		
 		result = new ModelAndView("thread/list");
 		result.addObject("threads", threads);
 		result.addObject("allThreads", threadService.findAll());
+		result.addObject("lastComments",lastComments);
 		result.addObject("actUserId",userService.findOneByPrincipal().getId());
 		
 		return result;
@@ -194,7 +199,7 @@ public class ThreadController extends AbstractController {
 			result = new ModelAndView("redirect:list.do");
 		} catch (Throwable oops) {
 			result = seeThread(threadId,1);
-			result.addObject("commit.error","messageError");
+			result.addObject("messageError","commit.error");
 		}
 		
 		return result;
@@ -213,7 +218,7 @@ public class ThreadController extends AbstractController {
 				result = new ModelAndView("redirect:list.do");
 			} catch (Throwable oops) {
 				result = seeThread(threadId,1);
-				result.addObject("commit.error","messageError");
+				result.addObject("messageError","commit.error");
 			}
 			
 			return result;
