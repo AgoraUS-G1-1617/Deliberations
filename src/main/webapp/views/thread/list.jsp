@@ -47,6 +47,12 @@
 					&nbsp (<a href="thread/edit.do?threadId=${row.id}">edit</a>)
 				</jstl:if>
 			</security:authorize>
+			
+			<!-- Chunk for closed threads -->
+			<jstl:if test="${row.closed}">
+				<img src="images/lock.png" height="10%" width="10%"/>
+			</jstl:if>
+			<!-- ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^  -->
 		</display:column>
 
 

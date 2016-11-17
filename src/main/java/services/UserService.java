@@ -86,7 +86,7 @@ public class UserService {
 		userRepository.delete(user);
 	}
 
-	// Other business methods
+	// Other business methods -------------------------------------------------
 
 	public User findOneByPrincipal() {
 		User result;
