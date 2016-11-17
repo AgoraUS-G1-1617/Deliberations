@@ -214,12 +214,6 @@ CREATE TABLE `user_account` (
 -- Dumping data for table `user_account`
 --
 
-LOCK TABLES `user_account` WRITE;
-/*!40000 ALTER TABLE `user_account` DISABLE KEYS */;
-INSERT INTO `user_account` VALUES (1,0,'ee11cbb19052e40b07aac0ca060c23ee','user1'),(2,0,'7e58d63b60197ceb55a1c487989a3720','user2'),(3,0,'92877af70a45fd6a2ed7fe81e1236b78','customer3'),(32768,1,'448d76c4b3747b45e92528eedfcc26c3','deliberations');
-/*!40000 ALTER TABLE `user_account` ENABLE KEYS */;
-UNLOCK TABLES;
-
 --
 -- Table structure for table `user_account_authorities`
 --
@@ -239,11 +233,6 @@ CREATE TABLE `user_account_authorities` (
 -- Dumping data for table `user_account_authorities`
 --
 
-LOCK TABLES `user_account_authorities` WRITE;
-/*!40000 ALTER TABLE `user_account_authorities` DISABLE KEYS */;
-INSERT INTO `user_account_authorities` VALUES (1,'USER'),(2,'USER'),(3,'USER'),(32768,'USER');
-/*!40000 ALTER TABLE `user_account_authorities` ENABLE KEYS */;
-UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
