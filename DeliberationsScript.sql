@@ -22,7 +22,6 @@ USE `deliberations`;
 -- --------------------------------------------------------
 
 
-
 -- MySQL dump 10.13  Distrib 5.7.16, for Linux (x86_64)
 --
 -- Host: localhost    Database: deliberations
@@ -57,7 +56,7 @@ CREATE TABLE `comment` (
   `user` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `UK_3ydpbc2gdp8jl5ld83rlo6arv` (`creation_moment`,`erase`),
-  KEY `FK_nlndnfhb4alu32b6y7h80rpv9` (`thread`),
+  KEY `UK_2d2el8kro83u0g712ea9o0pnu` (`thread`,`creation_moment`),
   KEY `FK_4ivt42gn164dv18bc7kd6ofkv` (`user`),
   CONSTRAINT `FK_4ivt42gn164dv18bc7kd6ofkv` FOREIGN KEY (`user`) REFERENCES `user` (`id`),
   CONSTRAINT `FK_nlndnfhb4alu32b6y7h80rpv9` FOREIGN KEY (`thread`) REFERENCES `hilo` (`id`)
@@ -70,7 +69,7 @@ CREATE TABLE `comment` (
 
 LOCK TABLES `comment` WRITE;
 /*!40000 ALTER TABLE `comment` DISABLE KEYS */;
-INSERT INTO `comment` VALUES (8,0,'2004-11-11 12:15:00',NULL,'tex1t',6,4),(9,0,'2004-11-11 12:16:00',NULL,'text2',6,4),(10,0,'2005-01-11 12:18:00',NULL,'text3',7,5);
+INSERT INTO `comment` VALUES (9,0,'2004-11-11 12:15:00',NULL,'tex1t',7,4),(10,0,'2004-11-11 12:16:00',NULL,'text2',7,4),(11,0,'2005-01-11 12:18:00',NULL,'text3',8,5);
 /*!40000 ALTER TABLE `comment` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -93,7 +92,7 @@ CREATE TABLE `hibernate_sequences` (
 
 LOCK TABLES `hibernate_sequences` WRITE;
 /*!40000 ALTER TABLE `hibernate_sequences` DISABLE KEYS */;
-INSERT INTO `hibernate_sequences` VALUES ('domain_entity',2);
+INSERT INTO `hibernate_sequences` VALUES ('domain_entity',1);
 /*!40000 ALTER TABLE `hibernate_sequences` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -107,6 +106,7 @@ DROP TABLE IF EXISTS `hilo`;
 CREATE TABLE `hilo` (
   `id` int(11) NOT NULL,
   `version` int(11) NOT NULL,
+  `closed` bit(1) NOT NULL,
   `creation_moment` datetime DEFAULT NULL,
   `decription` varchar(255) DEFAULT NULL,
   `erase` bit(1) DEFAULT NULL,
@@ -125,7 +125,7 @@ CREATE TABLE `hilo` (
 
 LOCK TABLES `hilo` WRITE;
 /*!40000 ALTER TABLE `hilo` DISABLE KEYS */;
-INSERT INTO `hilo` VALUES (6,0,'2004-11-11 12:12:00','text',NULL,'titulo',4),(7,0,'2004-12-11 14:18:00','text2',NULL,'Hilando',5);
+INSERT INTO `hilo` VALUES (7,0,'\0','2004-11-11 12:12:00','text',NULL,'titulo',4),(8,0,'\0','2004-12-11 14:18:00','text2',NULL,'Hilando',5);
 /*!40000 ALTER TABLE `hilo` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -157,7 +157,7 @@ CREATE TABLE `rating` (
 
 LOCK TABLES `rating` WRITE;
 /*!40000 ALTER TABLE `rating` DISABLE KEYS */;
-INSERT INTO `rating` VALUES (11,0,4,6,4);
+INSERT INTO `rating` VALUES (12,0,4,7,4);
 /*!40000 ALTER TABLE `rating` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -189,7 +189,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (4,0,'Andalucía','caballeroalba@gmail.com','Hombre','nombre','surname',1),(5,0,'Madrid','frandeveloper@gmail.com','Hombre','Fran','Developer',3),(32769,0,NULL,NULL,NULL,'deliberations',NULL,32768);
+INSERT INTO `user` VALUES (4,0,'Andalucía','caballeroalba@gmail.com','Hombre','nombre','surname',1),(5,0,'Madrid','frandeveloper@gmail.com','Hombre','Fran','Developer',2),(6,0,'Madrid','user3@gmail.com','Hombre','user3','user3',3);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -214,6 +214,12 @@ CREATE TABLE `user_account` (
 -- Dumping data for table `user_account`
 --
 
+LOCK TABLES `user_account` WRITE;
+/*!40000 ALTER TABLE `user_account` DISABLE KEYS */;
+INSERT INTO `user_account` VALUES (1,0,'24c9e15e52afc47c225b757e7bee1f9d','user1'),(2,0,'7e58d63b60197ceb55a1c487989a3720','user2'),(3,0,'92877af70a45fd6a2ed7fe81e1236b78','user3');
+/*!40000 ALTER TABLE `user_account` ENABLE KEYS */;
+UNLOCK TABLES;
+
 --
 -- Table structure for table `user_account_authorities`
 --
@@ -233,6 +239,11 @@ CREATE TABLE `user_account_authorities` (
 -- Dumping data for table `user_account_authorities`
 --
 
+LOCK TABLES `user_account_authorities` WRITE;
+/*!40000 ALTER TABLE `user_account_authorities` DISABLE KEYS */;
+INSERT INTO `user_account_authorities` VALUES (1,'USER'),(2,'USER'),(3,'USER');
+/*!40000 ALTER TABLE `user_account_authorities` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -243,6 +254,6 @@ CREATE TABLE `user_account_authorities` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-11-12 21:35:47
+-- Dump completed on 2016-11-17 21:18:55
 
 commit;
