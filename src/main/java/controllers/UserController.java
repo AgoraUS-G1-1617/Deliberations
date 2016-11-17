@@ -140,7 +140,9 @@ public class UserController extends AbstractController {
 					DaoAuthenticationProvider authenticator;
 					Authentication authentication;
 					
-					usuario = userService.create(userAccount.getUsername());
+					usuario = objectMapper.readValue(new URL("http://www.egcaj.tk/Auth/api/getUser?user=" + userAccount.getUsername()),
+							User.class);
+					usuario = userService.setUserProperties(usuario, userAccount);
 					usuario = userService.save(usuario);
 					userAccountUsuario = usuario.getUserAccount();
 					

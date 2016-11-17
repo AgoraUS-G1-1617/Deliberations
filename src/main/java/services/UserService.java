@@ -86,8 +86,42 @@ public class UserService {
 		userRepository.delete(user);
 	}
 
-	// Other business methods
+	// Other business methods ----------------------------------------------------
+	
+	//Este método recibe un usuario creado con las propiedade básicas como parámatreo y un UserAccount y
+	//le añade las relaciones correspondientes Ej.: UserAccount, Ratings, Threads, etc.
+	public User setUserProperties(User user, UserAccount userAccount) {
+		User result;
+		UserAccount newUserAccount;
+		Authority authority;
+		List<Thread> threads;
+		List<Comment> comments;
+		List<Rating> ratings;
+		Collection<Authority> authorities;
 
+		result = user;
+		newUserAccount = new UserAccount();
+		authorities = new ArrayList<Authority>();
+		authority = new Authority();
+		threads = new ArrayList<Thread>();
+		comments = new ArrayList<Comment>();
+		ratings = new ArrayList<Rating>();
+
+		authority.setAuthority("USER");
+		authorities.add(authority);
+		newUserAccount.setUsername(userAccount.getUsername());
+		newUserAccount.setPassword(new Md5PasswordEncoder().encodePassword(userAccount.getPassword(), null));
+		newUserAccount.setAuthorities(authorities);
+
+		result.setName(userAccount.getUsername());
+		result.setUserAccount(newUserAccount);
+		result.setComments(comments);
+		result.setThreads(threads);
+		result.setRatings(ratings);
+
+		return result;
+	}
+	
 	public User findOneByPrincipal() {
 		User result;
 
