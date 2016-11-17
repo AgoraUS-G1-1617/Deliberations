@@ -74,13 +74,13 @@
 	<div>
 		<tiles:insertAttribute name="header" />
 	</div>
-		<div>
-			<tiles:insertAttribute name="body" />
-			<jstl:if test="${messageError != null}">
+	<div>
+		<tiles:insertAttribute name="body" />
+		<jstl:if test="${messageError != null}">
 			<br />
 			<span class="message"><spring:message code="${messageError}" /></span>
-		</jstl:if>	
-		</div>
+		</jstl:if>
+	</div>
 	<div>
 		<tiles:insertAttribute name="footer" />
 	</div>

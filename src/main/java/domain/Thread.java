@@ -37,6 +37,7 @@ public class Thread extends DomainEntity {
 	private Date creationMoment;
 	private String decription;
 	private Boolean erase;
+	private boolean closed;
 
 	@NotBlank
 	public String getTitle() {
@@ -67,13 +68,21 @@ public class Thread extends DomainEntity {
 	public void setDecription(String decription) {
 		this.decription = decription;
 	}
-
+	
 	public Boolean getErase() {
 		return erase;
 	}
 
 	public void setErase(Boolean erase) {
 		this.erase = erase;
+	}
+	
+	public boolean isClosed() {
+		return closed;
+	}
+
+	public void setClosed(boolean closed) {
+		this.closed = closed;
 	}
 
 	// Relationships ----------------------------------------------------------

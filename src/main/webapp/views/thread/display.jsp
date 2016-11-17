@@ -18,6 +18,7 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@taglib prefix="acme" tagdir="/WEB-INF/tags"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 <script
 	src="scripts/jquery.bootpag.min.js">
@@ -32,6 +33,23 @@
 				<h3>
 					<jstl:out value="${hilo.title}"></jstl:out>
 				</h3>
+				<!-- Chunk for opening and closing threads -->
+				
+				<security:authentication property="principal.username" var="principalsUsername"/>
+				<security:authorize access="isAuthenticated()">
+					<jstl:if test="${principalsUsername == hilo.user.userAccount.username}">
+						<jstl:choose>
+							<jstl:when test="${hilo.closed}">
+								<a href="thread/open.do?threadId=${hilo.id}"><spring:message code="thread.open"/></a>
+							</jstl:when>
+							<jstl:otherwise>
+								<a href="thread/close.do?threadId=${hilo.id}"><spring:message code="thread.close"/></a>
+							</jstl:otherwise>
+						</jstl:choose>
+					</jstl:if>
+				</security:authorize>
+				
+				<!-- ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ -->
 			</div>
 		</div>
 		
@@ -133,30 +151,30 @@
 
 		<%-- </display:table> --%>
 
-		<form:form action="thread/saveComment.do?p=${lastPage}" method="post"
-			modelAttribute="comment">
-
-			<div class="row">
-
-				<form:hidden path="id" />
-				<form:hidden path="version" />
-				<form:hidden path="user" />
-				<form:hidden path="creationMoment" />
-				<form:hidden path="thread" />
-
-				<div class="col-sm-9 col-sm-offset-2">
-				<form:errors class="error" path="text" />
-					<div class="input-group">
-						<form:textarea rows="2" path="text" code="thread.comment"
-							class="form-control noresize" />
-						<span class="input-group-addon"> 
-							<button type="submit" name="save" class="btn btn-primary"><spring:message code="comment.save" /></button>  
-						</span>
+		<jstl:if test="${hilo.closed == false}">
+			<form:form action="thread/saveComment.do?p=${lastPage}" method="post"
+				modelAttribute="comment">
+	
+				<div class="row">
+					<form:hidden path="id" />
+					<form:hidden path="version" />
+					<form:hidden path="user" />
+					<form:hidden path="creationMoment" />
+					<form:hidden path="thread" />
+	
+					<div class="col-sm-9 col-sm-offset-2">
+					<form:errors class="error" path="text" />
+						<div class="input-group">
+							<form:textarea rows="2" path="text" code="thread.comment"
+								class="form-control noresize" />
+							<span class="input-group-addon"> 
+								<button type="submit" name="save" class="btn btn-primary"><spring:message code="comment.save" /></button>  
+							</span>
+						</div>
 					</div>
 				</div>
-			</div>
-
-		</form:form>
+			</form:form>
+		</jstl:if>
 
 	</div>
 

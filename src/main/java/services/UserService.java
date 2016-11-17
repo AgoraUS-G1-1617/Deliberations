@@ -86,8 +86,8 @@ public class UserService {
 		userRepository.delete(user);
 	}
 
-	// Other business methods ----------------------------------------------------
-	
+	// Other business methods -------------------------------------------------
+
 	//Este método recibe un usuario creado con las propiedade básicas como parámatreo y un UserAccount y
 	//le añade las relaciones correspondientes Ej.: UserAccount, Ratings, Threads, etc.
 	public User setUserProperties(User user, UserAccount userAccount) {

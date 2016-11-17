@@ -8,6 +8,7 @@ import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 
 import domain.Comment;
 import repositories.CommentRepository;
@@ -49,6 +50,10 @@ public class CommentService {
 	}
 
 	public void save(Comment comment) {
+		// Associated business rules:
+		//	- The thread that is associated to the comment passed as parameter must not be closed
+		Assert.isTrue(!comment.getThread().isClosed());
+		
 		commentRepository.save(comment);
 	}
 
