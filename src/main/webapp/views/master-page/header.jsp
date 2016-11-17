@@ -185,10 +185,16 @@
 						</a></li>
 
 
-						<li><a href="user/profile.do"> <span
-								class="glyphicon glyphicon-eye " aria-hidden="true"></span>
-								<spring:message code="master.page.profile" />
-						</a></li>
+					
+						<li class="dropdown "><a href="" class="dropdown-toggle"
+							data-toggle="dropdown"><span
+								class="glyphicon glyphicon-user " aria-hidden="true"></span><spring:message code="master.page.profile" /><span class="caret"></span></a>
+							<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+								<li><a href="user/profile.do"><spring:message code="master.page.info" /></a></li>
+								<li><a href=""><spring:message code="master.page.statistics" /></a></li>
+								
+							</ul></li>
+						
 						
 						<li class="dropdown"><a href="" class="dropdown-toggle"
 							data-toggle="dropdown"><spring:message

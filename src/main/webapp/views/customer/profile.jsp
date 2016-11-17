@@ -27,12 +27,29 @@
 <br />
 <div class="container">
 
-	<h3><spring:message code="customer.profile"/></h3>
+	<h3><spring:message code="customer.info"/></h3>
 	<br />
+		
+		<table style="margin: 0 auto;">
+			<tr>
+				<td><div class="thumbnail"><img class="img-responsive user-photo" src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png"></div></td>
+				<td> </td>
+				<td nowrap style='padding-left: 5%'>
+					<h4><spring:message code="customer.name"/>: <b><jstl:out value=" ${user.name}"/></b></h4>
+					<h4><spring:message code="customer.surname"/>: <b><jstl:out value=" ${user.surname}"/></b></h4> 
+					<h4><spring:message code="customer.genre"/>: <b><jstl:out value=" ${user.genre}"/></b></h4> 
+					<h4><spring:message code="customer.email"/>: <b><jstl:out value=" ${user.email}"/></b></h4> 
+				</td>
+			</tr>
+		</table>
 	
-		<h4><spring:message code="customer.rank"/>: <b><security:authentication property="principal.username" /></b></h4>
-		<%--<h4><spring:message code="customer.user"/>: <b><jstl:out value=" ${user.name}"/></b></h4> --%>
+	
+	<div class="thumbnail">
+
 		<h4><spring:message code="customer.rank"/>: </h4>
+
+	</div>
+		
 		
 		
 </div>
