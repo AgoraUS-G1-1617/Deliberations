@@ -36,6 +36,9 @@ import domain.User;
 import security.Authority;
 import security.LoginService;
 import security.UserAccount;
+import services.CommentService;
+import services.MessageService;
+import services.ThreadService;
 import services.UserService;
 
 @Controller
@@ -52,6 +55,15 @@ public class UserController extends AbstractController {
 
 	@Autowired
 	private UserDetailsService userDetailsService;
+	
+	@Autowired
+	private MessageService messageService;
+	
+	@Autowired
+	private ThreadService threadService;
+	
+	@Autowired
+	private CommentService commentService;
 
 	// Constructors -----------------------------------------------------------
 
@@ -173,6 +185,31 @@ public class UserController extends AbstractController {
 		return result;
 
 	}
+	
+	@RequestMapping("/statistics")
+	public ModelAndView statistics() {
+		ModelAndView result;
+		int messagesSent,
+			messagesReceived,
+			threadsCreated,
+			commentsCreated;
+		
+		messagesSent = messageService.countMessagesSentByUser();
+		messagesReceived = messageService.countMessagesReceivedtByUser();
+		threadsCreated = threadService.countThreadCreatedByUser();
+		commentsCreated = commentService.countCommentsCreatedByUser();
+		
+		
+		result = new ModelAndView("user/statistics");
+		
+		result.addObject("messagesSent", messagesSent);
+		result.addObject("messagesReceived", messagesReceived);
+		result.addObject("threadsCreated", threadsCreated);
+		result.addObject("commentsCreated", commentsCreated);
+
+		return result;
+	}
+	
 
 	// Ancillary methods
 	// ----------------------------------------------------------------------

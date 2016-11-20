@@ -33,4 +33,8 @@ public interface CommentRepository extends JpaRepository<Comment, Integer> {
 	
 	@Query("select c from Comment c where c.thread.id = ?1 and c.creationMoment >= ALL(select comment.creationMoment from Comment comment where comment.thread.id = ?1)")
 	Collection<Comment> findLastComment(int threadId);
+	
+	@Query("select count(c) from Comment c where c.user.id = ?1")
+	int countCommentsCreatedByUserId(int id);
+
 }

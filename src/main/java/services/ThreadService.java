@@ -219,4 +219,17 @@ public class ThreadService {
 		
 		return result;
 	}
+	
+	public int countThreadCreatedByUser(){
+		int res;
+		User user;
+		
+		user = userService.findOneByPrincipal();
+		
+		Assert.notNull(user);
+		
+		res = threadRepository.countThreadCreatedByUserId(user.getId());
+		
+		return res;
+	}
 }

@@ -38,6 +38,9 @@
 		<put-attribute name="body" value="/views/customer/profile.jsp" />
 	</definition>
 	
-	
+	<definition name="user/statistics" extends="master.page">	
+		<put-attribute name="title" value="Estadísticas" />
+		<put-attribute name="body" value="/views/customer/statistics.jsp" />
+	</definition>
 	
 </tiles-definitions>

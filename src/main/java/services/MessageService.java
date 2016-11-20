@@ -126,4 +126,31 @@ public class MessageService {
 		Assert.notNull(result);
 		return result;
 	}
+	
+	public int countMessagesSentByUser(){
+		int res;
+		User user;
+		
+		user = userService.findOneByPrincipal();
+		
+		Assert.notNull(user);
+		
+		res = messageRepository.countMessagesSentByUserId(user.getId());
+		
+		return res;
+	}
+	
+	public int countMessagesReceivedtByUser(){
+		int res;
+		User user;
+		
+		user = userService.findOneByPrincipal();
+		
+		Assert.notNull(user);
+		
+		res = messageRepository.countMessagesReceivedtByUserId(user.getId());
+		
+		return res;
+	}
+	
 }

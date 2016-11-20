@@ -14,6 +14,7 @@ import org.springframework.util.Assert;
 
 import domain.Comment;
 import domain.Thread;
+import domain.User;
 import repositories.CommentRepository;
 import security.LoginService;
 
@@ -27,6 +28,9 @@ public class CommentService {
 	private CommentRepository commentRepository;
 
 	// Supporting services ----------------------------------------------------
+	
+	@Autowired
+	private UserService userService;
 
 	// Constructors -----------------------------------------------------------
 
@@ -118,6 +122,20 @@ public class CommentService {
 		result = commentRepository.findRatioOfCommentsOfUserInHilo(idHilo, LoginService.getPrincipal().getId());
 		
 		return result;
+	}
+	
+	
+	public int countCommentsCreatedByUser(){
+		int res;
+		User user;
+		
+		user = userService.findOneByPrincipal();
+		
+		Assert.notNull(user);
+		
+		res = commentRepository.countCommentsCreatedByUserId(user.getId());
+		
+		return res;
 	}
 	
 	/**
