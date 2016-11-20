@@ -18,6 +18,7 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@taglib prefix="acme" tagdir="/WEB-INF/tags"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <script type="text/javascript" src="scripts/jquery.js"></script>
 <script type="text/javascript" src="scripts/jquery.simplePagination.js"></script>
@@ -34,9 +35,7 @@
 			class="glyphicon glyphicon-pencil" aria-hidden="true"></span><spring:message code="list.new" /></a>
 	</div>
 <div class="table-responsive">
-	<display:table name="threads" id="row" requestURI="thread/list.do"
-		pagesize="15" class="table table-striped">
-
+	<display:table name="threads" id="row" requestURI="thread/list.do" pagesize="15" class="table table-striped">
 
 		<spring:message var="titleHeader" code="thread.title" />
 		<display:column title="${titleHeader}">
@@ -47,19 +46,28 @@
 					&nbsp (<a href="thread/edit.do?threadId=${row.id}">edit</a>)
 				</jstl:if>
 			</security:authorize>
+			
+			<!-- Chunk for closed threads -->
+			<jstl:if test="${row.closed}">
+				<img src="images/lock.png" height="10%" width="10%"/>
+			</jstl:if>
+			<!-- ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^  -->
 		</display:column>
-
 
 		<spring:message var="authorHeader" code="thread.author" />
 		<display:column title="${authorHeader}">
 			<jstl:out value="${row.user.name }"></jstl:out>
 		</display:column>
 
-
 		<spring:message var="dateHeader" code="thread.creationMoment" />
 		<display:column title="${dateHeader}" property="creationMoment"
 			format="{0,date,dd/MM/yyyy HH:mm}">
 			<jstl:out value="${row.creationMoment}"></jstl:out>
+		</display:column>
+		
+		<spring:message var="lastCommentHeader" code="thread.lastComment" />
+		<display:column title="${lastCommentHeader}">
+			<fmt:formatDate value="${lastComments.get(row.id).creationMoment}" pattern="dd/MM/yyyy HH:mm"/>
 		</display:column>
 
 		<spring:message var="answersHeader" code="thread.answers" />
@@ -68,15 +76,14 @@
 			</span>
 		</display:column>
 		
-		
-			<display:column>
-				<a href="rating/edit.do?threadId=${row.id}">
-				<spring:message code="thread.rate" />
-				</a>
-				<jstl:if test="${messageThreadRating != null && ratingThreadModified==row.id}">
-					<span class="message"><spring:message code="${messageThreadRating}" /></span>
-				</jstl:if>	
-			</display:column>	
+		<display:column>
+			<a href="rating/edit.do?threadId=${row.id}">
+			<spring:message code="thread.rate" />
+			</a>
+			<jstl:if test="${messageThreadRating != null && ratingThreadModified==row.id}">
+				<span class="message"><spring:message code="${messageThreadRating}" /></span>
+			</jstl:if>	
+		</display:column>	
 
 	</display:table>
 </div>

@@ -19,28 +19,39 @@ Además, se utilizan las siguientes herramientas y frameworks:
  
 ### Modulos relacionados
 
-Deliberaciones se integra con el subsistema [Autenticación][https://github.com/AgoraUS-G1-1617/Autentication] mediante su API para ofrecer las herramientas de foro a usuarios dados de alta.
-A su vez se integra con el subsistema [Censo][]
+Deliberaciones se integra con el subsistema [Autenticación](https://github.com/AgoraUS-G1-1617/Autentication) mediante su API para ofrecer las herramientas de foro a usuarios dados de alta.
+A su vez se integra con el subsistema [Censo]()
 
 
 ### Instalación
-Para configurar el entorno de trabajo consulta el repositorio [ConfigurationVMS][https://github.com/EGCG2/ConfigurationVMS] donde podrás encontrar el workspace a usar además de un script que autoinstala las herramientas necesarias.
+Para configurar el entorno de trabajo consulta el repositorio [ConfigurationVMS](https://github.com/EGCG2/ConfigurationVMS) donde podrás encontrar el workspace a usar además de un script que autoinstala las herramientas necesarias.
 
-Para el sistema de integración continua el cual ofrece construcción, tests y despliegue se usa el repositorio [continuous-delivery-integration][https://github.com/ManuelLR/continuous-delivery-integration] donde cada equipo crea y configura sus scripts de despliegue para que automáticamente se desplieguen las aplicaciones. Las instancias automáticas de Deliberations puedes verlas en:
- - http://beta.deliberaciones.agoraus1.egc.duckdns.org (beta)
- - http://deliberaciones.agoraus1.egc.duckdns.org (stable)
+Para el sistema de integración continua el cual ofrece construcción, tests y despliegue se usa el repositorio [continuous-delivery-integration](https://github.com/ManuelLR/continuous-delivery-integration) donde cada equipo crea y configura sus scripts de despliegue para que automáticamente se desplieguen las aplicaciones. Las instancias automáticas de Deliberations puedes verlas en:
+ - __[beta.deliberaciones.agoraus1](http://beta.deliberaciones.agoraus1.egc.duckdns.org)__ (beta)
+ - __[deliberaciones.agoraus1](http://deliberaciones.agoraus1.egc.duckdns.org)__ (stable)
+ - [Jenkins](https://jenkins.egc.duckdns.org)
 
  
 ## Equipos de trabajo
 
 ### Equipo 2016/17
- - [BARTOLOME MARQUEZ DOMINGUEZ][https://github.com/barmardom]
- - [JAVIER GARCIA CALVO][https://github.com/jjxp]
- - [JOSE ANTONIO RODRIGUEZ TORRES][https://github.com/josearodriguez]
- - [JUAN RAMON RODRIGUEZ ROSADO][https://github.com/juanrarodriguez18]
- - [MANUEL FRANCISCO LOPEZ RUIZ][https://github.com/ManuelLR]
- 
- 
+<img src="https://avatars3.githubusercontent.com/u/9135377?v=3&s=4000" alt="Avatar: " height="50" /> &nbsp;
+[Javier García Calvo](https://github.com/jjxp)
+
+<img src="https://avatars3.githubusercontent.com/u/12049827?v=3&s=4000" alt="Avatar: " height="50" /> &nbsp;
+[Manuel Francisco López Ruiz](https://github.com/ManuelLR)
+
+<img src="https://avatars3.githubusercontent.com/u/22616365?v=3&s=4000" alt="Avatar: " height="50" /> &nbsp;
+[Bartolome Marquez Dominguez](https://github.com/barmardom)
+
+<img src="https://avatars3.githubusercontent.com/u/8267403?v=3&s=4000" alt="Avatar: " height="50" />  &nbsp;
+[Juan Ramón Rodríguez Rosado](https://github.com/juanrarodriguez18)
+
+<img src="https://avatars3.githubusercontent.com/u/6894925?v=3&s=4000" alt="Avatar: " height="50" /> &nbsp;
+[Jose Antonio Rodríguez Torres](https://github.com/josearodriguez)
+
+
+
 ### Equipo 2015/16
 
  - Juan García Orozco

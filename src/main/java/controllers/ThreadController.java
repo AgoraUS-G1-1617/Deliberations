@@ -15,6 +15,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -39,6 +40,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import domain.CensusUser;
 import domain.Comment;
+import domain.Thread;
 import domain.User;
 import security.UserAccount;
 import services.CommentService;
@@ -73,14 +75,18 @@ public class ThreadController extends AbstractController {
 	// ------------------------------------------------------------------
 
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public ModelAndView prueba() {
+	public ModelAndView list() {
 		ModelAndView result;
 		Collection<domain.Thread> threads;
+		Map<Integer,Comment> lastComments;
 		
 		threads = threadService.findAll();
+		lastComments = commentService.findLastComments(threads);
+		
 		result = new ModelAndView("thread/list");
 		result.addObject("threads", threads);
 		result.addObject("allThreads", threadService.findAll());
+		result.addObject("lastComments",lastComments);
 		result.addObject("actUserId",userService.findOneByPrincipal().getId());
 		
 		return result;
@@ -179,15 +185,43 @@ public class ThreadController extends AbstractController {
 
 		return result;
 	}
-
-	@RequestMapping("/delete")
-	public ModelAndView deleteThread(@RequestParam int id) {
-		//domain.Thread thread = threadService.findOne(id);
-
-		// TODO
-
-		return new ModelAndView("delete");
-
+	
+	@RequestMapping(value = "/open", method = RequestMethod.GET)
+	public ModelAndView open(@RequestParam int threadId) {
+		ModelAndView result;
+		
+		try {
+			Thread thread;
+			
+			thread = threadService.findOne(threadId);
+			threadService.open(thread);
+			
+			result = new ModelAndView("redirect:list.do");
+		} catch (Throwable oops) {
+			result = seeThread(threadId,1);
+			result.addObject("messageError","commit.error");
+		}
+		
+		return result;
+	}
+	
+	@RequestMapping(value = "/close", method = RequestMethod.GET)
+	public ModelAndView close(@RequestParam int threadId) {
+			ModelAndView result;
+			
+			try {
+				Thread thread;
+				
+				thread = threadService.findOne(threadId);
+				threadService.close(thread);
+				
+				result = new ModelAndView("redirect:list.do");
+			} catch (Throwable oops) {
+				result = seeThread(threadId,1);
+				result.addObject("messageError","commit.error");
+			}
+			
+			return result;
 	}
 
 	// login from census, this make a http get to census module and get the json
@@ -320,7 +354,7 @@ public class ThreadController extends AbstractController {
 		result = new ModelAndView("thread/edit");
 
 		result.addObject("thread", thread);
-		result.addObject("message", message);
+		result.addObject("messageError", message);
 
 		return result;
 	}

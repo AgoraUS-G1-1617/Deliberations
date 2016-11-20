@@ -83,11 +83,11 @@ public class RatingController extends AbstractController {
 					oldRating = new ArrayList<Rating>(ratingService.findRatingsOfUser()).get(0);
 					oldRating.setRate(rating.getRate());
 					ratingService.save(oldRating);
-					result = threadController.prueba().addObject("messageThreadRating", "rating.thread.modified")
+					result = threadController.list().addObject("messageThreadRating", "rating.thread.modified")
 							.addObject("ratingThreadModified", rating.getThread().getId());
 				}else{
 					ratingService.save(rating);
-					result = threadController.prueba().addObject("messageThreadRating", "rating.thread.created")
+					result = threadController.list().addObject("messageThreadRating", "rating.thread.created")
 							.addObject("ratingThreadModified", rating.getThread().getId());
 					//result = new ModelAndView("redirect:../thread/list.do");
 				}
@@ -117,7 +117,7 @@ public class RatingController extends AbstractController {
 		result = new ModelAndView("rating/edit");
 
 		result.addObject("rating", rating);
-		result.addObject("message", message);
+		result.addObject("messageError", message);
 
 		return result;
 	}

@@ -2031,3 +2031,44 @@ h3.title {
 	}
 
 }
+
+
+/*--Estilos usados para la funcionalidad del sistema de mensajes--*/
+
+.messages-menu {
+	margin-bottom: 2%;
+	background: #286090;
+	text-align: center;
+	padding-top: 1%;
+	padding-bottom: 1%;
+    font-family: sans-serif;
+}
+
+.sub_menu_messages_data {
+	font-size: 170%;
+	color: white;
+	margin-right: 4%;
+}
+
+a:hover, a:hover span {
+	color: #4A85B8;
+	text-decoration: none;
+}
+
+.messages-information {
+	text-align: center;
+	padding-bottom: 2%;
+}
+
+.text-message-body{
+	font-size:120%;
+}
+
+.create-message-error {
+	font-size: 100%;
+}
+
+.btn-create-message{
+	
+	margin:2% 2% 2% 2%;
+}

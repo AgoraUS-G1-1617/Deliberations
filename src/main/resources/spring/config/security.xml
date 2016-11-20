@@ -63,6 +63,8 @@
 		<security:intercept-url pattern="/policy/terms.do" access="permitAll" /> 
 		
 		
+		<security:intercept-url pattern="/message/user/**" access="isAuthenticated()" /> 
+		
 		<security:intercept-url pattern="/**" access="hasRole('NONE')" />
 
 		<security:form-login 

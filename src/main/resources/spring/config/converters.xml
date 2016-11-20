@@ -30,6 +30,8 @@
 		<bean class="converters.StringToUserConverter" />
 		<bean class="converters.ThreadToStringConverter"/>
 		<bean class="converters.UserToStringConverter"/>
+		<bean class="converters.MessageToStringConverter"/>
+		<bean class="converters.StringToMessageConverter" />
 
 	</util:list>
 	

@@ -9,6 +9,7 @@ import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 
 import domain.Comment;
 import domain.Rating;
@@ -73,12 +74,10 @@ public class ThreadService {
 
 		date = new Date(System.currentTimeMillis() - 1000);
 		thread.setCreationMoment(date);
+		// Make sure the thread is not closed at creation irregardless of POST hacking issues
+		thread.setClosed(false);
 
 		threadRepository.save(thread);
-	}
-
-	public void delete(Thread thread) {
-		threadRepository.delete(thread);
 	}
 
 	// Other business methods -------------------------------------------------
@@ -165,7 +164,6 @@ public class ThreadService {
 		}
 
 		return paginatedComments;
-
 	}
 
 	public Integer calculateLastPage(Comment comment, domain.Thread hilo) {
@@ -188,6 +186,37 @@ public class ThreadService {
 		result = (int) Math.ceil(pageDouble);
 
 		return result;
-
+	}
+	
+	public Thread open(domain.Thread thread) {
+		// Associated business rules:
+		//	- The thread passed as parameter must have been created by the current principal
+		//	- The given thread must be closed
+		Assert.isTrue(thread.getUser().equals(userService.findOneByPrincipal()));
+		Assert.isTrue(thread.isClosed());
+		
+		Thread result;
+		
+		thread.setClosed(false);
+		
+		result = threadRepository.save(thread);
+		
+		return result;
+	}
+	
+	public Thread close(domain.Thread thread) {
+		// Associated business rules:
+		//	- The thread passed as parameter must have been created by the current principal
+		//	- The given thread must not be already closed
+		Assert.isTrue(thread.getUser().equals(userService.findOneByPrincipal()));
+		Assert.isTrue(!thread.isClosed());
+		
+		Thread result;
+		
+		thread.setClosed(true);
+		
+		result = threadRepository.save(thread);
+		
+		return result;
 	}
 }
