@@ -111,17 +111,6 @@
 								<spring:message code="master.page.dashboard" />
 						</a></li>
 
-
-					
-						<li class="dropdown "><a href="" class="dropdown-toggle"
-							data-toggle="dropdown"><span
-								class="glyphicon glyphicon-user " aria-hidden="true"></span><spring:message code="master.page.profile" /><span class="caret"></span></a>
-							<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-								<li><a href="user/profile.do"><spring:message code="master.page.info" /></a></li>
-								<li><a href=""><spring:message code="master.page.statistics" /></a></li>
-								
-							</ul></li>
-
 						<li class="dropdown ">
 							<a href="" class="dropdown-toggle" data-toggle="dropdown">
 								<span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
@@ -136,14 +125,18 @@
 							</ul>
 						</li>
 						
-						
-						<li class="dropdown"><a href="" class="dropdown-toggle"
-							data-toggle="dropdown"><spring:message
-									code="master.page.options" /><span class="caret"></span></a>
+						<li class="dropdown "><a href="" class="dropdown-toggle"
+							data-toggle="dropdown"><span
+								class="glyphicon glyphicon-user " aria-hidden="true"></span><spring:message code="master.page.profile" /><span class="caret"></span></a>
 							<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-								<li><a href="j_spring_security_logout"><spring:message
-											code="master.page.signout" /></a></li>
-							</ul></li>
+								<li><a href="user/profile.do">
+									<spring:message code="master.page.info" /></a></li>
+								<li><a href="user/statistics.do">
+									<spring:message code="master.page.statistics" /></a></li>
+								<li><a href="j_spring_security_logout">
+									<spring:message code="master.page.signout" /></a></li>
+							</ul>
+						</li>
 
 					</security:authorize>
 
