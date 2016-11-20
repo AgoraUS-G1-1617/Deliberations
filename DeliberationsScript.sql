@@ -129,6 +129,40 @@ INSERT INTO `hilo` VALUES (7,0,'\0','2004-11-11 12:12:00','text',NULL,'titulo',4
 /*!40000 ALTER TABLE `hilo` ENABLE KEYS */;
 UNLOCK TABLES;
 
+
+--
+-- Table structure for table `message`
+--
+
+DROP TABLE IF EXISTS `message`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `message` (
+  `id` int(11) NOT NULL,
+  `version` int(11) NOT NULL,
+  `body` varchar(255) DEFAULT NULL,
+  `moment` datetime DEFAULT NULL,
+  `subject` varchar(255) DEFAULT NULL,
+  `recipient` int(11) NOT NULL,
+  `sender` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK_hn9roqyj131hnul5fuwgwlv9e` (`recipient`),
+  KEY `FK_a3km2kv42i1xu571ta911f9dc` (`sender`),
+  CONSTRAINT `FK_a3km2kv42i1xu571ta911f9dc` FOREIGN KEY (`sender`) REFERENCES `user` (`id`),
+  CONSTRAINT `FK_hn9roqyj131hnul5fuwgwlv9e` FOREIGN KEY (`recipient`) REFERENCES `user` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `message`
+--
+
+LOCK TABLES `message` WRITE;
+/*!40000 ALTER TABLE `message` DISABLE KEYS */;
+INSERT INTO `message` VALUES (13,0,'Body1','2015-02-07 10:18:00','Mensaje1',5,6),(14,0,'Body2','2014-01-10 10:18:00','Mensaje2',6,5);
+/*!40000 ALTER TABLE `message` ENABLE KEYS */;
+UNLOCK TABLES;
+
 --
 -- Table structure for table `rating`
 --
