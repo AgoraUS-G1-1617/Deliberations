@@ -60,10 +60,10 @@
 		<security:intercept-url pattern="/createThreadFromVotacion*" access="permitAll" /> 
 		
 		<security:intercept-url pattern="/policy/cookies.do" access="permitAll" /> 
-		<security:intercept-url pattern="/policy/terms.do" access="permitAll" />
+		<security:intercept-url pattern="/policy/terms.do" access="permitAll" /> 
 		
-		<security:intercept-url pattern="/user/profile.do" access="isAuthenticated()" /> 
 		
+		<security:intercept-url pattern="/message/user/**" access="isAuthenticated()" /> 
 		
 		<security:intercept-url pattern="/**" access="hasRole('NONE')" />
 

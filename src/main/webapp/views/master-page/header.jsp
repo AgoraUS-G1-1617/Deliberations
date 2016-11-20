@@ -43,76 +43,6 @@
 		});
 	
 </script>
-<!-- <div> -->
-<!-- 	<img src="images/logo.png" alt="Sample Co., Inc." /> -->
-<!-- </div> -->
-
-<!-- <div> -->
-<!-- 	<ul id="jMenu"> -->
-<!-- 		<!-- Do not forget the "fNiv" class for the first level links !! -->
-<%-- 		<security:authorize access="hasRole('ADMIN')"> --%>
-<%-- 			<li><a class="fNiv"><spring:message	code="master.page.administrator" /></a> --%>
-<!-- 				<ul> -->
-<!-- 					<li class="arrow"></li> -->
-
-
-<!-- 				</ul> -->
-<!-- 			</li> -->
-<%-- 		</security:authorize> --%>
-
-<%-- 		<security:authorize access="hasRole('CUSTOMER')"> --%>
-<%-- 			<li><a class="fNiv"><spring:message	code="master.page.customer" /></a> --%>
-<!-- 				<ul> -->
-<!-- 					<li class="arrow"></li> -->
-
-<%-- 					<li><a href="customer/listThreads.do"><spring:message code="master.page.customer.listThreads" /></a></li>		 --%>
-<%-- 					<li><a href="customer/createThread.do"><spring:message code="master.page.customer.createThread" /></a></li>		 --%>
-<!-- NECESARIO -->
-<%-- 		<security:authorize access="hasRole('USER')"> --%>
-<%-- 			<li><a class="fNiv"><spring:message	code="master.page.user" /></a> --%>
-<!-- 				<ul> -->
-<!-- 					<li class="arrow"></li> -->
-
-<%-- 					<li><a href="thread/list.do"><spring:message code="master.page.customer.listThreads" /></a></li>		 --%>
-<%-- 					<li><a href="thread/create.do"><spring:message code="master.page.customer.createThread" /></a></li>		 --%>
-
-<!-- 				</ul> -->
-<!-- 			</li> -->
-<%-- 		</security:authorize> --%>
-
-<%-- 		<security:authorize access="isAnonymous()"> --%>
-<%-- 			<li><a class="fNiv" href="customer/login.do"><spring:message code="master.page.login.A" /></a></li> --%>
-<%-- 			<li><a class="fNiv" href="customer/loginFromCensusForm.do"><spring:message code="master.page.login.C" /></a></li> --%>
-<!-- NECESARIO -->
-<%-- 		<security:authorize access="isAnonymous()"> --%>
-<%-- 			<li><a class="fNiv" href="user/login.do"><spring:message code="master.page.login.A" /></a></li> --%>
-<%-- 			<li><a class="fNiv" href="user/loginFromCensusForm.do"><spring:message code="master.page.login.C" /></a></li> --%>
-
-
-
-
-
-<%-- 		</security:authorize> --%>
-
-<%-- 		<security:authorize access="isAuthenticated()"> --%>
-<!-- 				<li> -->
-<!-- 				<a class="fNiv">  -->
-<%-- 					<spring:message code="master.page.profile" />  --%>
-<%-- 			        (<security:authentication property="principal.username" />) --%>
-<!-- 				</a> -->
-<!-- 				<ul> -->
-<!-- 					<li class="arrow"></li> -->
-
-<%-- 					<li><a href="j_spring_security_logout"><spring:message code="master.page.logout" /> </a></li> --%>
-<!-- 				</ul> -->
-<!-- 			</li> -->
-<%-- 		</security:authorize> --%>
-<!-- 	</ul> -->
-<!-- </div> -->
-
-<!-- <div> -->
-<!-- 	<a href="?language=en">en</a> | <a href="?language=es">es</a> -->
-<!-- </div> -->
 
 <div class="header">
 	<div class="container">
@@ -171,9 +101,6 @@
 					<!---->
 
 					<security:authorize access="isAuthenticated()">
-						
-						
-					
 						<li><a href="thread/list.do"> <span
 								class="glyphicon glyphicon-tasks " aria-hidden="true"></span> <spring:message
 									code="master.page.forum" />
@@ -194,6 +121,20 @@
 								<li><a href=""><spring:message code="master.page.statistics" /></a></li>
 								
 							</ul></li>
+
+						<li class="dropdown ">
+							<a href="" class="dropdown-toggle" data-toggle="dropdown">
+								<span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
+								<spring:message code="master.page.messages" />
+								<span class="caret"></span>
+							</a>
+							
+							<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+								<li><a href="message/user/received.do?page=1"><spring:message code="master.page.messages.received" /></a></li>
+								<li><a href="message/user/sent.do?page=1"><spring:message code="master.page.messages.sent" /></a></li>
+								<li><a href="message/user/create.do"><spring:message code="master.page.messages.create" /></a></li>
+							</ul>
+						</li>
 						
 						
 						<li class="dropdown"><a href="" class="dropdown-toggle"
@@ -203,8 +144,6 @@
 								<li><a href="j_spring_security_logout"><spring:message
 											code="master.page.signout" /></a></li>
 							</ul></li>
-						
-						
 
 					</security:authorize>
 
