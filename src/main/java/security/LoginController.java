@@ -8,7 +8,7 @@
  * 
  */
 
-package security;
+/*package security;
 
 import javax.validation.Valid;
 
@@ -77,4 +77,4 @@ public class LoginController extends AbstractController {
 		return result;
 	}
 
-}
+}*/

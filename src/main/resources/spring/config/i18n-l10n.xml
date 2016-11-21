@@ -20,7 +20,6 @@
 	<util:list id="messages">
 		<value>/views/master-page/messages</value>
 		<value>/views/misc/messages</value>
-		<value>/views/security/messages</value>		
 		<value>/views/welcome/messages</value>
 		<value>/views/customer/messages</value>
 		<value>/views/thread/messages</value>
