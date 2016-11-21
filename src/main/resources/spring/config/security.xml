@@ -70,7 +70,7 @@
 		<security:intercept-url pattern="/**" access="hasRole('NONE')" />
 
 		<security:form-login 
-			login-page="/security/login.do"
+			login-page="/user/login.do"
 			password-parameter="password" 
 			username-parameter="username"
 			authentication-failure-url="/security/loginFailure.do" />
