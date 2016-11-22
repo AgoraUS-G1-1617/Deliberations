@@ -82,6 +82,15 @@ public class RatingService {
 		
 		return result;
 	}
+	
+	public Collection<Rating> findRatingsOfUserAtThread(int idThread){
+		Collection<Rating> result;
+		
+		result = new ArrayList<Rating>();
+		result=ratingRepository.findRatingsOfUserAtThread(LoginService.getPrincipal().getId(), idThread);
+		
+		return result;
+	}
 
 	public Integer totalRating(int idRate){
 		Integer result;
