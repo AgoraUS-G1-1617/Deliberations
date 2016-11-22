@@ -32,7 +32,8 @@
 		<bean class="converters.UserToStringConverter"/>
 		<bean class="converters.MessageToStringConverter"/>
 		<bean class="converters.StringToMessageConverter" />
-
+		<bean class="converters.KarmaToStringConverter"/>
+		<bean class="converters.StringToKarmaConverter" />
 	</util:list>
 	
 </beans>
