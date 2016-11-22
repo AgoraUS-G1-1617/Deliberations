@@ -2,6 +2,7 @@ package services;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import javax.transaction.Transactional;
 
@@ -89,18 +90,50 @@ public class KarmaService {
 		return result;
 	}
 	
-	public int karmaOfComment(int commentId){
-		int result;
+	/**
+	 * This method returns the Karma info about a Comment
+	 * @param commentId
+	 * @return an array with the results, the first position is the sum of Karma, the second the positive points and
+	 * 		   the third the negative points
+	 */
+	public List<Integer> karmaOfComment(int commentId){
+		List<Integer> result;
+		int karma;
+		int positives;
+		int negatives;
 		
-		result = karmaRepository.karmaOfComment(commentId);
+		result = new ArrayList<Integer>();
+		karma = karmaRepository.karmaOfComment(commentId);
+		positives = karmaRepository.karmaOfCommentPositive(commentId);
+		negatives = karmaRepository.karmaOfCommentNegative(commentId);
+		
+		result.add(karma);
+		result.add(positives);
+		result.add(negatives);
 		
 		return result;
 	}
 	
-	public int karmaOfUser(int userId){
-		int result;
+	/**
+	 * This method returns the Karma info about a User
+	 * @param userId
+	 * @return an array with the results, the first position is the sum of Karma, the second the positive points and
+	 * 		   the third the negative points
+	 */
+	public List<Integer> karmaOfUser(int userId){
+		List<Integer> result;
+		int karma;
+		int positives;
+		int negatives;
 		
-		result = karmaRepository.karmaOfUser(userId);
+		result = new ArrayList<Integer>();
+		karma = karmaRepository.karmaOfUser(userId);
+		positives = karmaRepository.karmaOfUserPositive(userId);
+		negatives = karmaRepository.karmaOfUserNegative(userId);
+		
+		result.add(karma);
+		result.add(positives);
+		result.add(negatives);
 		
 		return result;
 	}
