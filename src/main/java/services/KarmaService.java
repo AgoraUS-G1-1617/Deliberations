@@ -2,7 +2,9 @@ package services;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.transaction.Transactional;
 
@@ -28,6 +30,9 @@ public class KarmaService {
 	
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private ThreadService threadService;
 
 	// Constructors -----------------------------------------------------------
 	
@@ -42,7 +47,7 @@ public class KarmaService {
 		User user;
 		
 		result = new Karma();
-		user=userService.findOneByPrincipal();
+		user = userService.findOneByPrincipal();
 		
 		result.setUser(user);
 		
@@ -137,11 +142,46 @@ public class KarmaService {
 		
 		return result;
 	}
-
-	public Karma karmaOfUserAtComment(int commentId, int userId){
+	
+	/**
+	 * This method returns the Karma of the logged user at a comment
+	 * @param commentId
+	 * @return the Karma entity if exist
+	 */
+	public Karma karmaOfUserAtComment(int commentId){
 		Karma result;
+		User user;
 		
-		result = new ArrayList<Karma>(karmaRepository.karmaOfUserAtComment(commentId, userId)).get(0);
+		user = userService.findOneByPrincipal();
+		
+		if(!new ArrayList<Karma>(karmaRepository.karmaOfUserAtComment(commentId, user.getId())).isEmpty()){
+			
+			result = new ArrayList<Karma>(karmaRepository.karmaOfUserAtComment(commentId, user.getId())).get(0);
+			
+		}else{
+			
+			result = null;
+			
+		}		
+		
+		return result;
+	}
+	
+	/**
+	 * This method returns a Map, each key (the comment id) link with the karma of that key 
+	 * @param threadId
+	 * @return a map with the result
+	 */
+	public Map<Integer, List<Integer>> karmaOfThread(int threadId, int page){
+		Map<Integer, List<Integer>> result;
+		List<Comment> comments;
+		
+		result = new HashMap<Integer, List<Integer>>();
+		comments = new ArrayList<Comment>(threadService.findCommentsByPage(threadId, page));
+		
+		for(Comment c: comments){
+			result.put(c.getId(), karmaOfComment(c.getId()));
+		}
 		
 		return result;
 	}

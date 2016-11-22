@@ -23,7 +23,7 @@ import services.CommentService;
 import services.KarmaService;
 
 @Controller
-@RequestMapping("/rating")
+@RequestMapping("/karma")
 public class KarmaController extends AbstractController {
 
 	// Supporting services -----------------------
@@ -51,13 +51,22 @@ public class KarmaController extends AbstractController {
 		Comment comment;
 		Karma karma;
 		
-		karma = karmaService.create();
+		if(karmaService.karmaOfUserAtComment(commentId)==null){
+			
+			karma = karmaService.create();
+			
+		}else{
+			
+			karma = karmaService.karmaOfUserAtComment(commentId);
+			
+		}
+		
 		comment = commentService.findOne(commentId);
 		karma = karmaService.setKarma(karma, comment, value);
 		
 		karmaService.save(karma);
 		
-		result = threadController.seeThread(comment.getThread().getId(), 0);
+		result = threadController.seeThread(comment.getThread().getId(), 1);
 
 		return result;
 	}

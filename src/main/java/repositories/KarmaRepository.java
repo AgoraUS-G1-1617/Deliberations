@@ -15,19 +15,19 @@ public interface KarmaRepository extends JpaRepository<Karma, Integer> {
 	@Query("select sum(k.value) from Karma k where k.comment.id=?1")
 	Integer karmaOfComment(int commentId);
 	
-	@Query("select sum(k.value) from Karma k where k.comment.id=?1 and k.value==1")
+	@Query("select sum(k.value) from Karma k where k.comment.id=?1 and k.value=1")
 	Integer karmaOfCommentPositive(int commentId);
 	
-	@Query("select sum(k.value) from Karma k where k.comment.id=?1 and k.value==-1")
+	@Query("select sum(k.value) from Karma k where k.comment.id=?1 and k.value=-1")
 	Integer karmaOfCommentNegative(int commentId);
 	
 	@Query("select sum(k.value) from Karma k where k.user.id=?1")
 	Integer karmaOfUser(int userId);
 	
-	@Query("select sum(k.value) from Karma k where k.user.id=?1 and k.value==1")
+	@Query("select sum(k.value) from Karma k where k.user.id=?1 and k.value=1")
 	Integer karmaOfUserPositive(int userId);
 	
-	@Query("select sum(k.value) from Karma k where k.user.id=?1 and k.value==-1")
+	@Query("select sum(k.value) from Karma k where k.user.id=?1 and k.value=-1")
 	Integer karmaOfUserNegative(int userId);
 	
 	@Query("select k from Karma k where k.comment.id=?1 and k.user.id=?2")
