@@ -2035,20 +2035,21 @@ h3.title {
 
 /*--Estilos usados para la funcionalidad del sistema de mensajes--*/
 
-.messages-menu {
-	margin-bottom: 2%;
-	background: #286090;
+.sub-menu-messages {
+	margin-left: 19%;
+	margin-right: 29%;
+	margin-top: 0.1%;
+	margin-bottom:3%;
+}
+.messages-subject{
 	text-align: center;
-	padding-top: 1%;
-	padding-bottom: 1%;
-    font-family: sans-serif;
+    font-weight: bold;
 }
 
-.sub_menu_messages_data {
-	font-size: 170%;
-	color: white;
-	margin-right: 4%;
+.sub-menu-messages-options {
+	font-size: 125%;
 }
+
 
 a:hover, a:hover span {
 	color: #4A85B8;

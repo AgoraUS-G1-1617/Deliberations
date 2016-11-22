@@ -19,42 +19,42 @@
 <%@taglib prefix="security"
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
 <script src="scripts/jquery.bootpag.min.js"></script>
-	
 
+<style>
+</style>
 
-<div class="messages-menu">
-	<div class="sub_menu_messages">
-		<a href="message/user/received.do?page=1">
-			<span class="sub_menu_messages_data">
-				<spring:message code="messages.received" />
-			</span>
-		</a> 
-		<a href="message/user/sent.do?page=1">
-			<span class="sub_menu_messages_data"> 
-				<spring:message code="messages.sent" />
-			</span>
-		</a> 
- 		<a href="message/user/create.do">
-			<span class="sub_menu_messages_data">
-				<spring:message code="message.create" />
-			</span>
+<div class="sub-menu-messages">
+	<ul class="nav nav-pills nav-justified sub-menu-messages-options"
+		style="">
+		<li role="presentation"
+			<jstl:if test="${infoMessages eq 'messages.received'}">
+				class="active"
+			</jstl:if>>
+			<a href="message/user/received.do?page=1"> <spring:message
+					code="messages.received" />
 		</a>
-	</div>
+		</li>
+		<li role="presentation"
+			<jstl:if test="${infoMessages eq 'messages.sent'}">
+				class="active"
+			</jstl:if>><a
+			href="message/user/sent.do?page=1" > <spring:message
+					code="messages.sent" />
+		</a></li>
+		<li role="presentation"><a href="message/user/create.do"> <spring:message
+					code="message.create" />
+		</a></li>
+	</ul>
 </div>
 
 
 
-
-
-<div class="messages-information">
-	<h2>
-		<spring:message code="${infoMessages}" />
-	</h2>
-</div>
 <div class="container">
+
+
 	<jstl:forEach items="${messages}" var="messageRow">
 
 		<!-- /row -->
@@ -63,22 +63,32 @@
 			<div>
 				<div class="panel panel-default">
 					<div class="panel-heading">
-						<strong>
-							<center>
-								<h4>
-									<jstl:out value="${messageRow.subject}" />
-								</h4>
-							</center>
-						</strong>
-						<jstl:out value="${messageRow.sender.userAccount.username }" />
+
+						<h4 class="messages-subject">
+							<jstl:out value="${messageRow.subject}" />
+						</h4>
+						<jstl:choose>
+							<jstl:when test="${infoMessages eq 'messages.received'}">
+								<spring:message code="message.sender" />: 
+								<jstl:out value="${messageRow.sender.userAccount.username }" />
+
+							</jstl:when>
+							<jstl:otherwise>
+								<spring:message code="message.recipient" />: 
+								<jstl:out value="${messageRow.recipient.userAccount.username }" />
+
+							</jstl:otherwise>
+						</jstl:choose>
+
 						<br />
-						<fmt:formatDate value="${messageRow.moment}" pattern="dd-MM-yyyy HH:mm" />
-						<br /> 
+						<fmt:formatDate value="${messageRow.moment}"
+							pattern="dd-MM-yyyy HH:mm" />
+						<br />
 
 					</div>
 					<div class="panel-body">
 						<p class="text-message-body">
-							<jstl:out value="${messageRow.body}"></jstl:out>	
+							<jstl:out value="${messageRow.body}"></jstl:out>
 						</p>
 					</div>
 					<!-- /panel-body -->
