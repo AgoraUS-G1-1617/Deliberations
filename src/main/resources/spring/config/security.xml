@@ -60,7 +60,7 @@
 		
 		
 		<security:intercept-url pattern="/message/user/**" access="isAuthenticated()" /> 
-		
+		<security:intercept-url pattern="/user/profile.do" access="isAuthenticated()" /> 
 		<security:intercept-url pattern="/user/statistics.do" access="hasRole('USER')" />
 		
 		<security:intercept-url pattern="/**" access="hasRole('NONE')" />
