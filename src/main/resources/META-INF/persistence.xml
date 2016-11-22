@@ -22,6 +22,9 @@
 		<class>domain.User</class>
 		<class>security.Authority</class>
 		<class>security.UserAccount</class>
+		<class>domain.Message</class>
+		<class>domain.Rank</class>
+		
 
 		<!-- <provider>org.hibernate.ejb.HibernatePersistence</provider> -->
 		

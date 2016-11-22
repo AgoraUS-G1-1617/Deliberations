@@ -161,4 +161,14 @@ public class CommentService {
 
 		return result;
 	}
+	
+	public int countCommentsCreatedByUserGiven(User user){
+		int res;
+		
+		Assert.notNull(user);
+		
+		res = commentRepository.countCommentsCreatedByUserIdGiven(user.getId());
+		
+		return res;
+	}
 }

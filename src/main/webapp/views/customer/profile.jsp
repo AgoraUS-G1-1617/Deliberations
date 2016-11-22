@@ -21,6 +21,7 @@
 
 <script type="text/javascript" src="scripts/jquery.js"></script>
 <script type="text/javascript" src="scripts/jquery.simplePagination.js"></script>
+<link rel="stylesheet" type="text/css" href="styles/manual.css" media="screen" />
 
 
 <br />
@@ -29,7 +30,8 @@
 
 	<h3><spring:message code="customer.info"/></h3>
 	<br />
-		
+	<div class="thumbnail">
+	<br />
 		<table style="margin: 0 auto;">
 			<tr>
 				<td><div class="thumbnail"><img class="img-responsive user-photo" src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png"></div></td>
@@ -42,16 +44,41 @@
 				</td>
 			</tr>
 		</table>
+	</div>
 	
 	
+	<h4><spring:message code="customer.rank"/>: </h4>
+	<br />
 	<div class="thumbnail">
 
-		<h4><spring:message code="customer.rank"/>: </h4>
+		<table style="margin: 0 auto;">
+			<tr>
+				<td><img src="${rank.icon}"></td>
+				<td style='padding: 3%' WIDTH="500">
+					<b><jstl:out value=" ${rank.title}"/><jstl:out value=" (${rank.number})"/></b>
+					<p><jstl:out value=" ${rank.description}"/></p>
+				</td>
+				<%-- Siguientes rangos, para cada uno de ellos ventana emergente --%>
+				<!-- License: Flaticon Basic License. By Madebyoliver(http://www.flaticon.com/authors/madebyoliver) -->
+					<jstl:forEach items="${nextRanks}" var="rankTemp">
+						<td><a class="emerge"><img class="darkRank" src="${rankTemp.icon}">
+							<span >
+							<img class="iconCenter" src="${rankTemp.icon}">
+							<br />
+							<b>${rankTemp.title} (${rankTemp.number})</b>
+							<br />
+							${rankTemp.description}
+								
+							</span>
+						</a></td>
+						<jstl:if test="${rankTemp.number != numRanks-1}">
+							<td><img src="images/rightIcon.png"></td>
+						</jstl:if>
 
+					</jstl:forEach>
+			</tr>
+		</table>
 	</div>
-		
-		
-		
 </div>
 
 

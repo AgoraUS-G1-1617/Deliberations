@@ -7,6 +7,7 @@ import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 
 import domain.Rating;
 import domain.User;
@@ -99,5 +100,15 @@ public class RatingService {
 		result = ratingRepository.totalRating(idRate);
 		
 		return result;
+	}
+	
+	public int countRatingCreatedByUserGiven(User user){
+		int res;
+		
+		Assert.notNull(user);
+		
+		res = ratingRepository.countRatingCreatedByUserIdGiven(user.getId());
+		
+		return res;
 	}
 }

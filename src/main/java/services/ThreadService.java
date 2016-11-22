@@ -232,4 +232,14 @@ public class ThreadService {
 		
 		return res;
 	}
+	
+	public int countThreadCreatedByUserGiven(User user){
+		int res;
+		
+		Assert.notNull(user);
+		
+		res = threadRepository.countThreadCreatedByUserIdGiven(user.getId());
+		
+		return res;
+	}
 }

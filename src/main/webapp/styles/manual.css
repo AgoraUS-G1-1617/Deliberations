@@ -1,0 +1,41 @@
+.emerge { position: relative; /* Esta clase tiene que tener posicion relativa */
+ color: black; /* Color del texto */}
+.emerge:hover{ background-color: transparent; z-index: 50; }
+.emerge span{ /* Estilos para la imagen agrandada */
+ background: #f3f3f3 center left 5px no-repeat;  /* #F0F0F0 */
+ border: 2px solid #BCBCBC;
+ border-radius: 5px;
+ box-shadow: 5px 5px 5px #333;
+ color: black;
+ display: none; /* El tooltip por defecto estara oculto */
+ font-size: 0.8em;
+ padding: 10px 10px 10px;
+ width: 200px;
+ position: absolute;
+ bottom: 50px; /* Posicion apartir de la parte superior del primer elemento padre con posicion relativa */
+ left: 60px; /* Posicion apartir de la parte izquierda del primer elemento padre con posicion relativa */
+ z-index: 100;
+}
+.emerge span img{ border-width: 0; padding: 2px; }
+.emerge:hover span{ display: inline; }
+
+
+.darkRank{
+-webkit-filter: grayscale(1);
+filter:gray;
+max-width: 50%;
+max-height: 50%;
+padding: 10px 10px 10px;
+
+}
+
+.iconRankUser{
+max-width: 4%;
+max-height: 4%;
+
+}
+
+.iconCenter{
+display:block;
+margin:0 auto 0 auto;
+}
