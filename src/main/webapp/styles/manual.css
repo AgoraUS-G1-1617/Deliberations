@@ -39,3 +39,27 @@ max-height: 4%;
 display:block;
 margin:0 auto 0 auto;
 }
+
+.up-button{
+  background: url(../images/arrow--up--gray.png) no-repeat scroll 0 0 transparent;
+  color: #000000;
+  cursor: pointer;
+  font-weight: bold;
+  height: 28px;
+  width: 44px;
+  border:transparent;
+  overflow: hidden;
+  outline:none;
+}
+
+.down-button{
+  background: url(../images/arrow--down--gray.png) no-repeat scroll 0 0 transparent;
+  color: #000000;
+  cursor: pointer;
+  font-weight: bold;
+  height: 28px;
+  width: 44px;
+  border:transparent;
+  overflow: hidden;
+  outline:none;
+}

@@ -68,16 +68,21 @@
 
 			<!-- /row -->
 			<div class="row">
-				<div class="col-sm-1 col-sm-offset-1">
+				<div class="col-sm-1">
 					<div class="thumbnail">
 						<img class="img-responsive user-photo"
 							src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png">
 					</div>
 					<!-- /thumbnail -->
 				</div>
+				<div class="col-sm-1">
+				<button class="up-button">
+				</button>
+				<button class="down-button">
+				</button>
+				</div>
 				<!-- /col-sm-1 -->
-
-				<div class="col-sm-9">
+				<div class="col-sm-8">
 					<div class="panel panel-default">
 						<div class="panel-heading">
 							<jstl:set var="rank" value="${rankService.calculateRank(hilo.user)}"/>
@@ -106,7 +111,7 @@
 
 			<!-- /row -->
 			<div class="row">
-				<div class="col-sm-1 col-sm-offset-1">
+				<div class="col-sm-1">
 					<div class="thumbnail">
 						<img class="img-responsive user-photo"
 							src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png">
@@ -114,7 +119,12 @@
 					<!-- /thumbnail -->
 				</div>
 				<!-- /col-sm-1 -->
-
+				<div class="col-sm-1">
+				<button class="up-button">
+				</button>
+				<button class="down-button">
+				</button>
+				</div>
 				<div class="col-sm-9">
 					<div class="panel panel-default">
 						<div class="panel-heading">

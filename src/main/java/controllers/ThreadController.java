@@ -15,6 +15,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -44,6 +45,7 @@ import domain.Thread;
 import domain.User;
 import security.UserAccount;
 import services.CommentService;
+import services.KarmaService;
 import services.RankService;
 import services.ThreadService;
 import services.UserService;
@@ -68,6 +70,9 @@ public class ThreadController extends AbstractController {
 	
 	@Autowired
 	private RankService rankService;
+	
+	@Autowired
+	private KarmaService karmaService;
 
 	// Constructors -----------------------------------------------------------
 
@@ -368,15 +373,17 @@ public class ThreadController extends AbstractController {
 		domain.Thread hilo;
 		Collection<Comment> comments;
 		Integer lastPage;
+		Map<Integer,List<Integer>> commentsKarma;
 
 		hilo = threadService.findOne(id);
 		comments = threadService.findCommentsByPage(id, p);
 		lastPage = threadService.calculateLastPage(null, hilo);
+		commentsKarma = karmaService.karmaOfThread(id, p);
 
 		result = new ModelAndView("thread/display");
 		result.addObject("hilo", hilo);
 		result.addObject("comments", comments);
-
+		result.addObject("commentsKarma",commentsKarma);
 		result.addObject("comment", c);
 		result.addObject("p", p);
 		result.addObject("lastPage", lastPage);

@@ -108,9 +108,9 @@ public class KarmaService {
 		int negatives;
 		
 		result = new ArrayList<Integer>();
-		karma = karmaRepository.karmaOfComment(commentId);
-		positives = karmaRepository.karmaOfCommentPositive(commentId);
-		negatives = karmaRepository.karmaOfCommentNegative(commentId);
+		karma = karmaRepository.karmaOfComment(commentId)!=null?(karmaRepository.karmaOfComment(commentId)):0;
+		positives = karmaRepository.karmaOfCommentPositive(commentId)!=null?(karmaRepository.karmaOfCommentPositive(commentId)):0;
+		negatives = karmaRepository.karmaOfCommentNegative(commentId)!=null?(karmaRepository.karmaOfCommentNegative(commentId)):0;
 		
 		result.add(karma);
 		result.add(positives);
@@ -132,9 +132,10 @@ public class KarmaService {
 		int negatives;
 		
 		result = new ArrayList<Integer>();
-		karma = karmaRepository.karmaOfUser(userId);
-		positives = karmaRepository.karmaOfUserPositive(userId);
-		negatives = karmaRepository.karmaOfUserNegative(userId);
+		karma = karmaRepository.karmaOfUser(userId)!=null?(karmaRepository.karmaOfUser(userId)):0;
+		positives = karmaRepository.karmaOfUserPositive(userId)!=null?(karmaRepository.karmaOfUserPositive(userId)):0;
+		negatives = karmaRepository.karmaOfUserNegative(userId)!=null?(karmaRepository.karmaOfUserNegative(userId)):0;
+		
 		
 		result.add(karma);
 		result.add(positives);
