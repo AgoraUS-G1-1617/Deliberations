@@ -15,6 +15,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -373,7 +374,7 @@ public class ThreadController extends AbstractController {
 		domain.Thread hilo;
 		Collection<Comment> comments;
 		Integer lastPage;
-		Map<Integer,List<Integer>> commentsKarma;
+		HashMap<String,List<Integer>> commentsKarma;
 
 		hilo = threadService.findOne(id);
 		comments = threadService.findCommentsByPage(id, p);

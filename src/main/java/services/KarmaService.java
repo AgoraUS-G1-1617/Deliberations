@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.transaction.Transactional;
 
@@ -173,15 +172,15 @@ public class KarmaService {
 	 * @param threadId
 	 * @return a map with the result
 	 */
-	public Map<Integer, List<Integer>> karmaOfThread(int threadId, int page){
-		Map<Integer, List<Integer>> result;
+	public HashMap<String, List<Integer>> karmaOfThread(int threadId, int page){
+		HashMap<String, List<Integer>> result;
 		List<Comment> comments;
 		
-		result = new HashMap<Integer, List<Integer>>();
+		result = new HashMap<String, List<Integer>>();
 		comments = new ArrayList<Comment>(threadService.findCommentsByPage(threadId, page));
 		
 		for(Comment c: comments){
-			result.put(c.getId(), karmaOfComment(c.getId()));
+			result.put(""+c.getId(), karmaOfComment(c.getId()));
 		}
 		
 		return result;

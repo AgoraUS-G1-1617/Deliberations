@@ -78,11 +78,13 @@
 				<div class="col-sm-1">
 				<button class="up-button">
 				</button>
+				${hilo.id}
+				${commentsKarma['hilo.id']}
 				<button class="down-button">
 				</button>
 				</div>
 				<!-- /col-sm-1 -->
-				<div class="col-sm-8">
+				<div class="col-sm-9">
 					<div class="panel panel-default">
 						<div class="panel-heading">
 							<jstl:set var="rank" value="${rankService.calculateRank(hilo.user)}"/>
