@@ -79,8 +79,8 @@ public class RatingController extends AbstractController {
 		} else {
 			try {
 				//System.out.println(!ratingService.findRatingsOfUser().isEmpty());
-				if(!ratingService.findRatingsOfUser().isEmpty()){
-					oldRating = new ArrayList<Rating>(ratingService.findRatingsOfUser()).get(0);
+				if(!ratingService.findRatingsOfUserAtThread(rating.getThread().getId()).isEmpty()){
+					oldRating = new ArrayList<Rating>(ratingService.findRatingsOfUserAtThread(rating.getThread().getId())).get(0);
 					oldRating.setRate(rating.getRate());
 					ratingService.save(oldRating);
 					result = threadController.list().addObject("messageThreadRating", "rating.thread.modified")

@@ -129,7 +129,6 @@ INSERT INTO `hilo` VALUES (7,0,'\0','2004-11-11 12:12:00','text',NULL,'titulo',4
 /*!40000 ALTER TABLE `hilo` ENABLE KEYS */;
 UNLOCK TABLES;
 
-
 --
 -- Table structure for table `message`
 --
@@ -159,8 +158,39 @@ CREATE TABLE `message` (
 
 LOCK TABLES `message` WRITE;
 /*!40000 ALTER TABLE `message` DISABLE KEYS */;
-INSERT INTO `message` VALUES (13,0,'Body1','2015-02-07 10:18:00','Mensaje1',5,6),(14,0,'Body2','2014-01-10 10:18:00','Mensaje2',6,5);
 /*!40000 ALTER TABLE `message` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `rank`
+--
+
+DROP TABLE IF EXISTS `rank`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `rank` (
+  `id` int(11) NOT NULL,
+  `version` int(11) NOT NULL,
+  `description` longblob,
+  `icon` varchar(255) DEFAULT NULL,
+  `min_comments` int(11) DEFAULT NULL,
+  `min_ratings` int(11) DEFAULT NULL,
+  `min_threads` int(11) DEFAULT NULL,
+  `number` int(11) DEFAULT NULL,
+  `title` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `UK_b6uotm0f90eofl9rmmnl6pqbf` (`min_threads`,`min_comments`,`min_ratings`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `rank`
+--
+
+LOCK TABLES `rank` WRITE;
+/*!40000 ALTER TABLE `rank` DISABLE KEYS */;
+INSERT INTO `rank` VALUES (13,0,'Eres lo m\ás parecido a una piedra, deber\ías de interactuar al menos 1 vez con el foro. / You are the closest thing to a stone, you should interact at least once with the forum.','images/rank0.png',0,0,0,0,'Piedra / Stone'),(14,0,'Ya has dado tu primer paso en la comunidad pero aun te queda mucho que hablar, quiz\ás sea hora de crear tu propio hilo y seguir comentando y puntuando. / You\'ve already taken your first step in the community but you still have a lot to talk about, maybe it\'s time to create your own thread and keep commenting and punctuation.','images/rank1.png',0,0,0,1,'Novato / Noob'),(15,0,'Este ha sido solo el comienzo, ya conoces todas las interacciones b\ásicas del foro, sigue as\í y llegar\ás lejos. / This has only been the beginning, you already know all the basic interactions of the forum, continue and you will arrive far.','images/rank2.png',5,2,1,2,'Aprendiz / Beginner'),(16,0,'Se te da bien tanto crear, comentar y puntuar. Este es el primero de los 3 rangos epicos. / You are good at creating, commenting and punctuating. This is the first of the 3 epic ranks','images/rank3.png',15,10,5,3,'Avanzado / Advanced'),(17,0,'Tu pasión por la comunidad es grande, ya tienes al menos 15 hilos propios, 25 comentarios y 20 puntuaciones, por eso eso luces esta insignia que m\ás de uno sueña tener. / Your passion for the community is great, you already have at least 15 own threads, 25 comments and 20 scores, that\'s why you wear this badge that more than one dreams have.','images/rank4.png',25,20,15,4,'Experto / Expert'),(18,0,'Eres un divulgador por excelencia, tus actos en el foro te han llevado a conseguir la m\áxima distinción posible. Enhorabuena! / You are a promoter par excellence, your acts in the forum have led you to achieve the maximum possible distinction. Congratulations!','images/rank5.png',50,30,25,5,'Divulgador / Discloser');
+/*!40000 ALTER TABLE `rank` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -288,6 +318,6 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-11-17 21:18:55
+-- Dump completed on 2016-11-22 20:36:39
 
 commit;

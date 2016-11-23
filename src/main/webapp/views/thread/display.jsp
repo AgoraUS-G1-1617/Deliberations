@@ -19,6 +19,12 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ page import ="services.RankService" %>
+<%@ page import ="domain.User" %>
+<%@ page import ="domain.Rank" %>
+
+<link rel="stylesheet" type="text/css" href="styles/manual.css" media="screen" />
+
 
 <script
 	src="scripts/jquery.bootpag.min.js">
@@ -74,6 +80,8 @@
 				<div class="col-sm-9">
 					<div class="panel panel-default">
 						<div class="panel-heading">
+							<jstl:set var="rank" value="${rankService.calculateRank(hilo.user)}"/>
+							<img class="iconRankUser" src="${rank.icon}" title="${rank.title}">
 							<strong> <jstl:out
 									value="${hilo.user.userAccount.username }"></jstl:out>
 							</strong> <span class="text-muted"><jstl:out
@@ -110,6 +118,8 @@
 				<div class="col-sm-9">
 					<div class="panel panel-default">
 						<div class="panel-heading">
+							<jstl:set var="rank" value="${rankService.calculateRank(row.user)}"/>
+							<img class="iconRankUser" src="${rank.icon}" title="${rank.title}">
 							<strong> <jstl:out
 									value="${row.user.userAccount.username }"></jstl:out>
 							</strong> <span class="text-muted"><jstl:out

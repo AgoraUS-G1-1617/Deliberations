@@ -36,5 +36,8 @@ public interface CommentRepository extends JpaRepository<Comment, Integer> {
 	
 	@Query("select count(c) from Comment c where c.user.id = ?1")
 	int countCommentsCreatedByUserId(int id);
+	
+	@Query("select count(c) from Comment c where c.user.id = ?1")
+	int countCommentsCreatedByUserIdGiven(int id);
 
 }

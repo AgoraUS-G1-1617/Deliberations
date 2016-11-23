@@ -44,6 +44,7 @@ import domain.Thread;
 import domain.User;
 import security.UserAccount;
 import services.CommentService;
+import services.RankService;
 import services.ThreadService;
 import services.UserService;
 
@@ -64,6 +65,9 @@ public class ThreadController extends AbstractController {
 
 	@Autowired
 	private UserDetailsService userDetailsService;
+	
+	@Autowired
+	private RankService rankService;
 
 	// Constructors -----------------------------------------------------------
 
@@ -376,6 +380,7 @@ public class ThreadController extends AbstractController {
 		result.addObject("comment", c);
 		result.addObject("p", p);
 		result.addObject("lastPage", lastPage);
+		result.addObject("rankService", rankService);
 
 		return result;
 	}

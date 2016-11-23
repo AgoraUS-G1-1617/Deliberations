@@ -21,24 +21,20 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
 
-<div class="messages-menu">
-	<div class="sub_menu_messages">
-		<a href="message/user/received.do?page=1">
-			<span class="sub_menu_messages_data">
-				<spring:message code="messages.received" />
-			</span>
-		</a> 
-		<a href="message/user/sent.do?page=1">
-			<span class="sub_menu_messages_data"> 
+<div class="sub-menu-messages">
+	<ul class="nav nav-pills nav-justified sub-menu-messages-options"
+		style="">
+		<li role="presentation"><a
+			href="message/user/received.do?page=1"> <spring:message
+					code="messages.received" />
+		</a></li>
+		<li role="presentation"><a href="message/user/sent.do?page=1">
 				<spring:message code="messages.sent" />
-			</span>
-		</a> 
- 		<a href="message/user/create.do">
-			<span class="sub_menu_messages_data">
-				<spring:message code="message.create" />
-			</span>
-		</a>
-	</div>
+		</a></li>
+		<li role="presentation" class="active"><a href="message/user/create.do"> <spring:message
+					code="message.create" />
+		</a></li>
+	</ul>
 </div>
 
 <br />
