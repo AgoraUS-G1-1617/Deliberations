@@ -31,27 +31,7 @@
 	<br />
 	<br />
 	<h4>
-		<table style="margin: 0 auto;">
-			<tr>
-				<td><spring:message code="user.messagesSent" />: </td>
-				<td><b><jstl:out value=" ${messagesSent}" /></b></td>
-			</tr>
-
-			<tr>
-				<td><spring:message code="user.messagesReceived" />: </td>
-				<td><b><jstl:out value=" ${messagesReceived}" /></b></td>
-			</tr>
-			
-			<tr>
-				<td><spring:message code="user.threadsCreated" />: </td>
-				<td><b><jstl:out value=" ${threadsCreated}" /></b></td>
-			</tr>
-			
-			<tr>
-				<td><spring:message code="user.commentsCreated" />: </td>
-				<td><b><jstl:out value=" ${commentsCreated}" /></b></td>
-			</tr>
-		</table>		
+	
 		</h4>
 </div>
 

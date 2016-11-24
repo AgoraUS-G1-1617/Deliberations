@@ -21,33 +21,123 @@
 
 <script type="text/javascript" src="scripts/jquery.js"></script>
 <script type="text/javascript" src="scripts/jquery.simplePagination.js"></script>
-<link rel="stylesheet" type="text/css" href="styles/manual.css" media="screen" />
 
 
-<br />
-<br />
 <div class="container">
-
-	<h3><spring:message code="customer.info"/></h3>
-	<br />
-	<div class="thumbnail">
-	<br />
-		<table style="margin: 0 auto;">
-			<tr>
-				<td><div class="thumbnail"><img class="img-responsive user-photo" src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png"></div></td>
-				<td> </td>
-				<td nowrap style='padding-left: 5%'>
-					<h4><spring:message code="customer.name"/>: <b><jstl:out value=" ${user.name}"/></b></h4>
-					<h4><spring:message code="customer.surname"/>: <b><jstl:out value=" ${user.surname}"/></b></h4> 
-					<h4><spring:message code="customer.genre"/>: <b><jstl:out value=" ${user.genre}"/></b></h4> 
-					<h4><spring:message code="customer.email"/>: <b><jstl:out value=" ${user.email}"/></b></h4> 
-				</td>
-			</tr>
-		</table>
+	<div class="row">
+		<div class="col-md-offset-2 col-md-8 col-lg-offset-3 col-lg-6">
+			<div class="well profile">
+				<div class="col-sm-12">
+					<div class="col-xs-12 col-sm-8 information">
+						<h2 class="name">
+							<jstl:out value="${user.name}"></jstl:out>
+						</h2>
+						<p class="user-basic-information">
+							<strong>
+								<spring:message code="customer.genre" />
+						    </strong>
+						    <jstl:out value="${user.genre}"></jstl:out>
+						    	
+						</p>
+						<p class="user-basic-information">
+							<strong>
+								<spring:message code="customer.email"/>:
+							</strong>
+							<jstl:out value=" ${user.email}"/>							
+						</p>
+						<p class="user-basic-information">
+							<strong>
+								<spring:message code="user.autonomous.community"/>:
+							</strong>
+							<jstl:out value=" ${user.autonomous_community}"/>							
+						</p>
+					</div>
+					<div class="col-xs-12 col-sm-4 text-center">
+						<figure>
+							<img
+								src="images/profile-icon.png"
+								alt="" class="img-circle img-responsive">
+							<figcaption class="ratings">
+								<p>
+									Karma <a href="#"> <span class="fa fa-star"></span>
+									</a> <a href="#"> <span class="fa fa-star"></span>
+									</a> <a href="#"> <span class="fa fa-star"></span>
+									</a> <a href="#"> <span class="fa fa-star"></span>
+									</a> <a href="#"> <span class="fa fa-star-o"></span>
+									</a>
+								</p>
+							</figcaption>
+						</figure>
+					</div>
+				</div>
+				<div class="col-xs-12 divider text-center">
+					<div class="col-xs-12 col-sm-4 emphasis">
+						<h2>
+							<strong>
+								<jstl:out value=" ${threadsCreated}" />
+							</strong>
+						</h2>
+						<p>
+							<small>
+								<spring:message code="user.threadsCreated" />
+							</small>
+						</p>
+					</div>
+					<div class="col-xs-12 col-sm-4 emphasis">
+						<h2>
+							<strong>
+								<jstl:out value=" ${commentsCreated}" />
+							</strong>
+						</h2>
+						<p>
+							<small>
+								<spring:message code="user.commentsCreated" />
+							</small>
+						</p>
+					</div>
+					<div class="col-xs-12 col-sm-4 emphasis">
+						<h2>
+							<strong>
+								<jstl:out value=" ${commentsCreated}" />
+							</strong>
+						</h2>
+						<p>
+							<small>
+								<spring:message code="user.commentsCreated" />
+							</small>
+						</p>
+					</div>
+					<div class="col-xs-12 col-sm-4 emphasis">
+						<h2>
+							<strong>
+								<jstl:out value=" ${messagesReceived}" />
+							</strong>
+						</h2>
+						<p>
+							<small>
+								<spring:message code="user.messagesReceived" />
+							</small>
+						</p>
+					</div>
+					<div class="col-xs-12 col-sm-4 emphasis">
+						<h2>
+							<strong>
+								<jstl:out value=" ${messagesSent}" />
+							</strong>
+						</h2>
+						<p>
+							<small>
+								<spring:message code="user.messagesSent" />
+							</small>
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
+</div>
+	<div class="container">
 	
-	
-	<h4><spring:message code="customer.rank"/>: </h4>
 	<br />
 	<div class="thumbnail">
 
@@ -79,7 +169,6 @@
 			</tr>
 		</table>
 	</div>
+
 </div>
-
-
 <br />

@@ -23,8 +23,6 @@
 <%@ page import ="domain.User" %>
 <%@ page import ="domain.Rank" %>
 
-<link rel="stylesheet" type="text/css" href="styles/manual.css" media="screen" />
-
 
 <script
 	src="scripts/jquery.bootpag.min.js">

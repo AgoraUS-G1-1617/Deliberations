@@ -21,7 +21,11 @@ import org.springframework.web.servlet.ModelAndView;
 import controllers.AbstractController;
 import domain.Rank;
 import domain.User;
+import services.CommentService;
+import services.MessageService;
 import services.RankService;
+import services.RatingService;
+import services.ThreadService;
 import services.UserService;
 
 @Controller
@@ -35,7 +39,18 @@ public class UserProfileController extends AbstractController {
 
 	@Autowired
 	private RankService rankService;
-
+	
+	@Autowired
+	private MessageService messageService;
+	
+	@Autowired
+	private ThreadService threadService;
+	
+	@Autowired
+	private CommentService commentService;
+	
+	@Autowired
+	private RatingService ratingService;
 	// Constructors -----------------------------------------------------------
 
 	public UserProfileController() {
@@ -52,11 +67,19 @@ public class UserProfileController extends AbstractController {
 		Rank rank;
 		Rank rankTemp;
 		Integer numRanks;
+		int messagesSent, messagesReceived, threadsCreated, commentsCreated,ratingsCreated;
 
+		/*Datos necesario para la vista de su rango*/
 		user = userService.findOneByPrincipal();
 		rank = rankService.calculateRank(user);
 		numRanks = rankService.sortAllRanks().size();
-
+		
+		/*Datos necesario para las estadisticas del usuario*/
+		messagesSent = messageService.countMessagesSentByUser();
+		messagesReceived = messageService.countMessagesReceivedtByUser();
+		threadsCreated   = threadService.countThreadCreatedByUser();
+		commentsCreated  = commentService.countCommentsCreatedByUser();
+		ratingsCreated	 = ratingService.countRatingCreatedByUserGiven(user);
 		Collection<Rank> nextRanks = new ArrayList<Rank>();
 		Integer cont = rank.getNumber();
 
@@ -72,8 +95,16 @@ public class UserProfileController extends AbstractController {
 		result.addObject("rank", rank);
 		result.addObject("nextRanks", nextRanks);
 		result.addObject("numRanks", numRanks);
+		
+		result.addObject("messagesSent", messagesSent);
+		result.addObject("messagesReceived", messagesReceived);
+		result.addObject("threadsCreated", threadsCreated);
+		result.addObject("commentsCreated", commentsCreated);
+		result.addObject("ratingsCreated", ratingsCreated);
 
 		return result;
 	}
 
+
+	
 }

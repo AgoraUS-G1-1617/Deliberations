@@ -34,6 +34,7 @@
 <link rel="stylesheet" href="styles/jmenu.css" media="screen"
 	type="text/css" />
 <link rel="stylesheet" href="styles/displaytag.css" type="text/css">
+<link rel="stylesheet" type="text/css" href="styles/manual.css" media="screen" />
 
 
 
