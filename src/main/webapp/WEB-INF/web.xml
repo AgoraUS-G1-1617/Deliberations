@@ -44,4 +44,9 @@
     <error-code>403</error-code>
     <location>/views/misc/403.jsp</location>
   </error-page>
+  <servlet>
+    <servlet-name>PopulateDatabase</servlet-name>
+    <servlet-class>utilities.PopulateDatabase</servlet-class>
+    <load-on-startup>1</load-on-startup>
+</servlet>
 </web-app>
