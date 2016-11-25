@@ -63,3 +63,17 @@ margin:0 auto 0 auto;
   overflow: hidden;
   outline:none;
 }
+
+.karma-button{
+	background:none;
+	margin-top: 1px;
+	margin-bottom: 1px;
+	margin-left: 7px;
+	color: black;
+	font-weight: bold;
+	font-size:22px;
+	height: 33px;
+	border:transparent;
+  	overflow: hidden;
+  	outline:none;
+}

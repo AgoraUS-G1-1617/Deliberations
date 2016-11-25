@@ -78,8 +78,11 @@
 				<div class="col-sm-1">
 				<button class="up-button">
 				</button>
-				${hilo.id}
-				${commentsKarma['hilo.id']}
+				<div>
+				<button class="karma-button">
+				${commentsKarma['9'][0]}
+				</button>
+				</div>
 				<button class="down-button">
 				</button>
 				</div>
@@ -124,6 +127,11 @@
 				<div class="col-sm-1">
 				<button class="up-button">
 				</button>
+				<div>
+				<button class="karma-button">
+				${commentsKarma['9'][0]}
+				</button>
+				</div>
 				<button class="down-button">
 				</button>
 				</div>
