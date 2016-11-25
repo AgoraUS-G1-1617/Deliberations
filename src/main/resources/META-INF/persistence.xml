@@ -24,7 +24,7 @@
 		<class>security.UserAccount</class>
 		<class>domain.Message</class>
 		<class>domain.Rank</class>
-		
+		<class>domain.Karma</class>
 
 		<!-- <provider>org.hibernate.ejb.HibernatePersistence</provider> -->
 		
