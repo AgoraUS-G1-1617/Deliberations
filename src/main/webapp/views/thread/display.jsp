@@ -116,8 +116,12 @@
 				<div class="col-sm-1">
 				<button onclick="location.href='karma/setKarma.do?commentId=${row.id}&value=up'" class="up-button">
 				</button>
-				<div>
-				<button onclick="location.href='http://google.com'" class="karma-button">
+				<div id="karma-div-${row.id}" class="karma-div">
+					<!--<span class="positive-karma">${commentsKarma[row.id][1]}</span>
+					<br/>
+					<span class="negative-karma">${commentsKarma[row.id][2]}</span> -->
+				<input type="hidden" name="country" value="Norway">
+				<button onclick="karmaDetails(${row.id},${commentsKarma[row.id][1]},${commentsKarma[row.id][2]})" class="karma-button">
 				${commentsKarma[row.id][0]}
 				</button>
 				</div>
@@ -222,3 +226,12 @@
 
 </div>
 <!-- /container -->
+<script>
+
+	function karmaDetails(id,positive, negative) {
+
+		inputText = '<span class="positive-karma">'+positive+'</span><br/><span class="negative-karma">'+negative+'</span>';
+		$("#karma-div-"+id).html(inputText);
+
+	}
+</script>
