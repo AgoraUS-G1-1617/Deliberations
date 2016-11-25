@@ -19,6 +19,9 @@ public interface CommentRepository extends JpaRepository<Comment, Integer> {
 	@Query("select u.comments from User u where u.userAccount.id=?1")
 	Collection<Comment> findCommentsOfUser(int idUserAccount);
 	
+	@Query("select c from Comment c where c.user.id=?1")
+	Collection<Comment> commentsOfUser(int userId);
+	
 	@Query("select c from Comment c where c.creationMoment>?1")
 	Collection<Comment> findCommentsInTheLastHours(Date creation);
 	

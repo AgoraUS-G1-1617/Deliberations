@@ -32,6 +32,9 @@ public class KarmaService {
 	
 	@Autowired
 	private ThreadService threadService;
+	
+	@Autowired
+	private CommentService commentService;
 
 	// Constructors -----------------------------------------------------------
 	
@@ -129,12 +132,19 @@ public class KarmaService {
 		int karma;
 		int positives;
 		int negatives;
+		List<Comment> comments;
 		
 		result = new ArrayList<Integer>();
-		karma = karmaRepository.karmaOfUser(userId)!=null?(karmaRepository.karmaOfUser(userId)):0;
-		positives = karmaRepository.karmaOfUserPositive(userId)!=null?(karmaRepository.karmaOfUserPositive(userId)):0;
-		negatives = karmaRepository.karmaOfUserNegative(userId)!=null?(karmaRepository.karmaOfUserNegative(userId)):0;
-		
+		comments = new ArrayList<Comment>(commentService.commentsOfUser(userId));
+		karma = 0;
+		positives = 0;
+		negatives = 0;
+		for(Comment c: comments){
+			karma += karmaRepository.karmaOfComment(c.getId())!=null?(karmaRepository.karmaOfComment(c.getId())):0;
+			positives += karmaRepository.karmaOfCommentPositive(c.getId())!=null?(karmaRepository.karmaOfCommentPositive(c.getId())):0;
+			negatives += karmaRepository.karmaOfCommentNegative(c.getId())!=null?(karmaRepository.karmaOfCommentNegative(c.getId())):0;
+			
+		}
 		
 		result.add(karma);
 		result.add(positives);

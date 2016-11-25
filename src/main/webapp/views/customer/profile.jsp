@@ -58,14 +58,11 @@
 								src="images/profile-icon.png"
 								alt="" class="img-circle img-responsive">
 							<figcaption class="ratings">
-								<p>
-									Karma <a href="#"> <span class="fa fa-star"></span>
-									</a> <a href="#"> <span class="fa fa-star"></span>
-									</a> <a href="#"> <span class="fa fa-star"></span>
-									</a> <a href="#"> <span class="fa fa-star"></span>
-									</a> <a href="#"> <span class="fa fa-star-o"></span>
-									</a>
-								</p>
+								<div class="karma-user-div">
+								Karma: <button onclick="karmaDetails(${karmaOfUser[1]},${karmaOfUser[2]})" class="karma-button">
+										${karmaOfUser[0]}
+										</button> 
+								</div>
 							</figcaption>
 						</figure>
 					</div>
@@ -190,3 +187,12 @@
 
 </div>
 <br />
+<script>
+
+	function karmaDetails(positive, negative) {
+
+		inputText = 'Karma: <span class="positive-karma-user">'+positive+'</span> <span class="karma-user-bar">/</span> <span class="negative-karma">'+negative+'</span>';
+		$(".karma-user-div").html(inputText);
+
+	}
+</script>

@@ -87,6 +87,14 @@ public class CommentService {
 
 		return result;
 	}
+	
+	public Collection<Comment> commentsOfUser(int userId) {
+		Collection<Comment> result;
+		
+		result = commentRepository.commentsOfUser(userId);
+
+		return result;
+	}
 
 	public Collection<Comment> findCommentsInTheLastHours(Date creation) {
 		Collection<Comment> result;
