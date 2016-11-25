@@ -12,6 +12,7 @@ package controllers.user;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -25,6 +26,7 @@ import controllers.AbstractController;
 import domain.Rank;
 import domain.User;
 import services.CommentService;
+import services.KarmaService;
 import services.MessageService;
 import services.RankService;
 import services.RatingService;
@@ -54,6 +56,10 @@ public class UserProfileController extends AbstractController {
 	
 	@Autowired
 	private RatingService ratingService;
+	
+	@Autowired
+	private KarmaService karmaService;
+	
 	// Constructors -----------------------------------------------------------
 
 	public UserProfileController() {
@@ -72,6 +78,9 @@ public class UserProfileController extends AbstractController {
 		Cookie[] cookies;
 		String cookieValue;
 		int messagesSent, messagesReceived, threadsCreated, commentsCreated,ratingsCreated;
+		Collection<Rank> nextRanks;
+		Integer cont;
+		List<Integer> karmaOfUser;
 
 		/*Por defecto la aplicación está en ingles y obtenemos cookies*/
 		cookieValue = "en";
@@ -88,8 +97,9 @@ public class UserProfileController extends AbstractController {
 		threadsCreated   = threadService.countThreadCreatedByUser();
 		commentsCreated  = commentService.countCommentsCreatedByUser();
 		ratingsCreated	 = ratingService.countRatingCreatedByUserGiven(user);
-		Collection<Rank> nextRanks = new ArrayList<Rank>();
-		Integer cont = rank.getNumber();
+		nextRanks = new ArrayList<Rank>();
+		cont = rank.getNumber();
+		karmaOfUser = karmaService.karmaOfUser(user.getId());
 
 		while (cont < numRanks - 1) {
 			rankTemp = rankService.findRankForNumber(cont + 1);
@@ -111,12 +121,12 @@ public class UserProfileController extends AbstractController {
 		result.addObject("nextRanks", nextRanks);
 		result.addObject("numRanks", numRanks);
 		result.addObject("cookieValue", cookieValue);
-		
 		result.addObject("messagesSent", messagesSent);
 		result.addObject("messagesReceived", messagesReceived);
 		result.addObject("threadsCreated", threadsCreated);
 		result.addObject("commentsCreated", commentsCreated);
 		result.addObject("ratingsCreated", ratingsCreated);
+		result.addObject("karmaOfUser", karmaOfUser);
 
 		return result;
 	}

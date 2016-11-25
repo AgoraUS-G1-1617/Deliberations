@@ -247,9 +247,6 @@ margin-top:2%;
 }
 
 .positive-karma{
-	/*margin-top: 1px;
-    margin-bottom: 1px;
-    margin-left: 14px;*/
     color: green;
     font-weight: bold;
     font-size: 17px;
@@ -261,12 +258,29 @@ margin-top:2%;
 }
 
 .negative-karma{
-	/*margin-top: 1px;
-	margin-bottom: 1px;
-	margin-left: 14px;*/
 	color: red;
 	font-weight: bold;
 	font-size:17px;
 	height: 23px;
+	width: 15px;
 	text-align: center;
+}
+
+.positive-karma-user{
+	margin-left: 7px;
+    color: green;
+    font-weight: bold;
+    font-size: 17px;
+    height: 23px;
+    width: 15px;
+    text-align: center;
+}
+
+.karma-user-bar{
+    color: gray;
+    font-weight: bold;
+    font-size: 17px;
+    height: 23px;
+    width: 15px;
+    text-align: center;
 }
