@@ -6,34 +6,14 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 */
 
 
-/*--Estilos del mensaje de cookies--*/
-
-.message-alert{
-    text-align: center;
-    font-size: 150%
-   }
-   
-/*-- --*/
-h4, h5, h6, h1, h2, h3 {
-	margin: 0;
-}
-
-ul, ol, li {
-	margin: 0;
-	padding: 0;
-}
-
-p {
-	margin: 0;
-}
-
-body {
-	margin: 0;
-	padding: 0;
-	font-family: OpenSans-Regular;
-}
-
 /*--fonts--*/
+
+@font-face {
+	font-family: Lato;
+	src: url(fonts/lato.ttf) format('truetype');
+}
+
+
 @font-face {
 	font-family: Overlock-Regular;
 	src: url(fonts/Overlock-Regular.ttf) format('truetype');
@@ -2030,46 +2010,4 @@ h3.title {
 		}
 	}
 
-}
-
-
-/*--Estilos usados para la funcionalidad del sistema de mensajes--*/
-
-.sub-menu-messages {
-	margin-left: 19%;
-	margin-right: 29%;
-	margin-top: 0.1%;
-	margin-bottom:3%;
-}
-.messages-subject{
-	text-align: center;
-    font-weight: bold;
-}
-
-.sub-menu-messages-options {
-	font-size: 125%;
-}
-
-
-a:hover, a:hover span {
-	color: #4A85B8;
-	text-decoration: none;
-}
-
-.messages-information {
-	text-align: center;
-	padding-bottom: 2%;
-}
-
-.text-message-body{
-	font-size:120%;
-}
-
-.create-message-error {
-	font-size: 100%;
-}
-
-.btn-create-message{
-	
-	margin:2% 2% 2% 2%;
 }

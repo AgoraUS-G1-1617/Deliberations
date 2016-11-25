@@ -131,8 +131,6 @@
 							<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
 								<li><a href="user/profile.do">
 									<spring:message code="master.page.info" /></a></li>
-								<li><a href="user/statistics.do">
-									<spring:message code="master.page.statistics" /></a></li>
 								<li><a href="j_spring_security_logout">
 									<spring:message code="master.page.signout" /></a></li>
 							</ul>

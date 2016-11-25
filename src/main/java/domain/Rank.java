@@ -28,9 +28,9 @@ public class Rank extends DomainEntity{
 	
 	private String title;
 	private Integer number;
-	private String description;
+	private String descriptionEs;
+	private String descriptionEn;
 	private String icon;
-	
 	private Integer minThreads;
 	private Integer minComments;
 	private Integer minRatings;
@@ -55,11 +55,20 @@ public class Rank extends DomainEntity{
 	
 	@NotBlank
 	@Column(columnDefinition = "LONGBLOB") 
-	public String getDescription() {
-		return description;
+	public String getDescriptionEs() {
+		return descriptionEs;
 	}
-	public void setDescription(String description) {
-		this.description = description;
+	public void setDescriptionEs(String descriptionEs) {
+		this.descriptionEs = descriptionEs;
+	}
+	
+	@NotBlank
+	@Column(columnDefinition = "LONGBLOB") 
+	public String getDescriptionEn() {
+		return descriptionEn;
+	}
+	public void setDescriptionEn(String descriptionEn) {
+		this.descriptionEn = descriptionEn;
 	}
 	
 	@NotNull

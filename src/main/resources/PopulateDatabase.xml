@@ -199,20 +199,21 @@
 	<!-- Rank -->
 
 	<bean id="rank0" class="domain.Rank">
-		<property name="title" value="Piedra / Stone"/>
+		<property name="title" value="Stone / Piedra"/>
 		<property name="number" value="0"/>
-		<property name="description" value="Eres lo más parecido a una piedra, deberías de interactuar al menos 1 vez con el foro. / You are the closest thing to a stone, you should interact at least once with the forum."/>
+		<property name="descriptionEs" value="Eres lo más parecido a una piedra, deberías de interactuar al menos 1 vez con el foro."/>
+		<property name="descriptionEn" value="You are the closest thing to a stone, you should interact at least once with the forum."/>
 		<property name="icon" value="images/rank0.png"/>
 		<property name="minThreads" value="0"/>
 		<property name="minComments" value="0"/>
 		<property name="minRatings" value="0"/>
-		
 	</bean>
 
 	<bean id="rank1" class="domain.Rank">
-		<property name="title" value="Novato / Noob"/>
+		<property name="title" value="Noob / Novato"/>
 		<property name="number" value="1"/>
-		<property name="description" value="Ya has dado tu primer paso en la comunidad pero aun te queda mucho que hablar, quizás sea hora de crear tu propio hilo y seguir comentando y puntuando. / You've already taken your first step in the community but you still have a lot to talk about, maybe it's time to create your own thread and keep commenting and punctuation."/>
+		<property name="descriptionEs" value="Ya has dado tu primer paso en la comunidad pero aun te queda mucho que hablar, quizás sea hora de crear tu propio hilo y seguir comentando y puntuando."/>
+		<property name="descriptionEn" value="You've already taken your first step in the community but you still have a lot to talk about, maybe it's time to create your own thread and keep commenting and punctuation."/>
 		<property name="icon" value="images/rank1.png"/>
 		<property name="minThreads" value="0"/>
 		<property name="minComments" value="0"/>
@@ -220,9 +221,10 @@
 	</bean>
 	
 	<bean id="rank2" class="domain.Rank">
-		<property name="title" value="Aprendiz / Beginner"/>
+		<property name="title" value="Beginner / Aprendiz"/>
 		<property name="number" value="2"/>
-		<property name="description" value="Este ha sido solo el comienzo, ya conoces todas las interacciones básicas del foro, sigue así y llegarás lejos. / This has only been the beginning, you already know all the basic interactions of the forum, continue and you will arrive far."/>
+		<property name="descriptionEs" value="Este ha sido solo el comienzo, ya conoces todas las interacciones básicas del foro, sigue así y llegarás lejos."/>
+		<property name="descriptionEn" value="This has only been the beginning, you already know all the basic interactions of the forum, continue and you will arrive far."/>
 		<property name="icon" value="images/rank2.png"/>
 		<property name="minThreads" value="1"/>
 		<property name="minComments" value="5"/>
@@ -230,9 +232,10 @@
 	</bean>
 	
 	<bean id="rank3" class="domain.Rank">
-		<property name="title" value="Avanzado / Advanced"/>
+		<property name="title" value="Advanced / Avanzado"/>
 		<property name="number" value="3"/>
-		<property name="description" value="Se te da bien tanto crear, comentar y puntuar. Este es el primero de los 3 rangos epicos. / You are good at creating, commenting and punctuating. This is the first of the 3 epic ranks"/>
+		<property name="descriptionEs" value="Se te da bien tanto crear, comentar y puntuar. Este es el primero de los 3 rangos epicos."/>
+		<property name="descriptionEn" value="You are good at creating, commenting and punctuating. This is the first of the 3 epic ranks."/>
 		<property name="icon" value="images/rank3.png"/>
 		<property name="minThreads" value="5"/>
 		<property name="minComments" value="15"/>
@@ -240,9 +243,10 @@
 	</bean>
 	
 	<bean id="rank4" class="domain.Rank">
-		<property name="title" value="Experto / Expert"/>
+		<property name="title" value="Expert / Experto"/>
 		<property name="number" value="4"/>
-		<property name="description" value="Tu pasión por la comunidad es grande, ya tienes al menos 15 hilos propios, 25 comentarios y 20 puntuaciones, por eso eso luces esta insignia que más de uno sueña tener. / Your passion for the community is great, you already have at least 15 own threads, 25 comments and 20 scores, that's why you wear this badge that more than one dreams have."/>
+		<property name="descriptionEs" value="Tu pasión por la comunidad es grande, ya tienes al menos 15 hilos propios, 25 comentarios y 20 puntuaciones, por eso eso luces esta insignia que más de uno sueña tener."/>
+		<property name="descriptionEn" value="Your passion for the community is great, you already have at least 15 own threads, 25 comments and 20 scores, that's why you wear this badge that more than one dreams have."/>
 		<property name="icon" value="images/rank4.png"/>
 		<property name="minThreads" value="15"/>
 		<property name="minComments" value="25"/>
@@ -250,9 +254,10 @@
 	</bean>
 	
 	<bean id="rank5" class="domain.Rank">
-		<property name="title" value="Divulgador / Discloser"/>
+		<property name="title" value="Discloser / Divulgado"/>
 		<property name="number" value="5"/>
-		<property name="description" value="Eres un divulgador por excelencia, tus actos en el foro te han llevado a conseguir la máxima distinción posible. Enhorabuena! / You are a promoter par excellence, your acts in the forum have led you to achieve the maximum possible distinction. Congratulations!"/>
+		<property name="descriptionEs" value="Eres un divulgador por excelencia, tus actos en el foro te han llevado a conseguir la máxima distinción posible. Enhorabuena!"/>
+		<property name="descriptionEn" value="You are a promoter par excellence, your acts in the forum have led you to achieve the maximum possible distinction. Congratulations!"/>
 		<property name="icon" value="images/rank5.png"/>
 		<property name="minThreads" value="25"/>
 		<property name="minComments" value="50"/>
