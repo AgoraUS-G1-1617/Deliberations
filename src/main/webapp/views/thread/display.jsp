@@ -114,14 +114,14 @@
 				</div>
 				<!-- /col-sm-1 -->
 				<div class="col-sm-1">
-				<button class="up-button">
+				<button onclick="location.href='karma/setKarma.do?commentId=${row.id}&value=up'" class="up-button">
 				</button>
 				<div>
-				<button class="karma-button">
+				<button onclick="location.href='http://google.com'" class="karma-button">
 				${commentsKarma[row.id][0]}
 				</button>
 				</div>
-				<button class="down-button">
+				<button onclick="location.href='karma/setKarma.do?commentId=${row.id}&value=down'" class="down-button">
 				</button>
 				</div>
 				<div class="col-sm-9">
