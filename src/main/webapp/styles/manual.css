@@ -174,4 +174,99 @@ text-align:center;
 
 margin-top:2%;
 }
-	
+
+.up-button{
+  background: url(../images/arrow--up--gray.png) no-repeat scroll 0 0 transparent;
+  color: #000000;
+  cursor: pointer;
+  font-weight: bold;
+  height: 28px;
+  width: 44px;
+  border:transparent;
+  overflow: hidden;
+  outline:none;
+}
+
+.up-button:hover{
+  background: url(../images/arrow--up--gray.png) no-repeat scroll 0 0 transparent;
+  color: #000000;
+  cursor: pointer;
+  font-weight: bold;
+  height: 28px;
+  width: 44px;
+  border:transparent;
+  overflow: hidden;
+  outline:none;
+  -webkit-filter: brightness(70%);
+  filter: bightness(70%);
+}
+
+.down-button{
+  background: url(../images/arrow--down--gray.png) no-repeat scroll 0 0 transparent;
+  color: #000000;
+  cursor: pointer;
+  font-weight: bold;
+  height: 28px;
+  width: 44px;
+  border:transparent;
+  overflow: hidden;
+  outline:none;
+}
+
+.down-button:hover{
+  background: url(../images/arrow--down--gray.png) no-repeat scroll 0 0 transparent;
+  color: #000000;
+  cursor: pointer;
+  font-weight: bold;
+  height: 28px;
+  width: 44px;
+  border:transparent;
+  overflow: hidden;
+  outline:none;
+  -webkit-filter: brightness(70%);
+  filter: bightness(70%);
+}
+
+.karma-button{
+	background:none;
+	margin-top: 1px;
+	margin-bottom: 1px;
+	margin-left: 7px;
+	color: gray;
+	font-weight: bold;
+	font-size:22px;
+	height: 33px;
+	border:transparent;
+  	overflow: hidden;
+  	outline:none;
+}
+
+.karma-div{
+	width: 35px;
+    text-align: center;
+}
+
+.positive-karma{
+	/*margin-top: 1px;
+    margin-bottom: 1px;
+    margin-left: 14px;*/
+    color: green;
+    font-weight: bold;
+    font-size: 17px;
+    height: 23px;
+    width: 15px;
+    border-radius: 1px 1px 1px;
+    border-bottom: 2px solid gray;
+    text-align: center;
+}
+
+.negative-karma{
+	/*margin-top: 1px;
+	margin-bottom: 1px;
+	margin-left: 14px;*/
+	color: red;
+	font-weight: bold;
+	font-size:17px;
+	height: 23px;
+	text-align: center;
+}

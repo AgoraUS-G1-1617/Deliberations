@@ -66,7 +66,7 @@
 
 			<!-- /row -->
 			<div class="row">
-				<div class="col-sm-1 col-sm-offset-1">
+				<div class="col-sm-1  col-sm-offset-1">
 					<div class="thumbnail">
 						<img class="img-responsive user-photo"
 							src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png">
@@ -74,7 +74,6 @@
 					<!-- /thumbnail -->
 				</div>
 				<!-- /col-sm-1 -->
-
 				<div class="col-sm-9">
 					<div class="panel panel-default">
 						<div class="panel-heading">
@@ -104,7 +103,7 @@
 
 			<!-- /row -->
 			<div class="row">
-				<div class="col-sm-1 col-sm-offset-1">
+				<div class="col-sm-1">
 					<div class="thumbnail">
 						<img class="img-responsive user-photo"
 							src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png">
@@ -112,7 +111,21 @@
 					<!-- /thumbnail -->
 				</div>
 				<!-- /col-sm-1 -->
-
+				<div class="col-sm-1">
+				<button onclick="location.href='karma/setKarma.do?commentId=${row.id}&value=up'" class="up-button">
+				</button>
+				<div id="karma-div-${row.id}" class="karma-div">
+					<!--<span class="positive-karma">${commentsKarma[row.id][1]}</span>
+					<br/>
+					<span class="negative-karma">${commentsKarma[row.id][2]}</span> -->
+				<input type="hidden" name="country" value="Norway">
+				<button onclick="karmaDetails(${row.id},${commentsKarma[row.id][1]},${commentsKarma[row.id][2]})" class="karma-button">
+				${commentsKarma[row.id][0]}
+				</button>
+				</div>
+				<button onclick="location.href='karma/setKarma.do?commentId=${row.id}&value=down'" class="down-button">
+				</button>
+				</div>
 				<div class="col-sm-9">
 					<div class="panel panel-default">
 						<div class="panel-heading">
@@ -211,3 +224,12 @@
 
 </div>
 <!-- /container -->
+<script>
+
+	function karmaDetails(id,positive, negative) {
+
+		inputText = '<span class="positive-karma">'+positive+'</span><br/><span class="negative-karma">'+negative+'</span>';
+		$("#karma-div-"+id).html(inputText);
+
+	}
+</script>

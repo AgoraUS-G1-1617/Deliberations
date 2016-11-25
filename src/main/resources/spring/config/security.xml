@@ -63,6 +63,8 @@
 		<security:intercept-url pattern="/user/profile.do" access="isAuthenticated()" /> 
 		<security:intercept-url pattern="/user/statistics.do" access="hasRole('USER')" />
 		
+		<security:intercept-url pattern="/karma/**" access="isAuthenticated()" /> 
+		
 		<security:intercept-url pattern="/**" access="hasRole('NONE')" />
 
 		<security:form-login 
