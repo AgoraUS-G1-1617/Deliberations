@@ -172,15 +172,15 @@ public class KarmaService {
 	 * @param threadId
 	 * @return a map with the result
 	 */
-	public HashMap<String, List<Integer>> karmaOfThread(int threadId, int page){
-		HashMap<String, List<Integer>> result;
+	public HashMap<Integer, List<Integer>> karmaOfThread(int threadId, int page){
+		HashMap<Integer, List<Integer>> result;
 		List<Comment> comments;
 		
-		result = new HashMap<String, List<Integer>>();
+		result = new HashMap<Integer, List<Integer>>();
 		comments = new ArrayList<Comment>(threadService.findCommentsByPage(threadId, page));
 		
 		for(Comment c: comments){
-			result.put(""+c.getId(), karmaOfComment(c.getId()));
+			result.put(c.getId(), karmaOfComment(c.getId()));
 		}
 		
 		return result;

@@ -374,7 +374,7 @@ public class ThreadController extends AbstractController {
 		domain.Thread hilo;
 		Collection<Comment> comments;
 		Integer lastPage;
-		HashMap<String,List<Integer>> commentsKarma;
+		HashMap<Integer,List<Integer>> commentsKarma;
 
 		hilo = threadService.findOne(id);
 		comments = threadService.findCommentsByPage(id, p);

@@ -68,23 +68,12 @@
 
 			<!-- /row -->
 			<div class="row">
-				<div class="col-sm-1">
+				<div class="col-sm-1  col-sm-offset-1">
 					<div class="thumbnail">
 						<img class="img-responsive user-photo"
 							src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png">
 					</div>
 					<!-- /thumbnail -->
-				</div>
-				<div class="col-sm-1">
-				<button class="up-button">
-				</button>
-				<div>
-				<button class="karma-button">
-				${commentsKarma['9'][0]}
-				</button>
-				</div>
-				<button class="down-button">
-				</button>
 				</div>
 				<!-- /col-sm-1 -->
 				<div class="col-sm-9">
@@ -129,7 +118,7 @@
 				</button>
 				<div>
 				<button class="karma-button">
-				${commentsKarma['9'][0]}
+				${commentsKarma[row.id][0]}
 				</button>
 				</div>
 				<button class="down-button">
