@@ -12,6 +12,7 @@ package controllers.user;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,6 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 import controllers.AbstractController;
 import domain.Rank;
 import domain.User;
+import services.KarmaService;
 import services.RankService;
 import services.UserService;
 
@@ -35,6 +37,9 @@ public class UserProfileController extends AbstractController {
 
 	@Autowired
 	private RankService rankService;
+	
+	@Autowired
+	private KarmaService karmaService;
 
 	// Constructors -----------------------------------------------------------
 
@@ -48,14 +53,15 @@ public class UserProfileController extends AbstractController {
 	public ModelAndView login() {
 		ModelAndView result;
 		User user;
-
 		Rank rank;
 		Rank rankTemp;
 		Integer numRanks;
+		List<Integer> karmaOfUser;
 
 		user = userService.findOneByPrincipal();
 		rank = rankService.calculateRank(user);
 		numRanks = rankService.sortAllRanks().size();
+		karmaOfUser = karmaService.karmaOfUser(user.getId());
 
 		Collection<Rank> nextRanks = new ArrayList<Rank>();
 		Integer cont = rank.getNumber();
@@ -72,7 +78,8 @@ public class UserProfileController extends AbstractController {
 		result.addObject("rank", rank);
 		result.addObject("nextRanks", nextRanks);
 		result.addObject("numRanks", numRanks);
-
+		result.addObject("karmaOfUser",karmaOfUser);
+		
 		return result;
 	}
 
