@@ -19,6 +19,8 @@ GRANT SELECT, INSERT, UPDATE, DELETE ON *.* TO 'deliberations-user'@'%' IDENTIFI
 CREATE DATABASE IF NOT EXISTS `deliberations` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
 USE `deliberations`;
 
+SET NAMES utf8;
+
 -- --------------------------------------------------------
 
 
@@ -171,7 +173,8 @@ DROP TABLE IF EXISTS `rank`;
 CREATE TABLE `rank` (
   `id` int(11) NOT NULL,
   `version` int(11) NOT NULL,
-  `description` longblob,
+  `description_en` longblob,
+  `description_es` longblob,
   `icon` varchar(255) DEFAULT NULL,
   `min_comments` int(11) DEFAULT NULL,
   `min_ratings` int(11) DEFAULT NULL,
@@ -189,7 +192,7 @@ CREATE TABLE `rank` (
 
 LOCK TABLES `rank` WRITE;
 /*!40000 ALTER TABLE `rank` DISABLE KEYS */;
-INSERT INTO `rank` VALUES (13,0,'Eres lo m\ás parecido a una piedra, deber\ías de interactuar al menos 1 vez con el foro. / You are the closest thing to a stone, you should interact at least once with the forum.','images/rank0.png',0,0,0,0,'Piedra / Stone'),(14,0,'Ya has dado tu primer paso en la comunidad pero aun te queda mucho que hablar, quiz\ás sea hora de crear tu propio hilo y seguir comentando y puntuando. / You\'ve already taken your first step in the community but you still have a lot to talk about, maybe it\'s time to create your own thread and keep commenting and punctuation.','images/rank1.png',0,0,0,1,'Novato / Noob'),(15,0,'Este ha sido solo el comienzo, ya conoces todas las interacciones b\ásicas del foro, sigue as\í y llegar\ás lejos. / This has only been the beginning, you already know all the basic interactions of the forum, continue and you will arrive far.','images/rank2.png',5,2,1,2,'Aprendiz / Beginner'),(16,0,'Se te da bien tanto crear, comentar y puntuar. Este es el primero de los 3 rangos epicos. / You are good at creating, commenting and punctuating. This is the first of the 3 epic ranks','images/rank3.png',15,10,5,3,'Avanzado / Advanced'),(17,0,'Tu pasión por la comunidad es grande, ya tienes al menos 15 hilos propios, 25 comentarios y 20 puntuaciones, por eso eso luces esta insignia que m\ás de uno sueña tener. / Your passion for the community is great, you already have at least 15 own threads, 25 comments and 20 scores, that\'s why you wear this badge that more than one dreams have.','images/rank4.png',25,20,15,4,'Experto / Expert'),(18,0,'Eres un divulgador por excelencia, tus actos en el foro te han llevado a conseguir la m\áxima distinción posible. Enhorabuena! / You are a promoter par excellence, your acts in the forum have led you to achieve the maximum possible distinction. Congratulations!','images/rank5.png',50,30,25,5,'Divulgador / Discloser');
+INSERT INTO `rank` VALUES (13,0,'You are the closest thing to a stone, you should interact at least once with the forum.','Eres lo m\ás parecido a una piedra, deber\ías de interactuar al menos 1 vez con el foro.','images/rank0.png',0,0,0,0,'Stone / Piedra'),(14,0,'You\'ve already taken your first step in the community but you still have a lot to talk about, maybe it\'s time to create your own thread and keep commenting and punctuation.','Ya has dado tu primer paso en la comunidad pero aun te queda mucho que hablar, quiz\ás sea hora de crear tu propio hilo y seguir comentando y puntuando.','images/rank1.png',0,0,0,1,'Noob / Novato'),(15,0,'This has only been the beginning, you already know all the basic interactions of the forum, continue and you will arrive far.','Este ha sido solo el comienzo, ya conoces todas las interacciones b\ásicas del foro, sigue as\í y llegar\ás lejos.','images/rank2.png',5,2,1,2,'Beginner / Aprendiz'),(16,0,'You are good at creating, commenting and punctuating. This is the first of the 3 epic ranks.','Se te da bien tanto crear, comentar y puntuar. Este es el primero de los 3 rangos epicos.','images/rank3.png',15,10,5,3,'Advanced / Avanzado'),(17,0,'Your passion for the community is great, you already have at least 15 own threads, 25 comments and 20 scores, that\'s why you wear this badge that more than one dreams have.','Tu pasión por la comunidad es grande, ya tienes al menos 15 hilos propios, 25 comentarios y 20 puntuaciones, por eso eso luces esta insignia que m\ás de uno sueña tener.','images/rank4.png',25,20,15,4,'Expert / Experto'),(18,0,'You are a promoter par excellence, your acts in the forum have led you to achieve the maximum possible distinction. Congratulations!','Eres un divulgador por excelencia, tus actos en el foro te han llevado a conseguir la m\áxima distinción posible. Enhorabuena!','images/rank5.png',50,30,25,5,'Discloser / Divulgador');
 /*!40000 ALTER TABLE `rank` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -318,6 +321,6 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-11-22 20:36:39
+-- Dump completed on 2016-11-25  0:14:45
 
 commit;

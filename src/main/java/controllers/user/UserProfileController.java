@@ -13,6 +13,9 @@ package controllers.user;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -60,14 +63,19 @@ public class UserProfileController extends AbstractController {
 	// ------------------------------------------------------------------------
 
 	@RequestMapping("/profile")
-	public ModelAndView login() {
+	public ModelAndView profile(HttpServletRequest  request) {
 		ModelAndView result;
 		User user;
-
 		Rank rank;
 		Rank rankTemp;
 		Integer numRanks;
+		Cookie[] cookies;
+		String cookieValue;
 		int messagesSent, messagesReceived, threadsCreated, commentsCreated,ratingsCreated;
+
+		/*Por defecto la aplicación está en ingles y obtenemos cookies*/
+		cookieValue = "en";
+		cookies = request.getCookies();
 
 		/*Datos necesario para la vista de su rango*/
 		user = userService.findOneByPrincipal();
@@ -89,12 +97,20 @@ public class UserProfileController extends AbstractController {
 			cont = cont + 1;
 
 		}
+		
+		for(Cookie i: cookies){
+			if(i.getName().equals("language")){
+				cookieValue = i.getValue();
+			}
+			
+		}
 
 		result = new ModelAndView("user/profile");
 		result.addObject("user", user);
 		result.addObject("rank", rank);
 		result.addObject("nextRanks", nextRanks);
 		result.addObject("numRanks", numRanks);
+		result.addObject("cookieValue", cookieValue);
 		
 		result.addObject("messagesSent", messagesSent);
 		result.addObject("messagesReceived", messagesReceived);

@@ -146,7 +146,14 @@
 				<td><img src="${rank.icon}"></td>
 				<td style='padding: 3%' WIDTH="500">
 					<b><jstl:out value=" ${rank.title}"/><jstl:out value=" (${rank.number})"/></b>
-					<p><jstl:out value=" ${rank.description}"/></p>
+					<jstl:choose>
+    					<jstl:when test="${cookieValue=='es'}">
+        					${rank.descriptionEs}
+    					</jstl:when>    
+    					<jstl:otherwise>
+        					${rank.descriptionEn}
+    					</jstl:otherwise>
+					</jstl:choose>
 				</td>
 				<%-- Siguientes rangos, para cada uno de ellos ventana emergente --%>
 				<!-- License: Flaticon Basic License. By Madebyoliver(http://www.flaticon.com/authors/madebyoliver) -->
@@ -157,9 +164,20 @@
 							<br />
 							<b>${rankTemp.title} (${rankTemp.number})</b>
 							<br />
-							${rankTemp.description}
-								
-							</span>
+							<jstl:choose>
+								<jstl:when test="${cookieValue=='es'}">
+									<p>
+										<jstl:out value=" ${rank.descriptionEs}" />
+									</p>
+								</jstl:when>
+								<jstl:otherwise>
+									<p>
+										<jstl:out value=" ${rank.descriptionEn}" />
+									</p>
+								</jstl:otherwise>
+							</jstl:choose>
+
+						</span>
 						</a></td>
 						<jstl:if test="${rankTemp.number != numRanks-1}">
 							<td><img src="images/rightIcon.png"></td>
