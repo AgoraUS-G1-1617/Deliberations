@@ -13,6 +13,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
@@ -38,6 +39,11 @@ public class Thread extends DomainEntity {
 	private String decription;
 	private Boolean erase;
 	private boolean closed;
+	// Although it might seem irrelevant, the attribute 'rating' must be
+	// explicitly declared so that Hibernate knows the name of the getter
+	// it has to call.
+	@SuppressWarnings("unused")
+	private double rating;
 
 	@NotBlank
 	public String getTitle() {
@@ -83,6 +89,21 @@ public class Thread extends DomainEntity {
 
 	public void setClosed(boolean closed) {
 		this.closed = closed;
+	}
+	
+	@Transient
+	public double getRating() {
+		double result;
+		
+		result = 0.;
+		
+		for(Rating r: ratings) {
+			result += r.getRate();
+		}
+		
+		result = result/ratings.size();
+		
+		return result;
 	}
 
 	// Relationships ----------------------------------------------------------

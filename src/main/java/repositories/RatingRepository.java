@@ -22,7 +22,7 @@ public interface RatingRepository extends JpaRepository<Rating, Integer> {
 	Integer totalRating(int idRate);
 	
 	@Query("select r from Rating r where r.user.userAccount.id=?1 and r.thread.id=?2")
-	Collection<Rating> findRatingsOfUserAtThread(int idUserAccount, int idThread);
+	Rating findRatingsOfUserAtThread(int idUserAccount, int threadId);
 	
 	@Query("select count(r) from Rating r where r.user.id = ?1")
 	int countRatingCreatedByUserIdGiven(int id);

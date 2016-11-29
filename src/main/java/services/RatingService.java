@@ -57,6 +57,16 @@ public class RatingService {
 	}
 
 	public void save(Rating rating) {
+		// Associated business rules:
+		//	- It must be a user who performs this use case
+		//	- The user who saves the rating must be the user who is logged into the system
+		User principal;
+		
+		principal = userService.findOneByPrincipal();
+		
+		Assert.notNull(principal);
+		Assert.isTrue(rating.getUser().equals(principal));
+		
 		ratingRepository.save(rating);
 	}
 
@@ -84,11 +94,10 @@ public class RatingService {
 		return result;
 	}
 	
-	public Collection<Rating> findRatingsOfUserAtThread(int idThread){
-		Collection<Rating> result;
+	public Rating findRatingOfUserAtThread(int threadId){
+		Rating result;
 		
-		result = new ArrayList<Rating>();
-		result=ratingRepository.findRatingsOfUserAtThread(LoginService.getPrincipal().getId(), idThread);
+		result = ratingRepository.findRatingsOfUserAtThread(LoginService.getPrincipal().getId(), threadId);
 		
 		return result;
 	}

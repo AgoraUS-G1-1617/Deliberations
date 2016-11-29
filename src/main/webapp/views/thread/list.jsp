@@ -1,13 +1,3 @@
-<%--
- * action-2.jsp
- *
- * Copyright (C) 2013 Universidad de Sevilla
- * 
- * The use of this project is hereby constrained to the conditions of the 
- * TDG Licence, a copy of which you may download from 
- * http://www.tdg-seville.info/License.html
- --%>
-
 <%@page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 
@@ -77,14 +67,15 @@
 		</display:column>
 		
 		<display:column>
-			<a href="rating/edit.do?threadId=${row.id}">
-			<spring:message code="thread.rate" />
-			</a>
-			<jstl:if test="${messageThreadRating != null && ratingThreadModified==row.id}">
-				<span class="message"><spring:message code="${messageThreadRating}" /></span>
-			</jstl:if>	
+			<!-- Chunk for thread rating -->
+			<jstl:forEach var="i" begin="1" end="${row.rating}">
+				<img src='images/star.png' alt='*' height='20px' />
+			</jstl:forEach>
+			<jstl:forEach var="i" begin="${row.rating}" end="4">
+				<img src='images/star_n.png' alt='*' height='20px' />
+			</jstl:forEach>
+			<!-- ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ -->
 		</display:column>	
-
 	</display:table>
 </div>
 </div>

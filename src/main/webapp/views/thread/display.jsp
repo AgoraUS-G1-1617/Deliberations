@@ -23,6 +23,7 @@
 <%@ page import ="domain.User" %>
 <%@ page import ="domain.Rank" %>
 
+<security:authentication property="principal.username" var="principalsUsername"/>
 
 <script
 	src="scripts/jquery.bootpag.min.js">
@@ -35,11 +36,42 @@
 		<div class="row">
 			<div class="col-sm-11 col-sm-offset-1">
 				<h3>
-					<jstl:out value="${hilo.title}"></jstl:out>
+					<jstl:out value="${hilo.title}"/>
 				</h3>
+				
+				<!-- Chunk for thread rating -->
+				<jstl:set var="principalsRating" value="0" />
+				<jstl:forEach var="item" items="${hilo.ratings}">
+					<jstl:if test="${item.user.userAccount.username eq principalsUsername}">
+						<jstl:set var="principalsRating" value="${item.rate}" />
+					</jstl:if>
+				</jstl:forEach>
+				
+				<jstl:forEach var="i" begin="1" end="5">
+					<a href="rating/edit.do?threadId=${hilo.id}&value=${i}">
+						<jstl:choose>
+							<jstl:when test="${principalsRating != 0}">
+								<jstl:choose>
+									<jstl:when test="${principalsRating < i}">
+										<img src='images/star_n.png' alt='*' height='20px' />
+									</jstl:when>
+									<jstl:otherwise>
+										<img src='images/star.png' alt='*' height='20px' />
+									</jstl:otherwise>
+								</jstl:choose>
+							</jstl:when>
+							<jstl:otherwise>
+								<img src='images/star_n.png' alt='*' height='20px' />
+							</jstl:otherwise>
+						</jstl:choose>
+					</a>
+				</jstl:forEach>
+				<!-- ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ -->
+				
+				<br/>
+				
 				<!-- Chunk for opening and closing threads -->
 				
-				<security:authentication property="principal.username" var="principalsUsername"/>
 				<security:authorize access="isAuthenticated()">
 					<jstl:if test="${principalsUsername == hilo.user.userAccount.username}">
 						<jstl:choose>
