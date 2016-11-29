@@ -29,6 +29,18 @@
 	src="scripts/jquery.bootpag.min.js">
 </script>
 
+<script>
+function updateStars(id) {
+	for (i = 1; i <= 5; i++) { 
+	    document.getElementById('star'+i).src = 'images/star_n.png';
+	}
+	
+	for (i = 1; i <= id; i++) { 
+	    document.getElementById('star'+i).src = 'images/star.png';
+	}
+}
+</script>
+
 <br />
 <br />
 <div class="container">
@@ -53,15 +65,15 @@
 							<jstl:when test="${principalsRating != 0}">
 								<jstl:choose>
 									<jstl:when test="${principalsRating < i}">
-										<img src='images/star_n.png' alt='*' height='20px' />
+										<img src='images/star_n.png' alt='*' height='20px' id='star${i}' onmouseover="updateStars(${i})"/>
 									</jstl:when>
 									<jstl:otherwise>
-										<img src='images/star.png' alt='*' height='20px' />
+										<img src='images/star.png' alt='*' height='20px' id='star${i}' onmouseover="updateStars(${i})"/>
 									</jstl:otherwise>
 								</jstl:choose>
 							</jstl:when>
 							<jstl:otherwise>
-								<img src='images/star_n.png' alt='*' height='20px' />
+								<img src='images/star_n.png' alt='*' height='20px' id='star${i}' onmouseover="updateStars(${i})"/>
 							</jstl:otherwise>
 						</jstl:choose>
 					</a>
