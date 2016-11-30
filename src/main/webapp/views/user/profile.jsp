@@ -35,14 +35,14 @@
 						</h2>
 						<p class="user-basic-information">
 							<strong>
-								<spring:message code="customer.genre" />
+								<spring:message code="user.genre" />
 						    </strong>
 						    <jstl:out value="${user.genre}"></jstl:out>
 						    	
 						</p>
 						<p class="user-basic-information">
 							<strong>
-								<spring:message code="customer.email"/>:
+								<spring:message code="user.email"/>:
 							</strong>
 							<jstl:out value=" ${user.email}"/>							
 						</p>

@@ -54,7 +54,7 @@
 					<div class="input-group">
 						<span class="input-group-addon"><i
 							class="glyphicon glyphicon-user"></i></span>
-						<form:input code="customer.user" path="username" id="user"
+						<form:input code="user.user" path="username" id="user"
 							class="form-control" />
 						<form:errors class="error" path="username" />
 					</div>
@@ -62,7 +62,7 @@
 					<div class="input-group">
 						<span class="input-group-addon"><i
 							class="glyphicon glyphicon-lock"></i></span>
-						<form:password code="customer.password" path="password"
+						<form:password code="user.password" path="password"
 							id="password" class="form-control" />
 						<form:errors class="error" path="password" />
 					</div>

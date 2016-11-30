@@ -1,13 +1,3 @@
-/* CustomerController.java
- *
- * Copyright (C) 2013 Universidad de Sevilla
- * 
- * The use of this project is hereby constrained to the conditions of the 
- * TDG Licence, a copy of which you may download from 
- * http://www.tdg-seville.info/License.html
- * 
- */
-
 package controllers;
 
 import java.io.IOException;
@@ -71,7 +61,7 @@ public class UserController extends AbstractController {
 		userAccount = new UserAccount();
 		authority = new Authority();
 
-		authority.setAuthority("CUSTOMER");
+		authority.setAuthority("USER");
 		userAccount.addAuthority(authority);
 
 		result = new ModelAndView("user/login");

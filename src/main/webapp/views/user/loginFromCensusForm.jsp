@@ -21,10 +21,10 @@
 
 <form action="loginFromCensus.do" method="post">
 
-<spring:message code="customer.user"/>
+<spring:message code="user.user"/>
 <input type="text" name="username"/>
 
-<acme:submit name="save" code="customer.submit"/>
+<acme:submit name="save" code="user.submit"/>
 
 
 
