@@ -20,7 +20,7 @@
 <%-- <b>Copyright &copy; <fmt:formatDate value="${date}" pattern="yyyy" /> Sample Co., Inc.</b> --%>
 <div class="footer">
 	<div class="container">
-			<div class="col-md-4 contact-left">
+			<div class="col-md-3 contact-left">
 
 				<h4>
 					<spring:message code="footer.address" />
@@ -31,7 +31,7 @@
 
 				</address>
 			</div>
-			<div class="col-md-4 contact-left">
+			<div class="col-md-3 contact-left">
 
 				<h4>
 					<spring:message code="footer.repository" />
@@ -44,7 +44,7 @@
 				</p>
 
 			</div>
-			<div class="col-md-4 contact-left">
+			<div class="col-md-3 contact-left">
 
 				<h4>
 					<spring:message code="footer.contact" />
@@ -55,6 +55,17 @@
 					</span>
 					benavides@us.es
 				</p>
+
+			</div>
+			<div class="col-md-3 contact-left">
+
+				<h4>
+					<spring:message code="footer.language" />
+				</h4>
+				<div>
+					<span><a href="?language=es"><img id="translate-flag" src="images/es.gif"/>Español
+			</a> <br/><br/> <a href="?language=en"><img id="translate-flag" src="images/en.gif"/>English</a></span>
+				</div>
 
 			</div>
 			<div class="clearfix"></div>

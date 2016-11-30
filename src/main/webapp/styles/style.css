@@ -5,7 +5,6 @@ License: Creative Commons Attribution 3.0 Unported
 License URL: http://creativecommons.org/licenses/by/3.0/
 */
 
-
 /*--fonts--*/
 
 @font-face {
@@ -40,6 +39,10 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 	color: #fff;
 }
 
+#translate-flag{
+	margin-right: 2%;
+}
+
 .head-mid {
 	float: left;
 	width: 33.33%;
@@ -60,6 +63,7 @@ nav.navbar.navbar-default.chn-gd {
 	background-color: #286090;
 	padding: 0em 0em;
 	margin: 0;
+	margin-left: -17%;
 }
 
 .header_nav {
@@ -151,10 +155,8 @@ li.las a {
 
 .logo {
 	float: left;
-	width: 40%;
-	margin-botton:-30%;
-	margin-bottom: -3%;
-	margin-top: -2%;
+	margin-left: 1%;
+	width: 7%;
 	position:relative;
 }
 <!---->

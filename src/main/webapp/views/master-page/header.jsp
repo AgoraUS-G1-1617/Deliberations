@@ -44,37 +44,12 @@
 	
 </script>
 
-<div class="header">
-	<div class="container">
-
-		<div class="logo">
+<div class="header_nav" id="home">
+	<div class="logo">
 			<a href="" > <img src="images/logo.png" class="img-responsive"
 				alt="Deliberations - Agora@US" />
 			</a>
 		</div>
-
-		<div class="head-mid"></div>
-		<div class="ad-ph">
-			<span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
-			<p style="float: right">
-				<security:authorize access="isAuthenticated()">
-					<h6>
-						<spring:message code="master.page.welcome" />
-					</h6>
-					<span style="float: left; padding-right: 2px"> <security:authentication
-							property="principal.username" />
-					</span>
-				</security:authorize>
-			</p>
-			<span><a href="?language=es"><img src="images/es.gif" />
-			</a> | <a href="?language=en"><img src="images/en.gif" /></a></span> <br>
-
-		</div>
-		<div class="clearfix"></div>
-	</div>
-</div>
-
-<div class="header_nav" id="home">
 	<div class="container">
 		<nav class="navbar navbar-default chn-gd">
 
