@@ -110,12 +110,14 @@ function updateStars(id) {
 
 			<!-- /row -->
 			<div class="row">
-				<div class="col-sm-1  col-sm-offset-1">
+				<div class="col-sm-1">
 					<div class="thumbnail">
 						<img class="img-responsive user-photo"
 							src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png">
 					</div>
 					<!-- /thumbnail -->
+				</div>
+				<div class="col-sm-1">
 				</div>
 				<!-- /col-sm-1 -->
 				<div class="col-sm-9">
@@ -156,15 +158,19 @@ function updateStars(id) {
 				</div>
 				<!-- /col-sm-1 -->
 				<div class="col-sm-1">
+				<jstl:if test="${row.user.id!=loggedUserId}">
 				<button onclick="location.href='karma/setKarma.do?commentId=${row.id}&value=up'" class="up-button">
 				</button>
+				</jstl:if>
 				<div id="karma-div-${row.id}" class="karma-div">
 					<button onclick="karmaDetails(${row.id},${commentsKarma[row.id][1]},${commentsKarma[row.id][2]})" class="karma-button">
 						${commentsKarma[row.id][0]}
 					</button>
 				</div>
+				<jstl:if test="${row.user.id!=loggedUserId}">
 				<button onclick="location.href='karma/setKarma.do?commentId=${row.id}&value=down'" class="down-button">
 				</button>
+				</jstl:if>
 				</div>
 				<div class="col-sm-9">
 					<div class="panel panel-default">

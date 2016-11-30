@@ -365,11 +365,13 @@ public class ThreadController extends AbstractController {
 		Collection<Comment> comments;
 		Integer lastPage;
 		HashMap<Integer,List<Integer>> commentsKarma;
+		Integer loggedUserId;
 
 		hilo = threadService.findOne(id);
 		comments = threadService.findCommentsByPage(id, p);
 		lastPage = threadService.calculateLastPage(null, hilo);
 		commentsKarma = karmaService.karmaOfThread(id, p);
+		loggedUserId = userService.findOneByPrincipal().getId();
 
 		result = new ModelAndView("thread/display");
 		result.addObject("hilo", hilo);
@@ -379,6 +381,7 @@ public class ThreadController extends AbstractController {
 		result.addObject("p", p);
 		result.addObject("lastPage", lastPage);
 		result.addObject("rankService", rankService);
+		result.addObject("loggedUserId", loggedUserId);
 
 		return result;
 	}

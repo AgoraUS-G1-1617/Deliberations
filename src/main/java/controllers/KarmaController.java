@@ -2,6 +2,7 @@ package controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -11,6 +12,7 @@ import domain.Comment;
 import domain.Karma;
 import services.CommentService;
 import services.KarmaService;
+import services.UserService;
 
 @Controller
 @RequestMapping("/karma")
@@ -25,6 +27,9 @@ public class KarmaController extends AbstractController {
 	private CommentService commentService;
 	
 	@Autowired
+	private UserService userService;
+	
+	@Autowired
 	private ThreadController threadController;
 
 	// Constructors -----------------------------------------------------------
@@ -37,6 +42,7 @@ public class KarmaController extends AbstractController {
 
 	@RequestMapping(value = "/setKarma", method = RequestMethod.GET)
 	public ModelAndView setKarma(@RequestParam int commentId, @RequestParam String value ) {
+		Assert.isTrue(!commentService.findOne(commentId).getUser().equals(userService.findOneByPrincipal()));
 		ModelAndView result;
 		Comment comment;
 		Karma karma;
