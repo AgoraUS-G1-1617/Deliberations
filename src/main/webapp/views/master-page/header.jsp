@@ -45,14 +45,14 @@
 </script>
 
 <div class="header_nav" id="home">
-	<div class="logo">
+	<div class="container">
+		
+		<nav class="navbar navbar-default chn-gd">
+			<div class="logo">
 			<a href="" > <img src="images/logo.png" class="img-responsive"
 				alt="Deliberations - Agora@US" />
 			</a>
 		</div>
-	<div class="container">
-		<nav class="navbar navbar-default chn-gd">
-
 			<!-- Brand and toggle get grouped for better mobile display -->
 			<div class="navbar-header">
 				<button type="button" class="navbar-toggle collapsed"
