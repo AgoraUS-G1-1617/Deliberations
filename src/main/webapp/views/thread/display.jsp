@@ -122,12 +122,12 @@ function updateStars(id) {
 				<!-- /col-sm-1 -->
 				<div class="col-sm-9">
 					<div class="panel panel-default">
-						<div class="panel-heading">
+						<div class="panel-heading" style="background-color: #286090;">
 							<jstl:set var="rank" value="${rankService.calculateRank(hilo.user)}"/>
 							<img class="iconRankUser" src="${rank.icon}" title="${rank.title}">
-							<strong> <jstl:out
+							<strong class="hilo-first-font"> <jstl:out
 									value="${hilo.user.userAccount.username }"></jstl:out>
-							</strong> <span class="text-muted"><jstl:out
+							</strong> <span class="text-muted" style="color: white;"><jstl:out
 									value="${hilo.creationMoment}"></jstl:out></span>
 						</div>
 						<div class="panel-body">
