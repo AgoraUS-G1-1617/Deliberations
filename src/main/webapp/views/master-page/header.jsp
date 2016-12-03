@@ -48,9 +48,13 @@
 	<div class="container">
 		
 		<nav class="navbar navbar-default chn-gd">
-			<div class="logo">
-			<a href="" > <img src="images/logo.png" class="img-responsive"
-				alt="Deliberations - Agora@US" />
+			<div class="logoDlb">
+			<a href="" > 
+			
+			
+			<svg height="46" width="46" xmlns:svg="http://www.w3.org/2000/svg" version="1.2" xmlns:xlink="http://www.w3.org/1999/xlink" >
+  				<image id="dlb" height="42" width="42"  xlink:href="images/logo.svg" />
+			</svg>
 			</a>
 		</div>
 			<!-- Brand and toggle get grouped for better mobile display -->
