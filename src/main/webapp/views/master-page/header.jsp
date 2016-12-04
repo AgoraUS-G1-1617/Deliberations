@@ -120,14 +120,10 @@
 					<!---->
 
 					<security:authorize access="isAnonymous()">
-						<li class="dropdown"><a href="" class="dropdown-toggle"
-							data-toggle="dropdown"><span class="glyphicon glyphicon-cog "
-								aria-hidden="true"></span> <spring:message
-									code="master.page.options" /> <span class="caret"></span></a>
-							<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-								<li><a href="user/login.do"><spring:message
-											code="master.page.signin" /></a></li>
-							</ul></li>
+						<li><a href="user/login.do"><span class="glyphicon glyphicon-user " aria-hidden="true"></span><spring:message
+											code="master.page.signin" />
+
+						</a></li>
 					</security:authorize>
 					<!---->
 					<div class="clearfix"></div>
