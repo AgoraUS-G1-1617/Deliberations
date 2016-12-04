@@ -49,8 +49,15 @@
 			<div class="col-md-3 contact-left">
 
 				<h4>
-					<spring:message code="footer.repository" />
+					<spring:message code="footer.develop" />
 				</h4>
+				<p>
+					<span class="glyphicon" aria-hidden="true">
+					<img alt="Teams" src="images/team.jpg" style="width:48px; border-radius: 50%;">
+					</span>
+					<a href="about-us/teams.do"><spring:message code="footer.developerteams" /></a>
+				</p>
+				<br />
 				<p>
 					<span class="glyphicon" aria-hidden="true">
 					<img alt="Github" src="images/Github.png">

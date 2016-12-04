@@ -38,6 +38,7 @@
 		<security:intercept-url pattern="/views/misc/index.jsp" access="permitAll" /> 
 
 		<security:intercept-url pattern="/welcome/index.do" access="permitAll" /> 
+		<security:intercept-url pattern="/about-us/teams.do" access="permitAll" />
 		
 		<security:intercept-url pattern="/dashboard/**.do" access="isAuthenticated()" /> 
 		<security:intercept-url pattern="/rating/**.do" access="isAuthenticated()" /> 
