@@ -31,17 +31,16 @@
 		<display:column title="${titleHeader}">
 			<a href="thread/display.do?id=${row.id}&p=1"><jstl:out
 					value="${row.title }"></jstl:out></a>
+			<!-- Chunk for closed threads -->
+			<jstl:if test="${row.closed}">
+  				<span id="lock-icon" class="glyphicon glyphicon-lock" aria-hidden="true" ></span>
+			</jstl:if>
+			<!-- ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^  -->
 			<security:authorize  access="isAuthenticated()">
 				<jstl:if test="${row.user.id == actUserId}">
 					&nbsp (<a href="thread/edit.do?threadId=${row.id}">edit</a>)
 				</jstl:if>
 			</security:authorize>
-			
-			<!-- Chunk for closed threads -->
-			<jstl:if test="${row.closed}">
-				<img src="images/lock.png" height="10%" width="10%"/>
-			</jstl:if>
-			<!-- ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^  -->
 		</display:column>
 
 		<spring:message var="authorHeader" code="thread.author" />
