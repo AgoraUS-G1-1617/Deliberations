@@ -1,8 +1,10 @@
 
 package domain;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
@@ -44,6 +46,7 @@ public class Thread extends DomainEntity {
 	// it has to call.
 	@SuppressWarnings("unused")
 	private double rating;
+	private Comment lastComment;
 
 	@NotBlank
 	public String getTitle() {
@@ -104,6 +107,33 @@ public class Thread extends DomainEntity {
 		result = result/ratings.size();
 		
 		return result;
+	}
+	
+	@Transient
+	public Comment getLastComment() {
+		List<Comment> comments;
+		Comment lastComment;
+		
+		comments = new ArrayList<Comment>(this.comments);
+		lastComment = null;
+		
+		if(!comments.isEmpty()){
+			lastComment = comments.get(0);
+			for(Comment c : comments){
+				if(lastComment.getCreationMoment().before(c.getCreationMoment())){
+					lastComment = c;
+				}
+			}
+			
+		}
+		
+		this.lastComment = lastComment;
+		
+		return this.lastComment;
+	}
+
+	public void setLastComment(Comment lastComment) {
+		this.lastComment = lastComment;
 	}
 
 	// Relationships ----------------------------------------------------------

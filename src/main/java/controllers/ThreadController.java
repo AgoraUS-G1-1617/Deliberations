@@ -7,7 +7,6 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -78,15 +77,12 @@ public class ThreadController extends AbstractController {
 	public ModelAndView list() {
 		ModelAndView result;
 		Collection<domain.Thread> threads;
-		Map<Integer,Comment> lastComments;
 		
 		threads = threadService.findAll();
-		lastComments = commentService.findLastComments(threads);
 		
 		result = new ModelAndView("thread/list");
 		result.addObject("threads", threads);
 		result.addObject("allThreads", threadService.findAll());
-		result.addObject("lastComments",lastComments);
 		result.addObject("actUserId",userService.findOneByPrincipal().getId());
 		
 		return result;

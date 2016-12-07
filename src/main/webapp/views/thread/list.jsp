@@ -56,9 +56,11 @@
 		
 		<spring:message var="lastCommentHeader" code="thread.lastComment" />
 		<display:column title="${lastCommentHeader}">
-			<fmt:formatDate value="${lastComments.get(row.id).creationMoment}" pattern="dd/MM/yyyy HH:mm"/>
+			<jstl:if test="${row.lastComment!=null}">
+			<fmt:formatDate value="${row.lastComment.creationMoment}" pattern="dd/MM/yyyy HH:mm"/>
+			</jstl:if>
 		</display:column>
-
+		
 		<spring:message var="answersHeader" code="thread.answers" />
 		<display:column title="${answersHeader}">
 			<span class="badge"> <jstl:out value="${row.comments.size()}"></jstl:out>
