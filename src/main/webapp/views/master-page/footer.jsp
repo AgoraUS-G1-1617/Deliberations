@@ -53,7 +53,7 @@
 				</h4>
 				<p>
 					<span class="glyphicon" aria-hidden="true">
-					<img alt="Teams" src="images/team.jpg" style="width:48px; border-radius: 50%;">
+					<img alt="Teams" src="images/team.png" style="width:48px; border-radius: 50%;">
 					</span>
 					<a href="about-us/teams.do"><spring:message code="footer.developerteams" /></a>
 				</p>
