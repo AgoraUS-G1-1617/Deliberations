@@ -1,8 +1,8 @@
 # Deliberaciones Agora@US 16-17
 
+
 Deliberaciones es un subsistema de código abierto del proyecto Agora@US que introduce la funcionalidad de un foro para administrar hilos y mensajes de usuarios votantes. 
 Dichos mensajes contendrán información sobre el votante que los haya realizado. Sólo los votantes válidos podrán realizar comentarios, por lo que se deberá consultar al sistema de autenticación.
-
 
 ### Tecnología
 Se trata de una aplicación web J2EE que hace uso de una base de datos MySQL con las herramientas Hibernate y Spring para el mapeo de objetos.
@@ -15,7 +15,6 @@ Además, se utilizan las siguientes herramientas y frameworks:
 - CSS
 - JavaScript
 - Bootstrap
- 
  
 ### Modulos relacionados
 
@@ -71,3 +70,4 @@ Para el sistema de integración continua el cual ofrece construcción, tests y d
  * Cuenta de usuario
    - Username: deliberations
    - Password: deliberations
+
