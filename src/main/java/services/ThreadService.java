@@ -57,6 +57,7 @@ public class ThreadService {
 		result.setComments(comments);
 		result.setRatings(ratings);
 		result.setCreationMoment(date);
+		result.setLastUpdate(date);
 
 		return result;
 	}
@@ -66,7 +67,7 @@ public class ThreadService {
 	}
 
 	public Collection<Thread> findAll() {
-		return threadRepository.findAll();
+		return threadRepository.findAllSortedByDate();
 	}
 
 	public void save(Thread thread) {
@@ -74,6 +75,8 @@ public class ThreadService {
 
 		date = new Date(System.currentTimeMillis() - 1000);
 		thread.setCreationMoment(date);
+		if (thread.getId() == 0)
+				thread.setLastUpdate(date);
 		// Make sure the thread is not closed at creation irregardless of POST hacking issues
 		thread.setClosed(false);
 
@@ -81,6 +84,16 @@ public class ThreadService {
 	}
 
 	// Other business methods -------------------------------------------------
+
+	public void refreshLastUpdate(Thread t){
+		Date date;
+
+		t = this.findOne(t.getId());
+		date = new Date(System.currentTimeMillis() - 1000);
+		t.setLastUpdate(date);
+
+		threadRepository.save(t);
+	}
 
 	public Collection<Thread> findThreadWithMoreComments() {
 		Collection<Thread> result;

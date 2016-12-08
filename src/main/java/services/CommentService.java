@@ -29,6 +29,9 @@ public class CommentService {
 	@Autowired
 	private UserService userService;
 
+	@Autowired
+	private ThreadService threadService;
+
 	// Constructors -----------------------------------------------------------
 
 	public CommentService() {
@@ -58,7 +61,11 @@ public class CommentService {
 		//	- The thread that is associated to the comment passed as parameter must not be closed
 		Assert.isTrue(!comment.getThread().isClosed());
 		
+		// No se puede editar un comentario
+		Assert.isTrue(comment.getId() == 0);
+
 		commentRepository.save(comment);
+		threadService.refreshLastUpdate(comment.getThread());
 	}
 
 	public void delete(Comment comment) {

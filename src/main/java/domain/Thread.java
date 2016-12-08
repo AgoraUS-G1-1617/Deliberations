@@ -38,6 +38,7 @@ public class Thread extends DomainEntity {
 
 	private String title;
 	private Date creationMoment;
+	private Date lastUpdate;
 	private String decription;
 	private Boolean erase;
 	private boolean closed;
@@ -67,6 +68,18 @@ public class Thread extends DomainEntity {
 
 	public void setCreationMoment(Date creationMoment) {
 		this.creationMoment = creationMoment;
+	}
+
+	@Past
+	@NotNull
+	@Temporal(TemporalType.TIMESTAMP)
+	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
+	public Date getLastUpdate() {
+		return lastUpdate;
+	}
+
+	public void setLastUpdate(Date lastUpdate) {
+		this.lastUpdate = lastUpdate;
 	}
 
 	@NotBlank
