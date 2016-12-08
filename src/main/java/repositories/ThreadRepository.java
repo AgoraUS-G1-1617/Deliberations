@@ -39,4 +39,6 @@ public interface ThreadRepository extends JpaRepository<Thread, Integer> {
 	@Query("select count(t) from Thread t where t.user.id = ?1")
 	int countThreadCreatedByUserIdGiven(int id);
 
+	@Query("select t from Thread t order by t.lastUpdate desc")
+	Collection<Thread> findAllSortedByDate();
 }
