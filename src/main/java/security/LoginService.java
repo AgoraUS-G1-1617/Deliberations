@@ -78,12 +78,15 @@ public class LoginService implements UserDetailsService {
 		String res;
 
 		// para generar el token se envia el password con MD5
+		
 		String passwordMd5 = new Md5PasswordEncoder().encodePassword(userAccount.getPassword(), null);
-		// depues se vuelve a calcular el md5 del password + nombre de usario
-		// antes
+		
+		// depues se vuelve a calcular el md5 del password + nombre de usario antes
+
 		passwordMd5 = userAccount.getUsername() + new Md5PasswordEncoder().encodePassword(passwordMd5, null);
-		// despues de vuelve a calcular el md5 y se le añade el nombre mas dos
-		// puntos
+		
+		// despues de vuelve a calcular el md5 y se le añade el nombre mas dos puntos
+
 		passwordMd5 = userAccount.getUsername() + ":" + new Md5PasswordEncoder().encodePassword(passwordMd5, null);
 		res = passwordMd5;
 

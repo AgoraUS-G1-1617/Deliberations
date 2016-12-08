@@ -23,29 +23,33 @@ import security.UserAccount;
 @Transactional
 public class UserService {
 
-	// Managed repository
+	// Managed repository -----------------------------------------------------
+
 	@Autowired
 	private UserRepository userRepository;
 
-	// Supporting services
+	// Supporting services ----------------------------------------------------
 
-	// Constructors
+	// Constructors -----------------------------------------------------------
+
 	public UserService() {
 		super();
 	}
 
-	// Simple CRUD methods
+	// Simple CRUD methods ----------------------------------------------------
+
 	public User create(String username) {
-		User res;
+		User result;
 		UserAccount userAccount;
 		Authority authority;
 		List<Thread> threads;
 		List<Comment> comments;
 		List<Rating> ratings;
+		Collection<Authority> authorities;
 
-		res = new User();
+		result = new User();
 		userAccount = new UserAccount();
-		Collection<Authority> authorities = new ArrayList<Authority>();
+		authorities = new ArrayList<Authority>();
 		authority = new Authority();
 		threads = new ArrayList<Thread>();
 		comments = new ArrayList<Comment>();
@@ -57,12 +61,13 @@ public class UserService {
 		userAccount.setPassword(new Md5PasswordEncoder().encodePassword(username, null));
 		userAccount.setAuthorities(authorities);
 
-		res.setName(username);
-		res.setUserAccount(userAccount);
-		res.setComments(comments);
-		res.setThreads(threads);
-		res.setRatings(ratings);
-		return res;
+		result.setName(username);
+		result.setUserAccount(userAccount);
+		result.setComments(comments);
+		result.setThreads(threads);
+		result.setRatings(ratings);
+
+		return result;
 	}
 
 	public User findOne(int userId) {
@@ -73,44 +78,92 @@ public class UserService {
 		return userRepository.findAll();
 	}
 
-	public void save(User user) {
-		userRepository.save(user);
+	public User save(User user) {
+		return userRepository.save(user);
 	}
 
 	public void delete(User user) {
 		userRepository.delete(user);
 	}
 
-	// Other business methods
+	// Other business methods -------------------------------------------------
 
+	//Este método recibe un usuario creado con las propiedade básicas como parámatreo y un UserAccount y
+	//le añade las relaciones correspondientes Ej.: UserAccount, Ratings, Threads, etc.
+	public User setUserProperties(User user, UserAccount userAccount) {
+		User result;
+		UserAccount newUserAccount;
+		Authority authority;
+		List<Thread> threads;
+		List<Comment> comments;
+		List<Rating> ratings;
+		Collection<Authority> authorities;
+
+		result = user;
+		newUserAccount = new UserAccount();
+		authorities = new ArrayList<Authority>();
+		authority = new Authority();
+		threads = new ArrayList<Thread>();
+		comments = new ArrayList<Comment>();
+		ratings = new ArrayList<Rating>();
+
+		authority.setAuthority("USER");
+		authorities.add(authority);
+		newUserAccount.setUsername(userAccount.getUsername());
+		newUserAccount.setPassword(new Md5PasswordEncoder().encodePassword(userAccount.getPassword(), null));
+		newUserAccount.setAuthorities(authorities);
+
+		result.setName(userAccount.getUsername());
+		result.setUserAccount(newUserAccount);
+		result.setComments(comments);
+		result.setThreads(threads);
+		result.setRatings(ratings);
+
+		return result;
+	}
+	
 	public User findOneByPrincipal() {
-		User res = new User();
-		res = userRepository.findOneByPrincipal(LoginService.getPrincipal().getId());
-		return res;
+		User result;
+
+		result = new User();
+		result = userRepository.findOneByPrincipal(LoginService.getPrincipal().getId());
+
+		return result;
 	}
 
 	public User findByUsername(String username) {
-		User res = new User();
-		res = userRepository.findByUsername(username);
-		return res;
+		User result;
+
+		result = new User();
+		result = userRepository.findByUsername(username);
+
+		return result;
 	}
 
 	public Collection<User> findUserWithZeroComments() {
-		Collection<User> res = new ArrayList<User>();
-		res = userRepository.findUserWithZeroComments();
-		return res;
+		Collection<User> result = new ArrayList<User>();
+
+		result = userRepository.findUserWithZeroComments();
+
+		return result;
 	}
 
 	public Collection<User> findUserWithMoreComments() {
-		Collection<User> res = new ArrayList<User>();
-		res = userRepository.findUserWithMoreComments();
-		return res;
+		Collection<User> result;
+
+		result = new ArrayList<User>();
+		result = userRepository.findUserWithMoreComments();
+
+		return result;
 	}
 
 	public Collection<User> findUserWithMoreThreads() {
-		Collection<User> res = new ArrayList<User>();
-		res = userRepository.findUserWithMoreThreads();
-		return res;
+		Collection<User> result;
+
+		result = new ArrayList<User>();
+		result = userRepository.findUserWithMoreThreads();
+
+		return result;
 	}
 
 }

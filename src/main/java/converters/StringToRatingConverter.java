@@ -12,6 +12,7 @@ import services.RatingService;
 @Component
 @Transactional
 public class StringToRatingConverter implements Converter<String, Rating> {
+	
 	@Autowired
 	private RatingService ratingService;
 

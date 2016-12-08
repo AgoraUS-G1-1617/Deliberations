@@ -1,13 +1,3 @@
-/* CustomerController.java
- *
- * Copyright (C) 2013 Universidad de Sevilla
- * 
- * The use of this project is hereby constrained to the conditions of the 
- * TDG Licence, a copy of which you may download from 
- * http://www.tdg-seville.info/License.html
- * 
- */
-
 package controllers;
 
 import java.io.IOException;
@@ -71,7 +61,7 @@ public class UserController extends AbstractController {
 		userAccount = new UserAccount();
 		authority = new Authority();
 
-		authority.setAuthority("CUSTOMER");
+		authority.setAuthority("USER");
 		userAccount.addAuthority(authority);
 
 		result = new ModelAndView("user/login");
@@ -97,11 +87,12 @@ public class UserController extends AbstractController {
 		} else {
 
 			// Se monta el token a verificar para el usuario
+			
 			tokenToVerify = loginService.verifyToken(userAccount);
 
 			// Se recupera la respuesta a la petición
 
-			response = objectMapper.readValue(new URL("http://localhost/Auth/api/checkToken?token=" + tokenToVerify),
+			response = objectMapper.readValue(new URL("http://www.egcaj.tk/Auth/api/checkToken?token=" + tokenToVerify),
 					Token.class);
 
 			// Se comprueba que la respuesta recibida sea válida
@@ -112,6 +103,9 @@ public class UserController extends AbstractController {
 				try {
 					// Se comprueba que el usuario que accede exista ya en
 					// Deliberaciones y se inicia sesión
+					DaoAuthenticationProvider authenticator;
+					Authentication authentication;
+					
 					Assert.isTrue(loginService.loadUserByUsername(userAccount.getUsername()).getPassword()
 							.equals(md5.encodePassword(userAccount.getPassword(), null)));
 
@@ -120,20 +114,38 @@ public class UserController extends AbstractController {
 
 					token.setDetails(new WebAuthenticationDetails(request));
 
-					DaoAuthenticationProvider authenticator = new DaoAuthenticationProvider();
+					authenticator = new DaoAuthenticationProvider();
 
 					authenticator.setUserDetailsService(userDetailsService);
 
-					Authentication authentication = authenticator.authenticate(token);
+					authentication = authenticator.authenticate(token);
 
 					SecurityContextHolder.getContext().setAuthentication(authentication);
 
 				} catch (Exception e) {
-					// En caso de no existir en Deliberaciones se le da de alta
+					// En caso de no existir en Deliberaciones se le da de alta en 
+					// Deliberaciones y se inicia sesión
+					User usuario;
+					UserAccount userAccountUsuario;
+					DaoAuthenticationProvider authenticator;
+					Authentication authentication;
+					
+					usuario = objectMapper.readValue(new URL("http://www.egcaj.tk/Auth/api/getUser?user=" + userAccount.getUsername()),
+							User.class);
+					usuario = userService.setUserProperties(usuario, userAccount);
+					usuario = userService.save(usuario);
+					userAccountUsuario = usuario.getUserAccount();
+					
+					UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(
+							userAccountUsuario.getUsername(), userAccountUsuario.getPassword(), null);
 
-					User usuario = userService.create(userAccount.getUsername());
+					token.setDetails(new WebAuthenticationDetails(request));
 
-					userService.save(usuario);
+					authenticator = new DaoAuthenticationProvider();
+					authenticator.setUserDetailsService(userDetailsService);
+					authentication = authenticator.authenticate(token);
+
+					SecurityContextHolder.getContext().setAuthentication(authentication);
 
 				}
 
@@ -151,6 +163,9 @@ public class UserController extends AbstractController {
 		return result;
 
 	}
+	
+	
+	
 
 	// Ancillary methods
 	// ----------------------------------------------------------------------
@@ -159,7 +174,7 @@ public class UserController extends AbstractController {
 		ModelAndView result;
 
 		result = new ModelAndView("user/login");
-		result.addObject("message", message);
+		result.addObject("messageError", message);
 
 		return result;
 	}

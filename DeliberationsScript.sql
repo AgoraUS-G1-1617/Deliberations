@@ -1,256 +1,326 @@
--- phpMyAdmin SQL Dump
--- version 4.5.0.2
--- http://www.phpmyadmin.net
---
--- Servidor: 127.0.0.1
--- Tiempo de generaci√≥n: 24-11-2015 a las 11:35:20
--- Versi√≥n del servidor: 10.0.17-MariaDB
--- Versi√≥n de PHP: 5.6.14
+start transaction;
 
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET time_zone = "+00:00";
+create user 'deliberations-user'@'%' identified by password '*EE89F5183D614BA3B739D1872158684DDB27BBA7';
 
-# Privilegios para `acme-manager`@`%`
+create user 'deliberations-manager'@'%' identified by password '*6AEE22A9E5CB25E3944BFAB0C57E5D4D834EF1A1';
 
-GRANT SELECT, INSERT, UPDATE, DELETE, CREATE, DROP, REFERENCES, INDEX, ALTER, CREATE TEMPORARY TABLES, LOCK TABLES, EXECUTE, CREATE VIEW, SHOW VIEW, CREATE ROUTINE, ALTER ROUTINE, TRIGGER ON *.* TO 'acme-manager'@'%' IDENTIFIED BY PASSWORD '*FDB8CD304EB2317D10C95D797A4BD7492560F55F' WITH GRANT OPTION;
 
-# Privilegios para `acme-user`@`%`
+# Privilegios para `deliberations-manager`@`%`
 
-GRANT SELECT, INSERT, UPDATE, DELETE ON *.* TO 'acme-user'@'%' IDENTIFIED BY PASSWORD '*4F10007AADA9EE3DBB2CC36575DFC6F4FDE27577' WITH GRANT OPTION;
+GRANT SELECT, INSERT, UPDATE, DELETE, CREATE, DROP, REFERENCES, INDEX, ALTER, CREATE TEMPORARY TABLES, LOCK TABLES, EXECUTE, CREATE VIEW, SHOW VIEW, CREATE ROUTINE, ALTER ROUTINE, TRIGGER ON *.* TO 'deliberations-manager'@'%' IDENTIFIED BY PASSWORD '*6AEE22A9E5CB25E3944BFAB0C57E5D4D834EF1A1' WITH GRANT OPTION;
 
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
+# Privilegios para `deliberations-user`@`%`
 
---
+GRANT SELECT, INSERT, UPDATE, DELETE ON *.* TO 'deliberations-user'@'%' IDENTIFIED BY PASSWORD '*EE89F5183D614BA3B739D1872158684DDB27BBA7' WITH GRANT OPTION;
+
+
 -- Base de datos: `deliberations`
 --
 CREATE DATABASE IF NOT EXISTS `deliberations` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
 USE `deliberations`;
 
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `actor`
---
-
-CREATE TABLE `actor` (
-  `id` int(11) NOT NULL,
-  `version` int(11) NOT NULL,
-  `email` varchar(255) DEFAULT NULL,
-  `location` varchar(255) DEFAULT NULL,
-  `name` varchar(255) DEFAULT NULL,
-  `surname` varchar(255) DEFAULT NULL,
-  `userAccount_id` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+SET NAMES utf8;
 
 -- --------------------------------------------------------
 
+
+-- MySQL dump 10.13  Distrib 5.7.16, for Linux (x86_64)
 --
--- Estructura de tabla para la tabla `administrator`
+-- Host: localhost    Database: deliberations
+-- ------------------------------------------------------
+-- Server version	5.7.16-0ubuntu0.16.04.1
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `comment`
 --
 
-CREATE TABLE `administrator` (
-  `id` int(11) NOT NULL,
-  `version` int(11) NOT NULL,
-  `email` varchar(255) DEFAULT NULL,
-  `location` varchar(255) DEFAULT NULL,
-  `name` varchar(255) DEFAULT NULL,
-  `surname` varchar(255) DEFAULT NULL,
-  `userAccount_id` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `comment`
---
-
+DROP TABLE IF EXISTS `comment`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `comment` (
   `id` int(11) NOT NULL,
   `version` int(11) NOT NULL,
-  `creationMoment` datetime DEFAULT NULL,
+  `creation_moment` datetime DEFAULT NULL,
+  `erase` bit(1) DEFAULT NULL,
   `text` varchar(255) DEFAULT NULL,
-  `thread_id` int(11) NOT NULL,
-  `user_id` int(11) NOT NULL
+  `thread` int(11) NOT NULL,
+  `user` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `UK_3ydpbc2gdp8jl5ld83rlo6arv` (`creation_moment`,`erase`),
+  KEY `UK_2d2el8kro83u0g712ea9o0pnu` (`thread`,`creation_moment`),
+  KEY `FK_4ivt42gn164dv18bc7kd6ofkv` (`user`),
+  CONSTRAINT `FK_4ivt42gn164dv18bc7kd6ofkv` FOREIGN KEY (`user`) REFERENCES `user` (`id`),
+  CONSTRAINT `FK_nlndnfhb4alu32b6y7h80rpv9` FOREIGN KEY (`thread`) REFERENCES `hilo` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Estructura de tabla para la tabla `hibernate_sequences`
+-- Dumping data for table `comment`
 --
 
+LOCK TABLES `comment` WRITE;
+/*!40000 ALTER TABLE `comment` DISABLE KEYS */;
+INSERT INTO `comment` VALUES (9,0,'2004-11-11 12:15:00',NULL,'tex1t',7,4),(10,0,'2004-11-11 12:16:00',NULL,'text2',7,4),(11,0,'2005-01-11 12:18:00',NULL,'text3',8,5);
+/*!40000 ALTER TABLE `comment` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `hibernate_sequences`
+--
+
+DROP TABLE IF EXISTS `hibernate_sequences`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `hibernate_sequences` (
   `sequence_name` varchar(255) DEFAULT NULL,
   `sequence_next_hi_value` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Volcado de datos para la tabla `hibernate_sequences`
+-- Dumping data for table `hibernate_sequences`
 --
 
-INSERT INTO `hibernate_sequences` (`sequence_name`, `sequence_next_hi_value`) VALUES
-('DomainEntity', 1);
-
--- --------------------------------------------------------
+LOCK TABLES `hibernate_sequences` WRITE;
+/*!40000 ALTER TABLE `hibernate_sequences` DISABLE KEYS */;
+INSERT INTO `hibernate_sequences` VALUES ('domain_entity',1);
+/*!40000 ALTER TABLE `hibernate_sequences` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
--- Estructura de tabla para la tabla `hilo`
+-- Table structure for table `hilo`
 --
 
+DROP TABLE IF EXISTS `hilo`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `hilo` (
   `id` int(11) NOT NULL,
   `version` int(11) NOT NULL,
-  `creationMoment` datetime DEFAULT NULL,
-  `text` varchar(255) DEFAULT NULL,
+  `closed` bit(1) NOT NULL,
+  `creation_moment` datetime DEFAULT NULL,
+  `decription` varchar(255) DEFAULT NULL,
+  `erase` bit(1) DEFAULT NULL,
   `title` varchar(255) DEFAULT NULL,
-  `user_id` int(11) NOT NULL
+  `user` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `UK_3d6fmstiobx85nk7u22h3lxii` (`title`,`erase`),
+  KEY `FK_3mhae1ga8dlg02eyw2gy6rulh` (`user`),
+  CONSTRAINT `FK_3mhae1ga8dlg02eyw2gy6rulh` FOREIGN KEY (`user`) REFERENCES `user` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Estructura de tabla para la tabla `user`
+-- Dumping data for table `hilo`
 --
 
+LOCK TABLES `hilo` WRITE;
+/*!40000 ALTER TABLE `hilo` DISABLE KEYS */;
+INSERT INTO `hilo` VALUES (7,0,'\0','2004-11-11 12:12:00','text',NULL,'titulo',4),(8,0,'\0','2004-12-11 14:18:00','text2',NULL,'Hilando',5);
+/*!40000 ALTER TABLE `hilo` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `message`
+--
+
+DROP TABLE IF EXISTS `message`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `message` (
+  `id` int(11) NOT NULL,
+  `version` int(11) NOT NULL,
+  `body` varchar(255) DEFAULT NULL,
+  `moment` datetime DEFAULT NULL,
+  `subject` varchar(255) DEFAULT NULL,
+  `recipient` int(11) NOT NULL,
+  `sender` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK_hn9roqyj131hnul5fuwgwlv9e` (`recipient`),
+  KEY `FK_a3km2kv42i1xu571ta911f9dc` (`sender`),
+  CONSTRAINT `FK_a3km2kv42i1xu571ta911f9dc` FOREIGN KEY (`sender`) REFERENCES `user` (`id`),
+  CONSTRAINT `FK_hn9roqyj131hnul5fuwgwlv9e` FOREIGN KEY (`recipient`) REFERENCES `user` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `message`
+--
+
+LOCK TABLES `message` WRITE;
+/*!40000 ALTER TABLE `message` DISABLE KEYS */;
+/*!40000 ALTER TABLE `message` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `rank`
+--
+
+DROP TABLE IF EXISTS `rank`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `rank` (
+  `id` int(11) NOT NULL,
+  `version` int(11) NOT NULL,
+  `description_en` longblob,
+  `description_es` longblob,
+  `icon` varchar(255) DEFAULT NULL,
+  `min_comments` int(11) DEFAULT NULL,
+  `min_ratings` int(11) DEFAULT NULL,
+  `min_threads` int(11) DEFAULT NULL,
+  `number` int(11) DEFAULT NULL,
+  `title` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `UK_b6uotm0f90eofl9rmmnl6pqbf` (`min_threads`,`min_comments`,`min_ratings`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `rank`
+--
+
+LOCK TABLES `rank` WRITE;
+/*!40000 ALTER TABLE `rank` DISABLE KEYS */;
+INSERT INTO `rank` VALUES (13,0,'You are the closest thing to a stone, you should interact at least once with the forum.','Eres lo m\·s parecido a una piedra, deber\Ìas de interactuar al menos 1 vez con el foro.','images/rank0.png',0,0,0,0,'Stone / Piedra'),(14,0,'You\'ve already taken your first step in the community but you still have a lot to talk about, maybe it\'s time to create your own thread and keep commenting and punctuation.','Ya has dado tu primer paso en la comunidad pero aun te queda mucho que hablar, quiz\·s sea hora de crear tu propio hilo y seguir comentando y puntuando.','images/rank1.png',0,0,0,1,'Noob / Novato'),(15,0,'This has only been the beginning, you already know all the basic interactions of the forum, continue and you will arrive far.','Este ha sido solo el comienzo, ya conoces todas las interacciones b\·sicas del foro, sigue as\Ì y llegar\·s lejos.','images/rank2.png',5,2,1,2,'Beginner / Aprendiz'),(16,0,'You are good at creating, commenting and punctuating. This is the first of the 3 epic ranks.','Se te da bien tanto crear, comentar y puntuar. Este es el primero de los 3 rangos epicos.','images/rank3.png',15,10,5,3,'Advanced / Avanzado'),(17,0,'Your passion for the community is great, you already have at least 15 own threads, 25 comments and 20 scores, that\'s why you wear this badge that more than one dreams have.','Tu pasiÛn por la comunidad es grande, ya tienes al menos 15 hilos propios, 25 comentarios y 20 puntuaciones, por eso eso luces esta insignia que m\·s de uno sueÒa tener.','images/rank4.png',25,20,15,4,'Expert / Experto'),(18,0,'You are a promoter par excellence, your acts in the forum have led you to achieve the maximum possible distinction. Congratulations!','Eres un divulgador por excelencia, tus actos en el foro te han llevado a conseguir la m\·xima distinciÛn posible. Enhorabuena!','images/rank5.png',50,30,25,5,'Discloser / Divulgador');
+/*!40000 ALTER TABLE `rank` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `rating`
+--
+
+DROP TABLE IF EXISTS `rating`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `rating` (
+  `id` int(11) NOT NULL,
+  `version` int(11) NOT NULL,
+  `rate` int(11) DEFAULT NULL,
+  `thread` int(11) NOT NULL,
+  `user` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `UK_nohdq0ng826i95h69bry6i641` (`rate`),
+  KEY `FK_eviip7m03pduhsquougt08a0b` (`thread`),
+  KEY `FK_mljpjh5vu18fmshuuni30uhlp` (`user`),
+  CONSTRAINT `FK_eviip7m03pduhsquougt08a0b` FOREIGN KEY (`thread`) REFERENCES `hilo` (`id`),
+  CONSTRAINT `FK_mljpjh5vu18fmshuuni30uhlp` FOREIGN KEY (`user`) REFERENCES `user` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `rating`
+--
+
+LOCK TABLES `rating` WRITE;
+/*!40000 ALTER TABLE `rating` DISABLE KEYS */;
+INSERT INTO `rating` VALUES (12,0,4,7,4);
+/*!40000 ALTER TABLE `rating` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `user`
+--
+
+DROP TABLE IF EXISTS `user`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `user` (
   `id` int(11) NOT NULL,
   `version` int(11) NOT NULL,
+  `autonomous_community` varchar(255) DEFAULT NULL,
   `email` varchar(255) DEFAULT NULL,
-  `location` varchar(255) DEFAULT NULL,
+  `genre` varchar(255) DEFAULT NULL,
   `name` varchar(255) DEFAULT NULL,
   `surname` varchar(255) DEFAULT NULL,
-  `userAccount_id` int(11) DEFAULT NULL,
-  `banned` bit(1) NOT NULL,
-  `numberOfMessages` int(11) NOT NULL,
-  `url` varchar(255) DEFAULT NULL
+  `user_account` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `UK_cjn1wn3ecn1kacgqxryr6a5c6` (`user_account`),
+  CONSTRAINT `FK_cjn1wn3ecn1kacgqxryr6a5c6` FOREIGN KEY (`user_account`) REFERENCES `user_account` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Estructura de tabla para la tabla `useraccount`
+-- Dumping data for table `user`
 --
 
-CREATE TABLE `useraccount` (
+LOCK TABLES `user` WRITE;
+/*!40000 ALTER TABLE `user` DISABLE KEYS */;
+INSERT INTO `user` VALUES (4,0,'Andaluc√≠a','caballeroalba@gmail.com','Hombre','nombre','surname',1),(5,0,'Madrid','frandeveloper@gmail.com','Hombre','Fran','Developer',2),(6,0,'Madrid','user3@gmail.com','Hombre','user3','user3',3);
+/*!40000 ALTER TABLE `user` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `user_account`
+--
+
+DROP TABLE IF EXISTS `user_account`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `user_account` (
   `id` int(11) NOT NULL,
   `version` int(11) NOT NULL,
   `password` varchar(255) DEFAULT NULL,
-  `username` varchar(255) DEFAULT NULL
+  `username` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `UK_castjbvpeeus0r8lbpehiu0e4` (`username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Volcado de datos para la tabla `useraccount`
+-- Dumping data for table `user_account`
 --
 
-INSERT INTO `useraccount` (`id`, `version`, `password`, `username`) VALUES
-(1, 0, '21232f297a57a5a743894a0e4a801fc3', 'admin'),
-(2, 0, '91ec1f9324753048c0096d036a694f86', 'customer'),
-(3, 0, '1b3231655cebb7a1f783eddf27d254ca', 'super');
-
--- --------------------------------------------------------
+LOCK TABLES `user_account` WRITE;
+/*!40000 ALTER TABLE `user_account` DISABLE KEYS */;
+INSERT INTO `user_account` VALUES (1,0,'24c9e15e52afc47c225b757e7bee1f9d','user1'),(2,0,'7e58d63b60197ceb55a1c487989a3720','user2'),(3,0,'92877af70a45fd6a2ed7fe81e1236b78','user3');
+/*!40000 ALTER TABLE `user_account` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
--- Estructura de tabla para la tabla `useraccount_authorities`
+-- Table structure for table `user_account_authorities`
 --
 
-CREATE TABLE `useraccount_authorities` (
-  `UserAccount_id` int(11) NOT NULL,
-  `authority` varchar(255) DEFAULT NULL
+DROP TABLE IF EXISTS `user_account_authorities`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `user_account_authorities` (
+  `user_account` int(11) NOT NULL,
+  `authority` varchar(255) DEFAULT NULL,
+  KEY `FK_pao8cwh93fpccb0bx6ilq6gsl` (`user_account`),
+  CONSTRAINT `FK_pao8cwh93fpccb0bx6ilq6gsl` FOREIGN KEY (`user_account`) REFERENCES `user_account` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- √çndices para tablas volcadas
+-- Dumping data for table `user_account_authorities`
 --
 
---
--- Indices de la tabla `actor`
---
-ALTER TABLE `actor`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `FK_cgls5lrufx91ufsyh467spwa3` (`userAccount_id`);
+LOCK TABLES `user_account_authorities` WRITE;
+/*!40000 ALTER TABLE `user_account_authorities` DISABLE KEYS */;
+INSERT INTO `user_account_authorities` VALUES (1,'USER'),(2,'USER'),(3,'USER');
+/*!40000 ALTER TABLE `user_account_authorities` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
---
--- Indices de la tabla `administrator`
---
-ALTER TABLE `administrator`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `FK_idt4b4u259p6vs4pyr9lax4eg` (`userAccount_id`);
-
---
--- Indices de la tabla `comment`
---
-ALTER TABLE `comment`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `FK_p3dpnjlcdpyerp1tmmllrkgkk` (`thread_id`),
-  ADD KEY `FK_jhvt6d9ap8gxv67ftrmshdfhj` (`user_id`);
-
---
--- Indices de la tabla `hilo`
---
-ALTER TABLE `hilo`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `FK_9tr0n5ixknn2g3pd338j3urkq` (`user_id`);
-
---
--- Indices de la tabla `user`
---
-ALTER TABLE `user`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `FK_o6s94d43co03sx067ili5760c` (`userAccount_id`);
-
---
--- Indices de la tabla `useraccount`
---
-ALTER TABLE `useraccount`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `UK_csivo9yqa08nrbkog71ycilh5` (`username`);
-
---
--- Indices de la tabla `useraccount_authorities`
---
-ALTER TABLE `useraccount_authorities`
-  ADD KEY `FK_b63ua47r0u1m7ccc9lte2ui4r` (`UserAccount_id`);
-
---
--- Restricciones para tablas volcadas
---
-
---
--- Filtros para la tabla `actor`
---
-ALTER TABLE `actor`
-  ADD CONSTRAINT `FK_cgls5lrufx91ufsyh467spwa3` FOREIGN KEY (`userAccount_id`) REFERENCES `useraccount` (`id`);
-
---
--- Filtros para la tabla `administrator`
---
-ALTER TABLE `administrator`
-  ADD CONSTRAINT `FK_idt4b4u259p6vs4pyr9lax4eg` FOREIGN KEY (`userAccount_id`) REFERENCES `useraccount` (`id`);
-
---
--- Filtros para la tabla `comment`
---
-ALTER TABLE `comment`
-  ADD CONSTRAINT `FK_jhvt6d9ap8gxv67ftrmshdfhj` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
-  ADD CONSTRAINT `FK_p3dpnjlcdpyerp1tmmllrkgkk` FOREIGN KEY (`thread_id`) REFERENCES `hilo` (`id`);
-
---
--- Filtros para la tabla `hilo`
---
-ALTER TABLE `hilo`
-  ADD CONSTRAINT `FK_9tr0n5ixknn2g3pd338j3urkq` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`);
-
---
--- Filtros para la tabla `user`
---
-ALTER TABLE `user`
-  ADD CONSTRAINT `FK_o6s94d43co03sx067ili5760c` FOREIGN KEY (`userAccount_id`) REFERENCES `useraccount` (`id`);
-
---
--- Filtros para la tabla `useraccount_authorities`
---
-ALTER TABLE `useraccount_authorities`
-  ADD CONSTRAINT `FK_b63ua47r0u1m7ccc9lte2ui4r` FOREIGN KEY (`UserAccount_id`) REFERENCES `useraccount` (`id`);
-
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2016-11-25  0:14:45
+
+commit;

@@ -22,7 +22,7 @@ import javax.persistence.Version;
 
 @Entity
 @Access(AccessType.PROPERTY)
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS) //TODO Investigar sobre éste warning
 public abstract class DomainEntity {
 
 	// Constructors -----------------------------------------------------------

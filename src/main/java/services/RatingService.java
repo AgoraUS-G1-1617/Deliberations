@@ -7,6 +7,7 @@ import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 
 import domain.Rating;
 import domain.User;
@@ -17,25 +18,34 @@ import security.LoginService;
 @Transactional
 public class RatingService {
 
-	// Managed repository
+	// Managed repository -----------------------------------------------------
+	
 	@Autowired
 	private RatingRepository ratingRepository;
 
-	// Supporting services
+	// Supporting services ----------------------------------------------------
+	
 	@Autowired
 	private UserService userService;
 
-	// Constructors
+	// Constructors -----------------------------------------------------------
+	
 	public RatingService() {
 		super();
 	}
 
-	// Simple CRUD methods
+	// Simple CRUD methods ----------------------------------------------------
+	
 	public Rating create() {
-		Rating res = new Rating();
-		User user=userService.findOneByPrincipal();
-		res.setUser(user);
-		return res;
+		Rating result;
+		User user;
+		
+		result = new Rating();
+		user=userService.findOneByPrincipal();
+		
+		result.setUser(user);
+		
+		return result;
 	}
 
 	public Rating findOne(int ratingId) {
@@ -47,6 +57,16 @@ public class RatingService {
 	}
 
 	public void save(Rating rating) {
+		// Associated business rules:
+		//	- It must be a user who performs this use case
+		//	- The user who saves the rating must be the user who is logged into the system
+		User principal;
+		
+		principal = userService.findOneByPrincipal();
+		
+		Assert.notNull(principal);
+		Assert.isTrue(rating.getUser().equals(principal));
+		
 		ratingRepository.save(rating);
 	}
 
@@ -54,23 +74,50 @@ public class RatingService {
 		ratingRepository.delete(rating);
 	}
 
-	// Other business methods
+	// Other business methods -------------------------------------------------
 
 	public Collection<Rating> findRatingsOfThread(int idThread){
-		Collection<Rating> res= new ArrayList<Rating>();
-		res=ratingRepository.findRatingsOfThread(idThread);
-		return res;
+		Collection<Rating> result;
+		
+		result = new ArrayList<Rating>();
+		result = ratingRepository.findRatingsOfThread(idThread);
+		
+		return result;
 	}
 	
 	public Collection<Rating> findRatingsOfUser(){
-		Collection<Rating> res= new ArrayList<Rating>();
-		res=ratingRepository.findRatingsOfUser(LoginService.getPrincipal().getId());
-		return res;
+		Collection<Rating> result;
+		
+		result = new ArrayList<Rating>();
+		result=ratingRepository.findRatingsOfUser(LoginService.getPrincipal().getId());
+		
+		return result;
+	}
+	
+	public Rating findRatingOfUserAtThread(int threadId){
+		Rating result;
+		
+		result = ratingRepository.findRatingsOfUserAtThread(LoginService.getPrincipal().getId(), threadId);
+		
+		return result;
 	}
 
 	public Integer totalRating(int idRate){
-		Integer res=0;
-		res=ratingRepository.totalRating(idRate);
+		Integer result;
+		
+		result = 0;
+		result = ratingRepository.totalRating(idRate);
+		
+		return result;
+	}
+	
+	public int countRatingCreatedByUserGiven(User user){
+		int res;
+		
+		Assert.notNull(user);
+		
+		res = ratingRepository.countRatingCreatedByUserIdGiven(user.getId());
+		
 		return res;
 	}
 }

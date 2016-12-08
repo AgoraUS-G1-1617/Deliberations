@@ -11,6 +11,7 @@
 	text-align: center;
 	color: red;
 	font-weight: bolder;
+	font-size: 1em;
 }
 
 .info {
@@ -22,6 +23,8 @@
 .message {
 	color: red;
 	font-weight: bolder;
+	font-size: 140%;
+    margin-left: 30%;
 }
 
 body {

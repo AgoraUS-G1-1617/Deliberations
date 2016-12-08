@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import domain.Thread;
 import services.ThreadService;
 
 @Controller
@@ -17,6 +16,7 @@ import services.ThreadService;
 public class DashboardController extends AbstractController {
 
 	// Services ---------------------------------------------------------------
+	
 	@Autowired
 	private ThreadService threadService;
 
@@ -26,8 +26,6 @@ public class DashboardController extends AbstractController {
 		super();
 	}
 
-	
-
 	// Listing-------------------------------------------------------------------
 
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
@@ -36,30 +34,26 @@ public class DashboardController extends AbstractController {
 		Collection<domain.Thread> threadMostComments;
 		Collection<domain.Thread> threadLeastComments;
 		Collection<domain.Thread> threadMoreRating;
-	
-		
-		threadMostComments=threadService.findThreadWithMoreComments();
-		threadLeastComments=threadService.findThreadWithLessComments();
-		threadMoreRating=threadService.findThreadMoreRating();
-		
+
+		threadMostComments = threadService.findThreadWithMoreComments();
+		threadLeastComments = threadService.findThreadWithLessComments();
+		threadMoreRating = threadService.findThreadMoreRating();
+
 		String uri = "dashboard/list";
 		String requestURI = "dashboard/list.do";
-		
-		
-		
+
 		result = createListModelAndView(requestURI, uri);
 		result.addObject("threadMostComments", threadMostComments);
 		result.addObject("threadLeastComments", threadLeastComments);
 		result.addObject("threadMoreRating", threadMoreRating);
-		
+
 		return result;
 	}
-	
-	
 
-	// Other bussiness method ---------------------------------------------------------------
-	protected ModelAndView createListModelAndView(
-			String requestURI, String uri) {
+	// Other bussiness method
+	// ---------------------------------------------------------------
+	
+	protected ModelAndView createListModelAndView(String requestURI, String uri) {
 		ModelAndView result;
 
 		result = new ModelAndView(uri);

@@ -11,6 +11,7 @@ import domain.User;
 @Component
 @Transactional
 public class StringToUserConverter implements Converter<String, User> {
+	
 	@Autowired
 	private UserService userService;
 

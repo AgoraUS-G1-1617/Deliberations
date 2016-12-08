@@ -8,8 +8,10 @@ import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 
 import domain.Comment;
+import domain.User;
 import repositories.CommentRepository;
 import security.LoginService;
 
@@ -17,21 +19,30 @@ import security.LoginService;
 @Transactional
 public class CommentService {
 
-	// Managed repository
+	// Managed repository -----------------------------------------------------
+
 	@Autowired
 	private CommentRepository commentRepository;
 
-	// Supporting services
+	// Supporting services ----------------------------------------------------
+	
+	@Autowired
+	private UserService userService;
 
-	// Constructors
+	// Constructors -----------------------------------------------------------
+
 	public CommentService() {
 		super();
 	}
 
-	// Simple CRUD methods
+	// Simple CRUD methods ----------------------------------------------------
+
 	public Comment create() {
-		Comment res = new Comment();
-		return res;
+		Comment result;
+
+		result = new Comment();
+
+		return result;
 	}
 
 	public Comment findOne(int commentId) {
@@ -43,6 +54,10 @@ public class CommentService {
 	}
 
 	public void save(Comment comment) {
+		// Associated business rules:
+		//	- The thread that is associated to the comment passed as parameter must not be closed
+		Assert.isTrue(!comment.getThread().isClosed());
+		
 		commentRepository.save(comment);
 	}
 
@@ -50,40 +65,91 @@ public class CommentService {
 		commentRepository.delete(comment);
 	}
 
-	// Other business methods
+	// Other business methods -------------------------------------------------
 
-	public Collection<Comment> findCommentsOfHilo(int idHilo){
-		Collection<Comment> res= new ArrayList<Comment>();
-		res=commentRepository.findCommentsOfHilo(idHilo);
+	public Collection<Comment> findCommentsOfHilo(int idHilo) {
+		Collection<Comment> result;
+
+		result = new ArrayList<Comment>();
+		result = commentRepository.findCommentsOfHilo(idHilo);
+
+		return result;
+	}
+
+	public Collection<Comment> findCommentsOfUser() {
+		Collection<Comment> result;
+		
+		result = new ArrayList<Comment>();
+		result = commentRepository.findCommentsOfUser(LoginService.getPrincipal().getId());
+
+		return result;
+	}
+	
+	public Collection<Comment> commentsOfUser(int userId) {
+		Collection<Comment> result;
+		
+		result = commentRepository.commentsOfUser(userId);
+
+		return result;
+	}
+
+	public Collection<Comment> findCommentsInTheLastHours(Date creation) {
+		Collection<Comment> result;
+		
+		result = new ArrayList<Comment>();
+		result = commentRepository.findCommentsInTheLastHours(creation);
+
+		return result;
+	}
+
+	public Collection<Comment> findAllCommentsDeleted() {
+		Collection<Comment> result;
+
+		result = new ArrayList<Comment>();
+		result = commentRepository.findAllCommentsDeleted();
+
+		return result;
+	}
+
+	public Collection<Comment> findAllCommentsNotDeleted() {
+		Collection<Comment> result;
+
+		result = new ArrayList<Comment>();
+		result = commentRepository.findAllCommentsNotDeleted();
+
+		return result;
+	}
+
+	public Double findRatioOfCommentsOfUserInHilo(int idHilo) {
+		Double result;
+
+		result = 0.0;
+		result = commentRepository.findRatioOfCommentsOfUserInHilo(idHilo, LoginService.getPrincipal().getId());
+		
+		return result;
+	}
+	
+	
+	public int countCommentsCreatedByUser(){
+		int res;
+		User user;
+		
+		user = userService.findOneByPrincipal();
+		
+		Assert.notNull(user);
+		
+		res = commentRepository.countCommentsCreatedByUserId(user.getId());
+		
 		return res;
 	}
 	
-	public Collection<Comment> findCommentsOfUser(){
-		Collection<Comment> res= new ArrayList<Comment>();
-		res=commentRepository.findCommentsOfUser(LoginService.getPrincipal().getId());
-		return res;
-	}
-	
-	public Collection<Comment> findCommentsInTheLastHours(Date creation){
-		Collection<Comment> res= new ArrayList<Comment>();
-		res=commentRepository.findCommentsInTheLastHours(creation);
-		return res;
-	}
-	
-	public Collection<Comment> findAllCommentsDeleted(){
-		Collection<Comment> res= new ArrayList<Comment>();
-		res=commentRepository.findAllCommentsDeleted();
-		return res;
-	}
-	
-	public Collection<Comment> findAllCommentsNotDeleted(){
-		Collection<Comment> res= new ArrayList<Comment>();
-		res=commentRepository.findAllCommentsNotDeleted();
-		return res;
-	}
-	public Double findRatioOfCommentsOfUserInHilo(int idHilo){
-		Double res=0.0;
-		res=commentRepository.findRatioOfCommentsOfUserInHilo(idHilo, LoginService.getPrincipal().getId());
+	public int countCommentsCreatedByUserGiven(User user){
+		int res;
+		
+		Assert.notNull(user);
+		
+		res = commentRepository.countCommentsCreatedByUserIdGiven(user.getId());
+		
 		return res;
 	}
 }

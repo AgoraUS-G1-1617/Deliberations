@@ -4,26 +4,15 @@ Author URL: http://w3layouts.com
 License: Creative Commons Attribution 3.0 Unported
 License URL: http://creativecommons.org/licenses/by/3.0/
 */
-h4, h5, h6, h1, h2, h3 {
-	margin: 0;
-}
-
-ul, ol, li {
-	margin: 0;
-	padding: 0;
-}
-
-p {
-	margin: 0;
-}
-
-body {
-	margin: 0;
-	padding: 0;
-	font-family: OpenSans-Regular;
-}
 
 /*--fonts--*/
+
+@font-face {
+	font-family: Lato;
+	src: url(fonts/lato.ttf) format('truetype');
+}
+
+
 @font-face {
 	font-family: Overlock-Regular;
 	src: url(fonts/Overlock-Regular.ttf) format('truetype');
@@ -48,6 +37,10 @@ body {
 	font-size: 16px;
 	font-weight: 400;
 	color: #fff;
+}
+
+#translate-flag{
+	margin-right: 2%;
 }
 
 .head-mid {
@@ -160,14 +153,13 @@ li.las a {
 }
 
 .logo {
+	margin-top: 0.3%;
+	margin-left: 1%;
+	margin-right: 5%;
+	width: 4%;
 	float: left;
-	width: 500px;
-	margin-left: -100px;
-	margin-top: -30px;
-	margin-bottom: -55px;
-	z-index: -1;
-	position: relative;
 }
+<!---->
 
 .ad-ph {
 	float: right;
@@ -483,32 +475,62 @@ span.glyphicon.glyphicon-globe {
 	transition: all 0.4s ease-in-out;
 }
 
-.ch-img-1 {
-	background: url(../images/a1.png) -9px -15px;
+.ch-img-16-1 {
+ 	background: url(https://avatars3.githubusercontent.com/u/9135377?v=3&s=4000);
+ 	background-size: 220px;
 	border-radius: 50%;
 }
 
-.ch-img-2 {
+.ch-img-16-2 {
+ 	background: url(https://avatars3.githubusercontent.com/u/12049827?v=3&s=4000);
+ 	background-size: 220px;
+	border-radius: 50%;
+}
+
+.ch-img-16-3 {
+	background: url(https://avatars3.githubusercontent.com/u/22616365?v=3&s=4000);
+ 	background-size: 220px;
+	border-radius: 50%;
+}
+
+.ch-img-16-4 {
+	background: url(https://avatars3.githubusercontent.com/u/8267403?v=3&s=4000);
+ 	background-size: 220px;
+	border-radius: 50%;
+}
+
+.ch-img-16-5 {
+	background: url(https://avatars3.githubusercontent.com/u/6894925?v=3&s=4000s);
+ 	background-size: 220px;
+	border-radius: 50%;
+}
+
+.ch-img-15-1 {
+ 	background: url(../images/a1.png) -9px -15px;
+	border-radius: 50%;
+}
+
+.ch-img-15-2 {
 	background: url(../images/a2.png) -9px -15px;
 	border-radius: 50%;
 }
 
-.ch-img-3 {
+.ch-img-15-3 {
 	background: url(../images/a3.png) -9px -15px;
 	border-radius: 50%;
 }
 
-.ch-img-4 {
+.ch-img-15-4 {
 	background: url(../images/a4.png) -9px -15px;
 	border-radius: 50%;
 }
 
-.ch-img-5 {
+.ch-img-15-5 {
 	background: url(../images/a5.png) -9px -15px;
 	border-radius: 50%;
 }
 
-.ch-img-6 {
+.ch-img-15-6 {
 	background: url(../images/a6.png) -9px -15px;
 	border-radius: 50%;
 }

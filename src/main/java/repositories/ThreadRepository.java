@@ -33,5 +33,10 @@ public interface ThreadRepository extends JpaRepository<Thread, Integer> {
 	@Query("select r.thread from Rating r group by r.thread having sum(r.rate)<= all(select sum(w.rate) from Rating w group by w.thread)")
 	Collection<Thread> findThreadLessRating();
 
+	@Query("select count(t) from Thread t where t.user.id = ?1")
+	int countThreadCreatedByUserId(int id);
+	
+	@Query("select count(t) from Thread t where t.user.id = ?1")
+	int countThreadCreatedByUserIdGiven(int id);
 
 }

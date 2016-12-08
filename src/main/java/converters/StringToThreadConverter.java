@@ -11,6 +11,7 @@ import domain.Thread;
 @Component
 @Transactional
 public class StringToThreadConverter implements Converter<String, Thread> {
+	
 	@Autowired
 	private ThreadService threadService;
 

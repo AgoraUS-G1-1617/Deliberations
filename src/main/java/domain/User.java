@@ -12,12 +12,14 @@ import javax.persistence.OneToOne;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.hibernate.validator.constraints.Email;
 
 import security.UserAccount;
 
 @Entity
 @Access(AccessType.PROPERTY)
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class User extends DomainEntity {
 
 	// Constructors ------------------------------------------------------------
@@ -27,6 +29,7 @@ public class User extends DomainEntity {
 	}
 
 	// Attributes -------------------------------------------------------------
+
 	private String name;
 	private String surname;
 	private String email;

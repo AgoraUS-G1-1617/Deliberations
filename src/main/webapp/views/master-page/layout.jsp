@@ -34,6 +34,7 @@
 <link rel="stylesheet" href="styles/jmenu.css" media="screen"
 	type="text/css" />
 <link rel="stylesheet" href="styles/displaytag.css" type="text/css">
+<link rel="stylesheet" type="text/css" href="styles/manual.css" media="screen" />
 
 
 
@@ -50,7 +51,7 @@
 			<script src="scripts/jquery-2.1.4.min.js"></script>
 		<!--bootstrap-js-->
 			<script src="scripts/bootstrap.min.js"></script>
-	
+		
 
 <title><tiles:insertAttribute name="title" ignore="true" /></title>
 
@@ -63,6 +64,16 @@
 		if (confirm(msg))
 			form.submit();
 	}
+	function relativeRedir(loc) {	
+		var b = document.getElementsByTagName('base');
+		if (b && b[0] && b[0].href) {
+	  		if (b[0].href.substr(b[0].href.length - 1) == '/' && loc.charAt(0) == '/')
+	    	loc = loc.substr(1);
+	  		loc = b[0].href + loc;
+		}
+		window.location.replace(loc);
+	}
+
 </script>
 
 </head>
@@ -73,11 +84,15 @@
 	</div>
 		<div>
 			<tiles:insertAttribute name="body" />
+			<jstl:if test="${messageError != null}">
+			<br />
+			<span class="message"><spring:message code="${messageError}" /></span>
+		</jstl:if>	
 		</div>
 	<div>
 		<tiles:insertAttribute name="footer" />
 	</div>
-	
+
 </body>
 
 </html>

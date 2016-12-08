@@ -11,6 +11,7 @@ import domain.Comment;
 @Component
 @Transactional
 public class StringToCommentConverter implements Converter<String, Comment> {
+	
 	@Autowired
 	private CommentService commentService;
 

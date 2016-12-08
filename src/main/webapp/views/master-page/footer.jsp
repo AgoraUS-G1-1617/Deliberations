@@ -13,14 +13,29 @@
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
-<%-- <jsp:useBean id="date" class="java.util.Date" /> --%>
+<script>
+	window.onload = function () {
+		var documentURL = document.URL.replace(/\?language=e[sn]/gi,'');
+		var append = '';
+		
+		if (documentURL.includes('?')) {
+			append = '&';
+		} else {
+			append = '?';
+		}
+		append = append + 'language=e';
+		
+	    var es = document.getElementById('es');
+	    es.href = documentURL + append + 's';
+	    
+	    var en = document.getElementById('en');
+	    en.href = documentURL + append + 'n';
+	}
+</script>
 
-<!-- <hr /> -->
-
-<%-- <b>Copyright &copy; <fmt:formatDate value="${date}" pattern="yyyy" /> Sample Co., Inc.</b> --%>
 <div class="footer">
 	<div class="container">
-			<div class="col-md-4 contact-left">
+			<div class="col-md-3 contact-left">
 
 				<h4>
 					<spring:message code="footer.address" />
@@ -31,20 +46,27 @@
 
 				</address>
 			</div>
-			<div class="col-md-4 contact-left">
+			<div class="col-md-3 contact-left">
 
 				<h4>
-					<spring:message code="footer.repository" />
+					<spring:message code="footer.develop" />
 				</h4>
+				<p>
+					<span class="glyphicon" aria-hidden="true">
+					<img alt="Teams" src="images/team.png" style="width:48px; border-radius: 50%;">
+					</span>
+					<a href="about-us/teams.do"><spring:message code="footer.developerteams" /></a>
+				</p>
+				<br />
 				<p>
 					<span class="glyphicon" aria-hidden="true">
 					<img alt="Github" src="images/Github.png">
 					</span>
-					<a href="https://github.com/juagarfer4/Deliberations"> GitHub</a>
+					<a href="https://github.com/AgoraUS-G1-1617/Deliberations"> GitHub</a>
 				</p>
 
 			</div>
-			<div class="col-md-4 contact-left">
+			<div class="col-md-3 contact-left">
 
 				<h4>
 					<spring:message code="footer.contact" />
@@ -57,10 +79,24 @@
 				</p>
 
 			</div>
+			<div class="col-md-3 contact-left">
+
+				<h4>
+					<spring:message code="footer.language" />
+				</h4>
+				<div>
+					<span>
+						<a id="es" href=""><img id="translate-flag" src="images/es.gif"/>Español</a>
+						<br/><br/>
+						<a id="en" href=""><img id="translate-flag" src="images/en.gif"/>English</a>
+					</span>
+				</div>
+
+			</div>
 			<div class="clearfix"></div>
 
 			<div class="copyright">
-				<p>© 2015 Universidad de Sevilla
+				<p>© 2016 Universidad de Sevilla
 			</div>
 		</div>
 </div>
