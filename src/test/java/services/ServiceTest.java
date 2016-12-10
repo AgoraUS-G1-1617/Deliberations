@@ -102,14 +102,17 @@ public class ServiceTest extends AbstractTest {
 		Comment result;
 		domain.Thread hilo;
 
-		result = new Comment();
+		result = commentService.create();
 
-		hilo = threadService.findOne(6);
-		result.setCreationMoment(new Date());
+		hilo = threadService.findOne(7);
 
+		Assert.notNull(hilo);
+		
 		result.setThread(hilo);
+		result.setCreationMoment(new Date());
 		result.setUser(userService.findOneByPrincipal());
 		result.setText("Texto comentario");
+		result.setErase(false);
 
 		commentService.save(result);
 
@@ -157,7 +160,7 @@ public class ServiceTest extends AbstractTest {
 		tokenToVerify = loginService.verifyToken(userAccount);
 
 		// Se realiza la petición de consulta
-		resultOfToken = objectMapper.readValue(new URL("http://localhost/Auth/api/checkToken?token=" + tokenToVerify),
+		resultOfToken = objectMapper.readValue(new URL("http://www.egcaj.tk/Auth/api/checkToken?token=" + tokenToVerify),
 				Token.class);
 
 		System.out.println("resultado del token: " + resultOfToken.isValid());
