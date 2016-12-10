@@ -1,5 +1,5 @@
 # Deliberaciones Agora@US 16-17
-
+[![Build Status](https://travis-ci.org/AgoraUS-G1-1617/Deliberations.svg?branch=master)](https://travis-ci.org/AgoraUS-G1-1617/Deliberations)
 
 Deliberaciones es un subsistema de código abierto del proyecto Agora@US que introduce la funcionalidad de un foro para administrar hilos y mensajes de usuarios votantes. 
 Dichos mensajes contendrán información sobre el votante que los haya realizado. Sólo los votantes válidos podrán realizar comentarios, por lo que se deberá consultar al sistema de autenticación.
@@ -25,12 +25,13 @@ A su vez se integra con el subsistema [Censo]()
 ### Instalación
 Para configurar el entorno de trabajo consulta el repositorio [ConfigurationVMS](https://github.com/EGCG2/ConfigurationVMS) donde podrás encontrar el workspace a usar además de un script que autoinstala las herramientas necesarias.
 
-Para el sistema de integración continua el cual ofrece construcción, tests y despliegue se usa el repositorio [continuous-delivery-integration](https://github.com/ManuelLR/continuous-delivery-integration) donde cada equipo crea y configura sus scripts de despliegue para que automáticamente se desplieguen las aplicaciones. Las instancias automáticas de Deliberations puedes verlas en:
- - __[beta.deliberaciones.agoraus1](http://beta.deliberaciones.agoraus1.egc.duckdns.org)__ (beta)
- - __[deliberaciones.agoraus1](http://deliberaciones.agoraus1.egc.duckdns.org)__ (stable)
- - [Jenkins](https://jenkins.egc.duckdns.org)
+Para el sistema de integración continua basado en [jenkins](https://jenkins.egc.duckdns.org) el cual ofrece construcción y despliegue se usa el repositorio [continuous-delivery-integration](https://github.com/ManuelLR/continuous-delivery-integration) donde cada equipo crea y configura sus scripts de despliegue para que automáticamente se desplieguen las aplicaciones. Para los test se usa [travis-ci](https://travis-ci.org/AgoraUS-G1-1617/Deliberations) los cuales se lanzan automáticamente tras cada commit publicado en el repositorio. Para más información consulta la siguiente tabla:
 
- 
+| Branch | Estado | Despliegue |
+|---|:---:|:---:|
+| master |  [![Build Status](https://travis-ci.org/AgoraUS-G1-1617/Deliberations.svg?branch=master)](https://travis-ci.org/AgoraUS-G1-1617/Deliberations) | __[deliberaciones.agoraus1](http://deliberaciones.agoraus1.egc.duckdns.org)__ |
+| develop | [![Build Status](https://travis-ci.org/AgoraUS-G1-1617/Deliberations.svg?branch=develop)](https://travis-ci.org/AgoraUS-G1-1617/Deliberations)| __[beta.deliberaciones.agoraus1](http://beta.deliberaciones.agoraus1.egc.duckdns.org)__ |
+
 ## Equipos de trabajo
 
 ### Equipo 2016/17
