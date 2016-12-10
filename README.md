@@ -32,6 +32,8 @@ Para el sistema de integración continua basado en [jenkins](https://jenkins.egc
 | master |  [![Build Status](https://travis-ci.org/AgoraUS-G1-1617/Deliberations.svg?branch=master)](https://travis-ci.org/AgoraUS-G1-1617/Deliberations) | __[deliberaciones.agoraus1](http://deliberaciones.agoraus1.egc.duckdns.org)__ |
 | develop | [![Build Status](https://travis-ci.org/AgoraUS-G1-1617/Deliberations.svg?branch=develop)](https://travis-ci.org/AgoraUS-G1-1617/Deliberations)| __[beta.deliberaciones.agoraus1](http://beta.deliberaciones.agoraus1.egc.duckdns.org)__ |
 
+Igualmente, mediante [travis-ci](https://travis-ci.org/AgoraUS-G1-1617/Deliberations), cuando se ponga una tag/release se adjuntará automáticamente el war para el despliegue y el sql de populación de la base de datos.
+
 ## Equipos de trabajo
 
 ### Equipo 2016/17
