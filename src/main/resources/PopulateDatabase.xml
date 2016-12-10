@@ -136,6 +136,7 @@
 		<property name="creationMoment" value="11/11/2004 12:12"></property>
 		<property name="title" value="titulo"></property>
 		<property name="decription" value="text"></property>
+		<property name="lastUpdate" value="11/11/2004 12:16"></property>
 		<property name="comments">
 			<list>
 				<ref bean="comment1" />
@@ -153,6 +154,7 @@
 		<property name="user" ref="user2"></property>
 		<property name="creationMoment" value="12/11/2004 14:18"></property>
 		<property name="title" value="Hilando"></property>
+		<property name="lastUpdate" value="13/11/2004 12:18"></property>
 		<property name="decription" value="text2"></property>
 		<property name="comments">
 			<list>

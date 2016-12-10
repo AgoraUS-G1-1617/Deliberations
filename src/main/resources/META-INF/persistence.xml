@@ -31,7 +31,7 @@
 		<properties>
 			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
 			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/deliberations" />
-			<property name="javax.persistence.jdbc.user" value="deliberations-manager" />
+			<property name="javax.persistence.jdbc.user" value="del-manager" />
 			<property name="javax.persistence.jdbc.password" value="DeliB3rat0n$=m@nag3R-P@S$" />
 
 			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect" />
