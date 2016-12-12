@@ -19,6 +19,7 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page import ="services.RankService" %>
 <%@ page import ="domain.User" %>
 <%@ page import ="domain.Rank" %>
@@ -127,8 +128,8 @@ function updateStars(id) {
 							<img class="iconRankUser" src="${rank.icon}" title="${rank.title}">
 							<strong class="hilo-first-font"> <jstl:out
 									value="${hilo.user.userAccount.username }"></jstl:out>
-							</strong> <span class="text-muted" style="color: white;"><jstl:out
-									value="${hilo.creationMoment}"></jstl:out></span>
+							</strong> <span class="text-muted comment-date" style="color: white;">
+							<fmt:formatDate value="${hilo.creationMoment}" pattern="dd/MM/yyyy HH:mm"/></span>
 						</div>
 						<div class="panel-body">
 							<jstl:out value="${hilo.decription}"></jstl:out>
@@ -179,8 +180,8 @@ function updateStars(id) {
 							<img class="iconRankUser" src="${rank.icon}" title="${rank.title}">
 							<strong> <jstl:out
 									value="${row.user.userAccount.username }"></jstl:out>
-							</strong> <span class="text-muted"><jstl:out
-									value="${row.creationMoment}"></jstl:out></span>
+							</strong> <span class="text-muted comment-date"><fmt:formatDate value="${row.creationMoment}" pattern="dd/MM/yyyy HH:mm"/>
+							</span>
 						</div>
 						<div class="panel-body">
 							<jstl:out value="${row.text}"></jstl:out>
