@@ -1,0 +1,24 @@
+start transaction;
+
+create user 'del-user'@'%' identified by password '*EE89F5183D614BA3B739D1872158684DDB27BBA7';
+
+create user 'del-manager'@'%' identified by password '*6AEE22A9E5CB25E3944BFAB0C57E5D4D834EF1A1';
+
+
+# Privilegios para `deliberations-manager`@`%`
+
+GRANT SELECT, INSERT, UPDATE, DELETE, CREATE, DROP, REFERENCES, INDEX, ALTER, CREATE TEMPORARY TABLES, LOCK TABLES, EXECUTE, CREATE VIEW, SHOW VIEW, CREATE ROUTINE, ALTER ROUTINE, TRIGGER ON *.* TO 'del-manager'@'%' IDENTIFIED BY PASSWORD '*6AEE22A9E5CB25E3944BFAB0C57E5D4D834EF1A1' WITH GRANT OPTION;
+
+# Privilegios para `deliberations-user`@`%`
+
+GRANT SELECT, INSERT, UPDATE, DELETE ON *.* TO 'del-user'@'%' IDENTIFIED BY PASSWORD '*EE89F5183D614BA3B739D1872158684DDB27BBA7' WITH GRANT OPTION;
+
+
+-- Base de datos: `deliberations`
+--
+CREATE DATABASE IF NOT EXISTS `deliberations` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+USE `deliberations`;
+
+SET NAMES utf8;
+
+commit;
