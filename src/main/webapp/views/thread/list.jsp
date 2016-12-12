@@ -45,7 +45,7 @@
 
 		<spring:message var="authorHeader" code="thread.author" />
 		<display:column title="${authorHeader}">
-			<jstl:out value="${row.user.name }"></jstl:out>
+			<a href="user/profile.do?userId=${row.user.id}"><jstl:out value="${row.user.name }"></jstl:out></a>
 		</display:column>
 
 		<spring:message var="dateHeader" code="thread.creationMoment" />

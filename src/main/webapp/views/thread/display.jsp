@@ -113,8 +113,8 @@ function updateStars(id) {
 			<div class="row">
 				<div class="col-sm-1">
 					<div class="thumbnail">
-						<img class="img-responsive user-photo"
-							src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png">
+						<a href="user/profile.do?userId=${hilo.user.id}"><img class="img-responsive user-photo"
+							src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png"></a>
 					</div>
 					<!-- /thumbnail -->
 				</div>
@@ -125,10 +125,8 @@ function updateStars(id) {
 					<div class="panel panel-default">
 						<div class="panel-heading" style="background-color: #286090;">
 							<jstl:set var="rank" value="${rankService.calculateRank(hilo.user)}"/>
-							<img class="iconRankUser" src="${rank.icon}" title="${rank.title}">
-							<strong class="hilo-first-font"> <jstl:out
-									value="${hilo.user.userAccount.username }"></jstl:out>
-							</strong> <span class="text-muted comment-date" style="color: white;">
+							<a href="user/profile.do?userId=${hilo.user.id}"><img class="iconRankUser" src="${rank.icon}" title="${rank.title}"></a>
+							<a href="user/profile.do?userId=${hilo.user.id}"><strong class="hilo-first-font"> <jstl:out value="${hilo.user.userAccount.username }"></jstl:out></strong></a> <span class="text-muted comment-date" style="color: white;">
 							<fmt:formatDate value="${hilo.creationMoment}" pattern="dd/MM/yyyy HH:mm"/></span>
 						</div>
 						<div class="panel-body">
@@ -152,8 +150,8 @@ function updateStars(id) {
 			<div class="row">
 				<div class="col-sm-1">
 					<div class="thumbnail">
-						<img class="img-responsive user-photo"
-							src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png">
+						<a href="user/profile.do?userId=${row.user.id}"><img class="img-responsive user-photo"
+							src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png"></a>
 					</div>
 					<!-- /thumbnail -->
 				</div>
@@ -177,10 +175,10 @@ function updateStars(id) {
 					<div class="panel panel-default">
 						<div class="panel-heading">
 							<jstl:set var="rank" value="${rankService.calculateRank(row.user)}"/>
-							<img class="iconRankUser" src="${rank.icon}" title="${rank.title}">
-							<strong> <jstl:out
+							<a href="user/profile.do?userId=${row.user.id}"><img class="iconRankUser" src="${rank.icon}" title="${rank.title}"></a>
+							<a href="user/profile.do?userId=${row.user.id}"><strong> <jstl:out
 									value="${row.user.userAccount.username }"></jstl:out>
-							</strong> <span class="text-muted comment-date"><fmt:formatDate value="${row.creationMoment}" pattern="dd/MM/yyyy HH:mm"/>
+							</strong></a> <span class="text-muted comment-date"><fmt:formatDate value="${row.creationMoment}" pattern="dd/MM/yyyy HH:mm"/>
 							</span>
 						</div>
 						<div class="panel-body">

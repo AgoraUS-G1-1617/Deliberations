@@ -70,12 +70,12 @@
 						<jstl:choose>
 							<jstl:when test="${infoMessages eq 'messages.received'}">
 								<spring:message code="message.sender" />: 
-								<jstl:out value="${messageRow.sender.userAccount.username }" />
+								<a href="user/profile.do?userId=${messageRow.sender.id}"><jstl:out value="${messageRow.sender.userAccount.username }" /></a>
 
 							</jstl:when>
 							<jstl:otherwise>
 								<spring:message code="message.recipient" />: 
-								<jstl:out value="${messageRow.recipient.userAccount.username }" />
+								<a href="user/profile.do?userId=${messageRow.recipient.id}"><jstl:out value="${messageRow.recipient.userAccount.username }" /></a>
 
 							</jstl:otherwise>
 						</jstl:choose>

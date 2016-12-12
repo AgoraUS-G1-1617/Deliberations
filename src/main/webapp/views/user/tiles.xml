@@ -20,20 +20,20 @@
 		<put-attribute name="title" value="Login" />
 		<put-attribute name="body" value="/views/user/login.jsp" />
 	</definition>
-	
-	<definition name="user/login" extends="master.page">	
-		<put-attribute name="title" value="Login" />
-		<put-attribute name="body" value="/views/user/login.jsp" />
-	</definition>
-	
+
 	<definition name="user/loginFromCensusForm" extends="master.page">	
 		<put-attribute name="title" value="Login" />
 		<put-attribute name="body" value="/views/user/loginFromCensusForm.jsp" />
 	</definition>
 	
 	<definition name="user/profile" extends="master.page">	
-		<put-attribute name="title" value="Information" />
+		<put-attribute name="title" value="Profile" />
 		<put-attribute name="body" value="/views/user/profile.jsp" />
+	</definition>
+	
+	<definition name="user/publicProfile" extends="master.page">	
+		<put-attribute name="title" value="Public profile" />
+		<put-attribute name="body" value="/views/user/publicProfile.jsp" />
 	</definition>
 	
 	<definition name="user/statistics" extends="master.page">	
