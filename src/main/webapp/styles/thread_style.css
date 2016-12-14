@@ -70,6 +70,8 @@ li.bbp-topic-freshness {
     padding: 15px 0;
     padding-left: 20px;
     border-bottom: 1px solid #eaeaea;
+    max-width: 100%; /* limit width */
+    word-break:break-all; /* wrap extended text*/
 }
 
 
