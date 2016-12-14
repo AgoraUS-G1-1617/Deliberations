@@ -69,7 +69,7 @@ public class ServiceTest extends AbstractTest {
 
 		userService.save(result);
 
-		System.out.println("El usuario ha sido creado correctamente.");
+		System.out.println("testCreateUser executed");
 
 	}
 
@@ -89,7 +89,7 @@ public class ServiceTest extends AbstractTest {
 
 		threadService.save(result);
 
-		System.out.println("El hilo ha sido creado correctamente.");
+		System.out.println("testCreateThread executed");
 		unauthenticate();
 
 	}
@@ -118,7 +118,7 @@ public class ServiceTest extends AbstractTest {
 
 		commentService.save(result);
 
-		System.out.println("El comentario ha sido creado correctamente.");
+		System.out.println("testCreateComment executed");
 		unauthenticate();
 
 	}
@@ -136,8 +136,9 @@ public class ServiceTest extends AbstractTest {
 		
 		result = threadService.findAll(pageable);
 
-		System.out.println("La lista de hilos es: " + result);
+//		System.out.println("La lista de hilos es: " + result);
 		
+		System.out.println("testListAllThreads executed");
 		unauthenticate();
 
 	}
@@ -167,7 +168,8 @@ public class ServiceTest extends AbstractTest {
 		resultOfToken = objectMapper.readValue(new URL("http://www.egcaj.tk/Auth/api/checkToken?token=" + tokenToVerify),
 				Token.class);
 
-		System.out.println("resultado del token: " + resultOfToken.isValid());
+//		System.out.println("resultado del token: " + resultOfToken.isValid());
+		System.out.println("testAuthConnection executed");
 
 		Assert.isTrue(resultOfToken.isValid());
 	}

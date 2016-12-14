@@ -171,7 +171,6 @@ public class ThreadService {
 
 		for (int i = numberRows - 10; i <= hilo.getComments().size() - 1; i++) {
 			if (i < numberRows) {
-				System.out.println((Comment) hilo.getComments().toArray()[i]);
 				paginatedComments.add((Comment) hilo.getComments().toArray()[i]);
 			} else {
 				break;

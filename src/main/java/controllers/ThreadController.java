@@ -172,7 +172,6 @@ public class ThreadController extends AbstractController {
 		ModelAndView result;
 
 		if (binding.hasErrors()) {
-			System.out.println(binding.getAllErrors().get(0));
 			result = createEditModelAndView(thread);
 		} else {
 			try {
@@ -180,7 +179,6 @@ public class ThreadController extends AbstractController {
 				result = new ModelAndView("redirect:list.do?page=1");
 			} catch (Throwable oops) {
 				result = createEditModelAndView(thread, "commit.error");
-				System.out.println(oops.getStackTrace());
 			}
 		}
 
@@ -236,17 +234,13 @@ public class ThreadController extends AbstractController {
 	public ModelAndView loginFromCensus(String username, HttpServletRequest httpRequest)
 			throws JsonParseException, JsonMappingException, IOException {
 		ModelAndView result;
-
-		System.out.println(username);
-
 		// Encontrar en Censos con JSon
 
 		ObjectMapper objectMapper = new ObjectMapper();
 
 		// Document
 		// doc=Jsoup.connect("http://localhost:8080/ADMCensus/census/json_one_user.do?votacion_id=1&username="+username).get();
-		// System.out.println(doc.toString());
-
+		
 		// Si da error, el usuario no está en el censo
 
 		CensusUser censusUser = null;
@@ -258,10 +252,8 @@ public class ThreadController extends AbstractController {
 						new URL("http://localhost:8080/ADMCensus/census/findCensusByVote.do?idVotacion=" + 1),
 						CensusUser.class);
 			} catch (JsonParseException e) {
-				System.out.println(e.toString());
 				return loginFromCensusFrom();
 			}
-			System.out.println(censusUser.toString());
 			Assert.isTrue(censusUser.getUsername() != null);
 
 			for (String name : censusUser.getVoto_por_usuario().keySet()) {
@@ -322,8 +314,6 @@ public class ThreadController extends AbstractController {
 		try {
 			// Must be called from request filtered by Spring Security,
 			// otherwise SecurityContextHolder is not updated
-			System.out.println(request.toString());
-			System.out.println("contraseña pepe de base de datos: " + user.getPassword());
 			UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(user.getUsername(),
 					user.getPassword(), null);
 			token.setDetails(new WebAuthenticationDetails(request));
