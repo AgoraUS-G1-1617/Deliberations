@@ -93,7 +93,7 @@ public class ThreadService {
 		thread = dbThread;
 		
 		Assert.isTrue(actUser.equals(thread.getUser()), "threadService.save not propietary");
-		Assert.isTrue(!thread.getClosed(), "threadService.save is closed");
+//		Assert.isTrue(!thread.getClosed(), "threadService.save is closed");
 		Assert.isTrue(!thread.getErase(), "threadService.save is erased");
 
 

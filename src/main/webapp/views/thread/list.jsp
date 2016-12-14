@@ -50,7 +50,7 @@
 							</jstl:if>
 							<!-- ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^  -->
 							<security:authorize  access="isAuthenticated()">
-								<jstl:if test="${threadRow.user.id == actUserId && !threadRow.closed}">
+								<jstl:if test="${threadRow.user.id == actUserId}">
 									&nbsp 
 									(<a href="thread/edit.do?threadId=${threadRow.id}">
 											<spring:message code="thread.edit" />
