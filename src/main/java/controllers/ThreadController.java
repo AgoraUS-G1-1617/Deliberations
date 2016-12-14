@@ -160,9 +160,16 @@ public class ThreadController extends AbstractController {
 
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
 	public ModelAndView edit(@RequestParam int threadId) {
-		domain.Thread thread = threadService.findOne(threadId);
+		domain.Thread thread;
+		ModelAndView result;
+		
+		thread = threadService.findOne(threadId);
 
-		ModelAndView result = createEditModelAndView(thread);
+		if(thread.getUser().equals(userService.findOneByPrincipal())){
+			result = createEditModelAndView(thread);
+		}else{
+			result = messagesReceived(1);
+		}
 
 		return result;
 	}
