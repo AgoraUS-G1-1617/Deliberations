@@ -30,18 +30,6 @@
 	src="scripts/jquery.bootpag.min.js">
 </script>
 
-<script>
-function updateStars(id) {
-	for (i = 1; i <= 5; i++) { 
-	    document.getElementById('star'+i).src = 'images/star_n.svg';
-	}
-	
-	for (i = 1; i <= id; i++) { 
-	    document.getElementById('star'+i).src = 'images/star.svg';
-	}
-}
-</script>
-
 <br />
 <br />
 <div class="container">
@@ -79,6 +67,12 @@ function updateStars(id) {
 						</jstl:choose>
 					</a>
 				</jstl:forEach>
+				
+				<a class="emerge">
+					<img src="images/help.svg" style="width:20px">
+					<span style="bottom:20px;left:20px;" class="threadRatingHelp"></span>
+				</a>
+				
 				</div>
 				
 				<!-- ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ -->
@@ -97,6 +91,11 @@ function updateStars(id) {
 								<a href="thread/close.do?threadId=${hilo.id}"><spring:message code="thread.close"/></a>
 							</jstl:otherwise>
 						</jstl:choose>
+						
+						<a class="emerge">
+							<img src="images/help.svg" style="width:20px">
+							<span style="bottom:20px;left:20px;" class="threadLockingHelp"></span>
+						</a>
 					</jstl:if>
 				</security:authorize>
 				
@@ -197,28 +196,6 @@ function updateStars(id) {
 			<!-- /row -->
 		</jstl:forEach>
 
-
-		<%-- <display:table name="comments" id="row" requestURI="thread/display.do" --%>
-		<%-- 	pagesize="5" class="table table-responsive table-striped"> --%>
-
-
-		<%-- 	<spring:message var="dateHeader" code="thread.date" /> --%>
-		<%-- 	<display:column title="${dateHeader}"> --%>
-		<%-- 		<jstl:out value="${row.creationMoment}"></jstl:out> --%>
-		<%-- 	</display:column> --%>
-
-		<%-- 	<spring:message var="authorHeader" code="thread.author" /> --%>
-		<%-- 	<display:column title="${authorHeader}"> --%>
-		<%-- 		<jstl:out value="${row.user.name }"></jstl:out> --%>
-		<%-- 	</display:column> --%>
-
-		<%-- 	<spring:message var="textHeader" code="thread.text" /> --%>
-		<%-- 	<display:column title="${textHeader}"> --%>
-		<%-- 		<jstl:out value="${row.text }"></jstl:out> --%>
-		<%-- 	</display:column> --%>
-
-		<%-- </display:table> --%>
-
 		<jstl:if test="${hilo.closed == false}">
 			<form:form action="thread/saveComment.do?p=${lastPage}" method="post"
 				modelAttribute="comment">
@@ -279,4 +256,45 @@ function updateStars(id) {
 		$("#karma-div-"+id).html(inputText);
 
 	}
+	
+	function updateStars(id) {
+		for (i = 1; i <= 5; i++) { 
+		    document.getElementById('star'+i).src = 'images/star_n.svg';
+		}
+		
+		for (i = 1; i <= id; i++) { 
+		    document.getElementById('star'+i).src = 'images/star.svg';
+		}
+	}
+
+	function setThreadRatingHelp(){
+		language = getCookie("language");
+		
+		var ratingElements = document.getElementsByClassName("threadRatingHelp");
+		var lockingElements = document.getElementsByClassName("threadLockingHelp");
+		
+		if(language=="es") {
+			for(var i=0; i<ratingElements.length; i++) {
+				ratingElements[i].innerHTML = 'Haciendo clic en las estrellas puedes valorar este hilo. Por defecto, se guarda \
+			    tu valoración, si la hay.';
+			}
+			
+			for(var i=0; i<lockingElements.length; i++) {
+				lockingElements[i].innerHTML = 'Si ha creado este hilo y lo desea, puede cerrarlo de tal forma que ningún usuario pueda \
+				comentar en él. En el futuro puede volver a abrirlo.';
+			}
+		} else {
+			for(var i=0; i<ratingElements.length; i++) {
+				ratingElements[i].innerHTML = 'By clicking on the stars you can rate this thread. By default, your rating is shown, \
+			    if exists.';
+			}
+			
+			for(var i=0; i<lockingElements.length; i++) {
+				lockingElements[i].innerHTML = 'If you have created this thread and you wish so, you can lock it so that no user will \
+				be able to comment on it. In the future, you can reopen it.';
+			}
+		}
+	}
+
+	window.onload = setThreadRatingHelp();
 </script>
