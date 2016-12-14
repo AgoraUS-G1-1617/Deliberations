@@ -15,6 +15,9 @@ import org.codehaus.jackson.JsonParseException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.core.Authentication;
@@ -73,21 +76,23 @@ public class ThreadController extends AbstractController {
 	// Listing
 	// ------------------------------------------------------------------
 
-	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public ModelAndView list() {
+	@RequestMapping("/list")
+	public ModelAndView messagesReceived(@RequestParam int page) {
 		ModelAndView result;
-		Collection<domain.Thread> threads;
-		
-		threads = threadService.findAll();
-		
+		Page<Thread> items;
+		Pageable pageable;
+		pageable = new PageRequest(page - 1, 5);
+
+		items = threadService.findAll(pageable);
+
 		result = new ModelAndView("thread/list");
-		result.addObject("threads", threads);
-		result.addObject("allThreads", threadService.findAll());
+		result.addObject("threads", items.getContent());
+		result.addObject("p", page);
+		result.addObject("total_pages", items.getTotalPages());
 		result.addObject("actUserId",userService.findOneByPrincipal().getId());
-		
+
 		return result;
 	}
-
 	// Displaying ---------------------------------------------------------
 	
 	// devuelve hilo mas sus comentarios
@@ -172,7 +177,7 @@ public class ThreadController extends AbstractController {
 		} else {
 			try {
 				threadService.save(thread);
-				result = new ModelAndView("redirect:list.do");
+				result = new ModelAndView("redirect:list.do?page=1");
 			} catch (Throwable oops) {
 				result = createEditModelAndView(thread, "commit.error");
 				System.out.println(oops.getStackTrace());
@@ -192,7 +197,7 @@ public class ThreadController extends AbstractController {
 			thread = threadService.findOne(threadId);
 			threadService.open(thread);
 			
-			result = new ModelAndView("redirect:list.do");
+			result = new ModelAndView("redirect:list.do?page=1");
 		} catch (Throwable oops) {
 			result = seeThread(threadId,1);
 			result.addObject("messageError","commit.error");
@@ -211,7 +216,7 @@ public class ThreadController extends AbstractController {
 				thread = threadService.findOne(threadId);
 				threadService.close(thread);
 				
-				result = new ModelAndView("redirect:list.do");
+				result = new ModelAndView("redirect:list.do?page=1");
 			} catch (Throwable oops) {
 				result = seeThread(threadId,1);
 				result.addObject("messageError","commit.error");
@@ -404,7 +409,7 @@ public class ThreadController extends AbstractController {
 		nuevo.setComments(new ArrayList<Comment>());
 
 		threadService.save(nuevo);
-		return new ModelAndView("redirect:list.do");
+		return new ModelAndView("redirect:list.do?page=1");
 
 		// CreacionAdminVotaciones/#/create
 	}

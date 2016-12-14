@@ -8,6 +8,8 @@ import java.util.List;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
@@ -66,8 +68,8 @@ public class ThreadService {
 		return threadRepository.findOne(threadId);
 	}
 
-	public Collection<Thread> findAll() {
-		return threadRepository.findAllSortedByDate();
+	public Page<Thread> findAll(Pageable page) {
+		return threadRepository.findAllSortedByDate(page);
 	}
 
 	public void save(Thread thread) {

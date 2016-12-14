@@ -33,11 +33,11 @@
 <script>
 function updateStars(id) {
 	for (i = 1; i <= 5; i++) { 
-	    document.getElementById('star'+i).src = 'images/star_n.png';
+	    document.getElementById('star'+i).src = 'images/star_n.svg';
 	}
 	
 	for (i = 1; i <= id; i++) { 
-	    document.getElementById('star'+i).src = 'images/star.png';
+	    document.getElementById('star'+i).src = 'images/star.svg';
 	}
 }
 </script>
@@ -59,26 +59,28 @@ function updateStars(id) {
 						<jstl:set var="principalsRating" value="${item.rate}" />
 					</jstl:if>
 				</jstl:forEach>
-				
+				<div class="rating_thread_in">
 				<jstl:forEach var="i" begin="1" end="5">
 					<a href="rating/edit.do?threadId=${hilo.id}&value=${i}">
 						<jstl:choose>
 							<jstl:when test="${principalsRating != 0}">
 								<jstl:choose>
 									<jstl:when test="${principalsRating < i}">
-										<img src='images/star_n.png' alt='*' height='20px' id='star${i}' onmouseover="updateStars(${i})"/>
+										<img class="img_rate" src='images/star_n.svg' alt='*' height='20px' id='star${i}' onmouseover="updateStars(${i})"/>
 									</jstl:when>
 									<jstl:otherwise>
-										<img src='images/star.png' alt='*' height='20px' id='star${i}' onmouseover="updateStars(${i})"/>
+										<img class="img_rate" src='images/star.svg' alt='*' height='20px' id='star${i}' onmouseover="updateStars(${i})"/>
 									</jstl:otherwise>
 								</jstl:choose>
 							</jstl:when>
 							<jstl:otherwise>
-								<img src='images/star_n.png' alt='*' height='20px' id='star${i}' onmouseover="updateStars(${i})"/>
+								<img class="img_rate" src='images/star_n.svg' alt='*' height='20px' id='star${i}' onmouseover="updateStars(${i})"/>
 							</jstl:otherwise>
 						</jstl:choose>
 					</a>
 				</jstl:forEach>
+				</div>
+				
 				<!-- ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ -->
 				
 				<br/>

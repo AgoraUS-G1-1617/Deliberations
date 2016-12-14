@@ -2,6 +2,8 @@ package repositories;
 
 import java.util.Collection;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -40,5 +42,5 @@ public interface ThreadRepository extends JpaRepository<Thread, Integer> {
 	int countThreadCreatedByUserIdGiven(int id);
 
 	@Query("select t from Thread t order by t.lastUpdate desc")
-	Collection<Thread> findAllSortedByDate();
+	Page<Thread> findAllSortedByDate(Pageable page);
 }

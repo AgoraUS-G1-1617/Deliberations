@@ -3,7 +3,6 @@ package services;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.Collection;
 import java.util.Date;
 
 import org.codehaus.jackson.JsonParseException;
@@ -12,6 +11,9 @@ import org.codehaus.jackson.map.ObjectMapper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.transaction.TransactionConfiguration;
@@ -126,11 +128,13 @@ public class ServiceTest extends AbstractTest {
 
 		authenticate("user1");
 
-		Collection<domain.Thread> result;
-
-		result = threadService.findAll();
+		Page<domain.Thread> result;
+		Pageable pageable = new PageRequest(0, 5);
+		
+		result = threadService.findAll(pageable);
 
 		System.out.println("La lista de hilos es: " + result);
+		
 		unauthenticate();
 
 	}
