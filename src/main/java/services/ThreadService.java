@@ -53,13 +53,15 @@ public class ThreadService {
 		user = userService.findOneByPrincipal();
 		comments = new ArrayList<Comment>();
 		ratings = new ArrayList<Rating>();
-		date = new Date();
+		date = new Date(System.currentTimeMillis() - 1000);
 
 		result.setUser(user);
 		result.setComments(comments);
 		result.setRatings(ratings);
 		result.setCreationMoment(date);
 		result.setLastUpdate(date);
+		result.setClosed(false);
+		result.setErase(false);
 
 		return result;
 	}
@@ -73,14 +75,27 @@ public class ThreadService {
 	}
 
 	public void save(Thread thread) {
-		Date date;
+		User actUser;
+		Thread dbThread;
+		
+		actUser = userService.findOneByPrincipal();
 
-		date = new Date(System.currentTimeMillis() - 1000);
-		thread.setCreationMoment(date);
-		if (thread.getId() == 0)
-				thread.setLastUpdate(date);
-		// Make sure the thread is not closed at creation irregardless of POST hacking issues
-		thread.setClosed(false);
+		if (thread.getId() == 0){
+			dbThread = this.create();
+			
+		} else {			
+			dbThread = this.findOne(thread.getId());
+		}
+		
+		dbThread.setTitle(thread.getTitle());
+		dbThread.setDecription(thread.getDecription());
+		
+		thread = dbThread;
+		
+		Assert.isTrue(actUser.equals(thread.getUser()), "threadService.save not propietary");
+		Assert.isTrue(!thread.getClosed(), "threadService.save is closed");
+		Assert.isTrue(!thread.getErase(), "threadService.save is erased");
+
 
 		threadRepository.save(thread);
 	}
@@ -207,7 +222,7 @@ public class ThreadService {
 		//	- The thread passed as parameter must have been created by the current principal
 		//	- The given thread must be closed
 		Assert.isTrue(thread.getUser().equals(userService.findOneByPrincipal()));
-		Assert.isTrue(thread.isClosed());
+		Assert.isTrue(thread.getClosed());
 		
 		Thread result;
 		
@@ -223,7 +238,7 @@ public class ThreadService {
 		//	- The thread passed as parameter must have been created by the current principal
 		//	- The given thread must not be already closed
 		Assert.isTrue(thread.getUser().equals(userService.findOneByPrincipal()));
-		Assert.isTrue(!thread.isClosed());
+		Assert.isTrue(!thread.getClosed());
 		
 		Thread result;
 		

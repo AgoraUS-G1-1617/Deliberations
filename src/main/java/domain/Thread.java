@@ -40,7 +40,7 @@ public class Thread extends DomainEntity {
 	private Date creationMoment;
 	private Date lastUpdate;
 	private String decription;
-	private Boolean erase;
+	private boolean erase;
 	private boolean closed;
 	// Although it might seem irrelevant, the attribute 'rating' must be
 	// explicitly declared so that Hibernate knows the name of the getter
@@ -91,15 +91,15 @@ public class Thread extends DomainEntity {
 		this.decription = decription;
 	}
 	
-	public Boolean getErase() {
+	public boolean getErase() {
 		return erase;
 	}
 
-	public void setErase(Boolean erase) {
+	public void setErase(boolean erase) {
 		this.erase = erase;
 	}
 	
-	public boolean isClosed() {
+	public boolean getClosed() {
 		return closed;
 	}
 

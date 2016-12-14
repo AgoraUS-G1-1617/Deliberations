@@ -59,7 +59,7 @@ public class CommentService {
 	public void save(Comment comment) {
 		// Associated business rules:
 		//	- The thread that is associated to the comment passed as parameter must not be closed
-		Assert.isTrue(!comment.getThread().isClosed());
+		Assert.isTrue(!comment.getThread().getClosed());
 		
 		// No se puede editar un comentario
 		Assert.isTrue(comment.getId() == 0);
