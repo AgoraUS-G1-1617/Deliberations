@@ -24,7 +24,7 @@
 	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
 		destroy-method="close">
 		<property name="driverClass" value="com.mysql.jdbc.Driver" />
-		<property name="jdbcUrl" value="jdbc:mysql://localhost:3306/deliberations?autoReconnect=true" />
+		<property name="jdbcUrl" value="jdbc:mysql://localhost:3306/deliberations?autoReconnect=true&failOverReadOnly=false&maxReconnects=10" />
 		<property name="user" value="del-user" />
 		<property name="password" value="deliberati0ns-us3r=p@$s" />
 	</bean>
