@@ -31,7 +31,7 @@ import utilities.AbstractTest;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:spring/datasource.xml", "classpath:spring/config/packages.xml" })
 @Transactional
-@TransactionConfiguration(defaultRollback = false)
+@TransactionConfiguration(defaultRollback = true)
 public class ServiceTest extends AbstractTest {
 
 	// Service under test ------------------------------------------------
