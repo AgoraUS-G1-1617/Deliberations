@@ -165,7 +165,7 @@ public class ServiceTest extends AbstractTest {
 		tokenToVerify = loginService.verifyToken(userAccount);
 
 		// Se realiza la petición de consulta
-		resultOfToken = objectMapper.readValue(new URL("http://www.egcaj.tk/Auth/api/checkToken?token=" + tokenToVerify),
+		resultOfToken = objectMapper.readValue(new URL("http://autha.agoraus1.egc.duckdns.org/api/index.php?method=checkToken&token=" + tokenToVerify),
 				Token.class);
 
 //		System.out.println("resultado del token: " + resultOfToken.isValid());
