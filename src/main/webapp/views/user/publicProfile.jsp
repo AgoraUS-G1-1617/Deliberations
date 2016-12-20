@@ -49,6 +49,13 @@
 							</strong>
 							<jstl:out value=" ${user.autonomous_community}"/>							
 						</p>
+						<p class="user-basic-information">
+							<br>
+							<a href="message/user/create.do?username=${user.userAccount.username}">
+								<i class="material-icons">mail</i>
+								<spring:message code="user.sendpm"/>
+							</a>
+						</p>
 					</div>
 					<div class="col-xs-12 col-sm-4 text-center">
 						<figure>
