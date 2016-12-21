@@ -7,6 +7,7 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -182,8 +183,22 @@ public class ThreadController extends AbstractController {
 			result = createEditModelAndView(thread);
 		} else {
 			try {
-				threadService.save(thread);
-				result = new ModelAndView("redirect:list.do?page=1");
+				if(thread.getTitle().length()>255 || thread.getDecription().length()>65535){
+					Map<String, String> lengthErrors;
+					lengthErrors = new HashMap<String, String>();
+					if(thread.getTitle().length()>255){
+						lengthErrors.put("titleLengthError", "title.length.error");
+					}
+					if(thread.getDecription().length()>65535){
+						lengthErrors.put("descriptionLengthError", "comment.length.error");
+					}
+					result = new ModelAndView("thread/edit");
+					result.addObject("thread", thread);
+					result.addAllObjects(lengthErrors);
+				}else{
+					threadService.save(thread);
+					result = new ModelAndView("redirect:list.do?page=1");
+				}
 			} catch (Throwable oops) {
 				result = createEditModelAndView(thread, "commit.error");
 			}

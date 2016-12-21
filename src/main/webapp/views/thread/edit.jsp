@@ -36,23 +36,31 @@
 				<form:hidden path="ratings" />
 
 				<div class="form-group">
-					<form:label path="title" class="control-label col-md-2" for="email">
+					<form:label path="title" class="control-label col-md-2" for="title">
 						<spring:message code="thread.title" />
 					</form:label>
 					<div class="col-md-8">
-						<form:input path="title" class="form-control" id="email" />
+						<form:input path="title" class="form-control" id="title" />
 						<form:errors class="error" path="title" />
+						<jstl:if test="${titleLengthError != null}">
+							<br />
+							<span class="error"><spring:message code="${titleLengthError}" /></span>
+						</jstl:if>	
 					</div>
 				</div>
 
 				<div class="form-group">
-					<form:label path="decription" class="control-label col-md-2" for="pwd">
+					<form:label path="decription" class="control-label col-md-2" for="description">
 						<spring:message code="thread.text" />
 					</form:label>
 					<div class="col-md-8">
 						<form:textarea rows="3" path="decription" class="form-control noresize"
-							id="pwd" />
+							id="description" />
 						<form:errors class="error" path="decription" />
+						<jstl:if test="${descriptionLengthError != null}">
+							<br />
+							<span class="error"><spring:message code="${descriptionLengthError}" /></span>
+						</jstl:if>	
 					</div>
 				</div>
 
