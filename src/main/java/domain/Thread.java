@@ -10,6 +10,7 @@ import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
 import javax.persistence.Index;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -83,6 +84,7 @@ public class Thread extends DomainEntity {
 	}
 
 	@NotBlank
+	@Lob
 	public String getDecription() {
 		return decription;
 	}
