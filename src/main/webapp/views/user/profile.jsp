@@ -144,13 +144,12 @@
 				<td><img src="${rank.icon}"></td>
 				<td style='padding: 3%' WIDTH="500">
 					<jstl:set var="titleParts" value="${fn:split(rank.title, ' / ')}" />
-					<b><jstl:out value="(${rank.number}) "/></b>
 					<div class="spanishRankDescription">
-						<b><jstl:out value="${titleParts[1]}"/></b>	
+						<b><jstl:out value="(${rank.number}) "/><jstl:out value="${titleParts[1]}: "/></b>	
 	   					<jstl:out value="${rank.descriptionEs}"/>
 	   				</div>
 	   				<div class="englishRankDescription">
-						<b><jstl:out value="${titleParts[0]}"/></b>		
+						<b><jstl:out value="(${rank.number}) "/><jstl:out value="${titleParts[0]}: "/></b>		
 	   					<jstl:out value="${rank.descriptionEn}"/>
    					</div>
 				</td>
@@ -161,15 +160,16 @@
 						<td><a class="emerge"><img class="darkRank" src="${rankTemp.icon}">
 							<span >
 							<img class="iconCenter" src="${rankTemp.icon}">
-							<b><jstl:out value="(${rankTemp.number}) "/></b>
+							
 							<div class="spanishRankDescription">
-								<b><jstl:out value="${titleTempParts[1]}"/></b>	
+								<b><jstl:out value="(${rankTemp.number}) "/><jstl:out value="${titleTempParts[1]}: "/></b>	
 								<jstl:out value=" ${rank.descriptionEs}" />
 							</div>
 							<div class="englishRankDescription">
-								<b><jstl:out value="${titleTempParts[0]}"/></b>
+								<b><jstl:out value="(${rankTemp.number}) "/><jstl:out value="${titleTempParts[0]}: "/></b>
 								<jstl:out value=" ${rank.descriptionEn}" />
 							</div>
+							
 						</span>
 						</a></td>
 						<jstl:if test="${rankTemp.number != numRanks-1}">
