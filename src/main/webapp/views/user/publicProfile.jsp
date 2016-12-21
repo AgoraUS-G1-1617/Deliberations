@@ -122,15 +122,12 @@
 			<tr>
 				<td>
 					<jstl:set var="titleParts" value="${fn:split(rank.title, ' / ')}" />
-					<b><jstl:out value="(${rank.number}) "/></b>
-					<jstl:choose>	
-    					<jstl:when test="${cookieValue=='es'}">
-							<b><jstl:out value="${titleParts[1]}"/></b>	
-    					</jstl:when>    
-    					<jstl:otherwise>
-    						<b><jstl:out value="${titleParts[0]}"/></b>		
-    					</jstl:otherwise>
-					</jstl:choose>
+					<div class="spanishRankDescription">
+						<b><jstl:out value="(${rank.number}) "/><jstl:out value="${titleParts[1]}"/></b>	
+	   				</div>
+	   				<div class="englishRankDescription">
+						<b><jstl:out value="(${rank.number}) "/><jstl:out value="${titleParts[0]}"/></b>		
+   					</div>
 				</td>
 				
 			</tr>
@@ -156,4 +153,37 @@
 		$(".karma-user-div").html(inputText);
 
 	}
+	
+	function getCookie(cname) {
+	    var name = cname + "=";
+	    var ca = document.cookie.split(';');
+	    for(var i = 0; i <ca.length; i++) {
+	        var c = ca[i];
+	        while (c.charAt(0)==' ') {
+	            c = c.substring(1);
+	        }
+	        if (c.indexOf(name) == 0) {
+	            return c.substring(name.length,c.length);
+	        }
+	    }
+	    return "";
+	}
+	
+	function setRankDescriptions(){
+		language = getCookie("language");
+		
+		if (language == "es") {
+			var elements = document.getElementsByClassName("englishRankDescription");
+			for(var i=0; i<elements.length; i++) {
+			    elements[i].innerHTML = '';
+			}
+		} else {
+			var elements = document.getElementsByClassName("spanishRankDescription");
+			for(var i=0; i<elements.length; i++) {
+			    elements[i].innerHTML = '';
+			}
+		}
+	}
+	
+	window.onload = setRankDescriptions()
 </script>

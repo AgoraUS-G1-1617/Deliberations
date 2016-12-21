@@ -64,7 +64,7 @@
 						<div class="ch-info">
 							<h3><spring:message code="developers.dev" /></h3>
 							<p>
-								  Bartolome Marquez Dominguez <a href="https://github.com/barmardom">@barmardom</a>
+								  Bartolomé Márquez Domínguez <a href="https://github.com/barmardom">@barmardom</a>
 							</p>
 						</div>
 					</div>
