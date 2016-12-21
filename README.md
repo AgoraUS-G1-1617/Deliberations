@@ -2,7 +2,7 @@
 [![Build Status](https://travis-ci.org/AgoraUS-G1-1617/Deliberations.svg?branch=master)](https://travis-ci.org/AgoraUS-G1-1617/Deliberations)
 
 Deliberaciones es un subsistema de código abierto del proyecto Agora@US que introduce la funcionalidad de un foro para administrar hilos y mensajes de usuarios votantes. 
-Dichos mensajes contendrán información sobre el votante que los haya realizado. Sólo los votantes válidos podrán realizar comentarios, por lo que se deberá consultar al sistema de autenticación.
+Dichos mensajes contendrán información sobre el votante que los haya realizado. Sólo los votantes válidos podrán realizar comentarios, por lo que se deberá consultar al sistema de **autenticación**.
 
 ### Tecnología
 Se trata de una aplicación web J2EE que hace uso de una base de datos MySQL con las herramientas Hibernate y Spring para el mapeo de objetos.
