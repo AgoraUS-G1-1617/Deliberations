@@ -36,6 +36,9 @@
 <link rel="stylesheet" href="styles/displaytag.css" type="text/css">
 <link rel="stylesheet" type="text/css" href="styles/manual.css" media="screen" />
 
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+
 
 
 		<meta name="viewport" content="width=device-width, initial-scale=1">
