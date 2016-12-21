@@ -239,6 +239,9 @@ function updateStars(id) {
 								<button type="submit" name="save" class="btn btn-primary"><spring:message code="comment.save" /></button>  
 							</span>
 						</div>
+						<jstl:if test="${commentLengthError != null}">
+							<span class="error"><spring:message code="${commentLengthError}" /></span>
+						</jstl:if>	
 					</div>
 				</div>
 			</form:form>

@@ -131,11 +131,20 @@ public class ThreadController extends AbstractController {
 			result = createListModelAndView(comment.getThread().getId(), page, comment);
 
 		} else {
-			result = new ModelAndView("redirect:display.do?id=" + comment.getThread().getId() + "&p=" + page);
-			try {
-				commentService.save(comment);
-			} catch (Throwable op) {
-				op.printStackTrace();
+			if(comment.getText().length()>65535){
+
+				result = createListModelAndView(comment.getThread().getId(), page, comment);
+				result.addObject("commentLengthError", "comment.length.error");
+				
+			}else{
+				
+				result = new ModelAndView("redirect:display.do?id=" + comment.getThread().getId() + "&p=" + page);
+				
+				try {
+					commentService.save(comment);
+				} catch (Throwable op) {
+					op.printStackTrace();
+				}
 			}
 		}
 		return result;
