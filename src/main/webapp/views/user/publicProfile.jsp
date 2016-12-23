@@ -100,12 +100,12 @@
 					<div class="col-xs-12 col-sm-4 emphasis">
 						<h2>
 							<strong>
-								<jstl:out value=" ${commentsCreated}" />
+								<jstl:out value=" ${ratingsCreated}" />
 							</strong>
 						</h2>
 						<p>
 							<small>
-								<spring:message code="user.commentsCreated" />
+								<spring:message code="user.ratingsCreated" />
 							</small>
 						</p>
 					</div>
