@@ -20,19 +20,50 @@
 
 <br />
 <br />
-<div class="container">
+
+<div class="container marketing">
+
+	<div class="row">
+		<div class="col-lg-4">
+			<img class="img-square"
+				src="http://image.flaticon.com/icons/svg/265/265755.svg"
+				alt="person" width="140" height="140">
+			<h2><spring:message code="welcome.heading.1"/></h2>
+			<p><spring:message code="welcome.1.text"/></p>
+		</div>
+		<!-- /.col-lg-4 -->
+		<div class="col-lg-4">
+			<img class="img-square"
+				src="http://image.flaticon.com/icons/svg/139/139756.svg"
+				alt="key" width="140" height="140">
+			<h2><spring:message code="welcome.heading.2"/></h2>
+			<p><spring:message code="welcome.2.text"/></p>
+		</div>
+		<!-- /.col-lg-4 -->
+		<div class="col-lg-4">
+			<img class="img-square"
+				src="http://image.flaticon.com/icons/svg/138/138533.svg"
+				alt="heart" width="140" height="140">
+			<h2><spring:message code="welcome.heading.3"/></h2>
+			<p><spring:message code="welcome.3.text"/></p>
+		</div>
+		<!-- /.col-lg-4 -->
+	</div>
+	<!-- /.row -->
+
+	<hr class="featurette-divider">
 
 	<div class="row featurette">
 		<div class="col-md-7">
-			<h1 class="featurette-heading">
-				<spring:message code="welcome.title" /><span class="text-muted"></span>
-			</h1>
-			<p class="lead"><spring:message code="welcome.intro" /></p>
+			<h2 class="featurette-heading">
+				<spring:message code="welcome.feature.1.title"/> 
+				<span class="text-muted"><spring:message code="welcome.feature.1.sub"/></span>
+			</h2>
+			<p class="lead"><spring:message code="welcome.intro"/></p>
 		</div>
 		<div class="col-md-5">
-			<img src="images/group.png"
-				class="featurette-image img-responsive center-block"
-				data-src="holder.js/500x500/auto" alt="Generic placeholder image">
+			<img class="featurette-image img-responsive center-block"
+				src="http://image.flaticon.com/icons/svg/281/281351.svg" alt="voting" width="50%">
 		</div>
 	</div>
 
@@ -41,33 +72,16 @@
 	<div class="row featurette">
 		<div class="col-md-7 col-md-push-5">
 			<h2 class="featurette-heading">
-				Agora@US<span class="text-muted"></span>
+				<spring:message code="welcome.feature.2.title"/> 
+				<span class="text-muted"><spring:message code="welcome.feature.2.sub"/></span>
 			</h2>
-			<p class="lead"><spring:message code="welcome.second" /></p>
+			<p class="lead"><spring:message code="welcome.second"/></p>
 		</div>
 		<div class="col-md-5 col-md-pull-7">
-			<img src="images/group.png"
-				class="featurette-image img-responsive center-block"
-				data-src="holder.js/500x500/auto" alt="Grupo EGC">
+			<img class="featurette-image img-responsive center-block"
+				src="http://image.flaticon.com/icons/svg/291/291684.svg" alt="programming" width="50%">
 		</div>
 	</div>
-	<br />
+
+	<hr class="featurette-divider">
 </div>
-
-<!-- welcome -->
-<!-- <div class="welcome"> -->
-<!-- <div class="container"> -->
-<!-- 		<h2>Deliberaciones Agora@US 15-16</h2> -->
-<!-- 		<p> -->
-<!-- 			Deliberaciones es un subsistema de código abierto del proyecto -->
-<!-- 			Agora@US que introduce la funcionalidad de un foro para administrar -->
-<!-- 			hilos y mensajes de usuarios votantes. <br /> Dichos mensajes -->
-<!-- 			contendrán información sobre el votante que los haya realizado. Sólo -->
-<!-- 			los votantes válidos podrán realizar comentarios, por lo que se -->
-<!-- 			deberá consultar al sistema de autenticación. <br /> -->
-<!-- 			<br /> -->
-<!-- 		</p> -->
-
-<!-- </div> -->
-<!-- </div> -->
-<!-- <!-- welcome -->
