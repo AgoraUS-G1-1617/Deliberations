@@ -64,6 +64,10 @@
 										${karmaOfUser[0]}
 										</button> 
 								</div>
+								<a class="emerge">
+									<img src="images/help.svg" style="width:20px">
+									<span style="bottom:20px;left:20px;" id="karmaHelp"></span>
+								</a>
 							</figcaption>
 						</figure>
 					</div>
@@ -189,21 +193,6 @@
 		$(".karma-user-div").html(inputText);
 	}
 	
-	function getCookie(cname) {
-	    var name = cname + "=";
-	    var ca = document.cookie.split(';');
-	    for(var i = 0; i <ca.length; i++) {
-	        var c = ca[i];
-	        while (c.charAt(0)==' ') {
-	            c = c.substring(1);
-	        }
-	        if (c.indexOf(name) == 0) {
-	            return c.substring(name.length,c.length);
-	        }
-	    }
-	    return "";
-	}
-	
 	function setRankDescriptions(){
 		language = getCookie("language");
 		
@@ -212,11 +201,17 @@
 			for(var i=0; i<elements.length; i++) {
 			    elements[i].innerHTML = '';
 			}
+			
+			document.getElementById("karmaHelp").innerHTML = "Todos los usuarios tienen un karma asociado, que consiste \
+			en el balance de votos positivos y negativos que ha recibido en sus comentarios por parte de otros usuarios."
 		} else {
 			var elements = document.getElementsByClassName("spanishRankDescription");
 			for(var i=0; i<elements.length; i++) {
 			    elements[i].innerHTML = '';
 			}
+			
+			document.getElementById("karmaHelp").innerHTML = "All users have a certain karma level associated, which consists of \
+			the number of positive and negative votes that have been received in his or her comments by other users."
 		}
 	}
 	

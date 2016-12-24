@@ -84,6 +84,12 @@
 								<img src='images/star_n.svg' alt='*' height='20px' />
 							
 							</jstl:forEach>
+							
+							<a class="emerge">
+								<img src="images/help.svg" style="width:20px">
+								<span style="bottom:20px;left:20px;" class="threadRatingHelp"></span>
+							</a>
+
 						</li>
 						<li class="bbp-forum-freshness">
 							<jstl:if test="${threadRow.lastComment!=null}">
@@ -97,7 +103,6 @@
 		</ul>
 	</div>
 </div>
-
 
 <div id="pagination" class="copyright">
 
@@ -121,6 +126,24 @@
 			window.location.href = "thread/list.do?page=" + num + "";
 			page = 1
 		});
+		
+		function setThreadRatingHelp(){
+			language = getCookie("language");
+			
+			var elements = document.getElementsByClassName("threadRatingHelp");
+			
+			if(language=="es") {
+				for(var i=0; i<elements.length; i++) {
+				    elements[i].innerHTML = 'Las estrellas muestran la valoración que los usuarios han dado al hilo.';
+				}
+			} else {
+				for(var i=0; i<elements.length; i++) {
+				    elements[i].innerHTML = 'The stars show the rating that the users have given the thread.';
+				}
+			}
+		}
+		
+		window.onload = setThreadRatingHelp();
 	</script>
 
 </div>
