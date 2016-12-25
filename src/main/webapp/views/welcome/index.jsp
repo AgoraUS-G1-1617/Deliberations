@@ -24,7 +24,7 @@
 <div class="container marketing">
 
 	<div class="row">
-		<div class="col-lg-4">
+		<div class="col-lg-4" style="text-align:center;">
 			<img class="img-square"
 				src="http://image.flaticon.com/icons/svg/265/265755.svg"
 				alt="person" width="140" height="140">
@@ -32,7 +32,7 @@
 			<p><spring:message code="welcome.1.text"/></p>
 		</div>
 		<!-- /.col-lg-4 -->
-		<div class="col-lg-4">
+		<div class="col-lg-4" style="text-align:center;">
 			<img class="img-square"
 				src="http://image.flaticon.com/icons/svg/139/139756.svg"
 				alt="key" width="140" height="140">
@@ -40,7 +40,7 @@
 			<p><spring:message code="welcome.2.text"/></p>
 		</div>
 		<!-- /.col-lg-4 -->
-		<div class="col-lg-4">
+		<div class="col-lg-4" style="text-align:center;">
 			<img class="img-square"
 				src="http://image.flaticon.com/icons/svg/138/138533.svg"
 				alt="heart" width="140" height="140">
