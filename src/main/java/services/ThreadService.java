@@ -61,7 +61,6 @@ public class ThreadService {
 		result.setCreationMoment(date);
 		result.setLastUpdate(date);
 		result.setClosed(false);
-		result.setErase(false);
 
 		return result;
 	}
@@ -94,7 +93,6 @@ public class ThreadService {
 		
 		Assert.isTrue(actUser.equals(thread.getUser()), "threadService.save not propietary");
 //		Assert.isTrue(!thread.getClosed(), "threadService.save is closed");
-		Assert.isTrue(!thread.getErase(), "threadService.save is erased");
 
 
 		threadRepository.save(thread);
@@ -148,14 +146,6 @@ public class ThreadService {
 		return result;
 	}
 
-	public Collection<Thread> findThreadAvailables() {
-		Collection<Thread> result;
-
-		result = new ArrayList<Thread>();
-		result = threadRepository.findThreadAvailables();
-
-		return result;
-	}
 
 	public Collection<Thread> findThreadMoreRating() {
 		Collection<Thread> result;

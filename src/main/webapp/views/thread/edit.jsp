@@ -28,7 +28,6 @@
 				<form:hidden path="id" />
 				<form:hidden path="version" />
 				<form:hidden path="user" />
-				<form:hidden path="erase" />
 				<form:hidden path="closed" />
 				<form:hidden path="creationMoment" />
 				<form:hidden path="lastUpdate" />
