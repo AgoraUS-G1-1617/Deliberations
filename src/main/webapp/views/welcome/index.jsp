@@ -26,7 +26,7 @@
 	<div class="row">
 		<div class="col-lg-4" style="text-align:center;">
 			<img class="img-square"
-				src="http://image.flaticon.com/icons/svg/265/265755.svg"
+				src="https://image.flaticon.com/icons/svg/265/265755.svg"
 				alt="person" width="140" height="140">
 			<h2><spring:message code="welcome.heading.1"/></h2>
 			<p><spring:message code="welcome.1.text"/></p>
@@ -34,7 +34,7 @@
 		<!-- /.col-lg-4 -->
 		<div class="col-lg-4" style="text-align:center;">
 			<img class="img-square"
-				src="http://image.flaticon.com/icons/svg/139/139756.svg"
+				src="https://image.flaticon.com/icons/svg/139/139756.svg"
 				alt="key" width="140" height="140">
 			<h2><spring:message code="welcome.heading.2"/></h2>
 			<p><spring:message code="welcome.2.text"/></p>
@@ -42,7 +42,7 @@
 		<!-- /.col-lg-4 -->
 		<div class="col-lg-4" style="text-align:center;">
 			<img class="img-square"
-				src="http://image.flaticon.com/icons/svg/138/138533.svg"
+				src="https://image.flaticon.com/icons/svg/138/138533.svg"
 				alt="heart" width="140" height="140">
 			<h2><spring:message code="welcome.heading.3"/></h2>
 			<p><spring:message code="welcome.3.text"/></p>
@@ -63,7 +63,7 @@
 		</div>
 		<div class="col-md-5">
 			<img class="featurette-image img-responsive center-block"
-				src="http://image.flaticon.com/icons/svg/281/281351.svg" alt="voting" width="50%">
+				src="https://image.flaticon.com/icons/svg/281/281351.svg" alt="voting" width="50%">
 		</div>
 	</div>
 
@@ -79,7 +79,7 @@
 		</div>
 		<div class="col-md-5 col-md-pull-7">
 			<img class="featurette-image img-responsive center-block"
-				src="http://image.flaticon.com/icons/svg/291/291684.svg" alt="programming" width="50%">
+				src="https://image.flaticon.com/icons/svg/291/291684.svg" alt="programming" width="50%">
 		</div>
 	</div>
 
