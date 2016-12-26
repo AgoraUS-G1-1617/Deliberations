@@ -56,18 +56,20 @@ public class RatingService {
 		return ratingRepository.findAll();
 	}
 
-	public void save(Rating rating) {
+	public Rating save(Rating rating) {
 		// Associated business rules:
 		//	- It must be a user who performs this use case
 		//	- The user who saves the rating must be the user who is logged into the system
 		User principal;
+		Rating res;
 		
 		principal = userService.findOneByPrincipal();
 		
 		Assert.notNull(principal);
 		Assert.isTrue(rating.getUser().equals(principal));
 		
-		ratingRepository.save(rating);
+		res = ratingRepository.save(rating);
+		return res;
 	}
 
 	public void delete(Rating rating) {

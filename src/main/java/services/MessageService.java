@@ -54,15 +54,26 @@ public class MessageService {
 
 		return result;
 	}
+	
+	public Message findOne(int messageId) {
+		Message result;
 
-	public void save(MessageForm messageForm) {
+		result = messageRepository.findOne(messageId);
+
+		return result;
+	}
+
+	public Message save(MessageForm messageForm) {
 		Message message;
+		Message res;
 		Assert.notNull(messageForm);
 
 		message = MessageFormToMessage(messageForm);
 
 	
-		messageRepository.save(message);
+		res = messageRepository.save(message);
+		
+		return res;
 	}
 
 	// Other business methods -------------------------------------------------
