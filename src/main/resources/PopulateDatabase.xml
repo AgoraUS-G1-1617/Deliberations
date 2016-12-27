@@ -74,7 +74,6 @@
 			<list>
 				<ref bean="comment1" />
 				<ref bean="comment2" />
-				<ref bean="comment6" />
 			</list>
 		</property>
 	</bean>

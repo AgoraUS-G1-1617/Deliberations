@@ -56,16 +56,19 @@ public class CommentService {
 		return commentRepository.findAll();
 	}
 
-	public void save(Comment comment) {
+	public Comment save(Comment comment) {
 		// Associated business rules:
 		//	- The thread that is associated to the comment passed as parameter must not be closed
 		Assert.isTrue(!comment.getThread().getClosed());
 		
 		// No se puede editar un comentario
 		Assert.isTrue(comment.getId() == 0);
+		Comment result;
 
-		commentRepository.save(comment);
+		result = commentRepository.save(comment);
 		threadService.refreshLastUpdate(comment.getThread());
+		
+		return result;
 	}
 
 	public void delete(Comment comment) {
