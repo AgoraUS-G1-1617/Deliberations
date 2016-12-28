@@ -57,8 +57,9 @@ public class RankService {
 		return rankRepository.findAll();
 	}
 
-	public void save(Rank rank) {
-		rankRepository.save(rank);
+	public Rank save(Rank rank) {
+		return rankRepository.save(rank);
+		
 	}
 
 	public void delete(Rank rank) {
