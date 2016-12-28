@@ -22,27 +22,23 @@ import utilities.AbstractTest;
 @TransactionConfiguration(defaultRollback = true)
 public class CommentTest extends AbstractTest {
 
-	
 	// Service to test --------------------------------------------------------
 
 	@Autowired
 	private CommentRepository commentRepository;
-	
+
 	@Autowired
 	private CommentService commentService;
-	
+
 	// Supporting services ----------------------------------------------------
-	
+
 	@Autowired
 	private UserService userService;
-	
+
 	@Autowired
 	private ThreadService threadService;
 
-	
 	// Test cases ------------------------------------------------------------
-	
-
 
 	/**
 	 * @Test Creation of comments
@@ -54,16 +50,16 @@ public class CommentTest extends AbstractTest {
 		Comment comment;
 		User user;
 		domain.Thread thread;
-		
+
 		user = userService.findOneByPrincipal();
 		thread = threadService.findOne(7);
 		comment = commentService.create();
-		
+
 		comment.setCreationMoment(Calendar.getInstance().getTime());
 		comment.setText("Test");
 		comment.setUser(user);
 		comment.setThread(thread);
-		
+
 		comment = commentService.save(comment);
 		Assert.isTrue(commentRepository.exists(comment.getId()));
 		Assert.isTrue(commentService.findOne(comment.getId()).getText().equals("Test"));
@@ -71,9 +67,9 @@ public class CommentTest extends AbstractTest {
 		Assert.isTrue(commentService.findOne(comment.getId()).getThread().equals(thread));
 		unauthenticate();
 	}
-	
+
 	/**
-	 * @Test Other business methods 
+	 * @Test Other business methods
 	 * @result The methods returns the expected values
 	 */
 	@Test
@@ -84,67 +80,61 @@ public class CommentTest extends AbstractTest {
 		Integer commentsInTheLastHours;
 		Double findRatioOfCommentsOfUserInHilo;
 		int countCommentsCreatedByUser;
-		
+
 		commentsOfHilo = commentService.findCommentsOfHilo(7).size();
 		Assert.isTrue(commentsOfHilo.equals(3));
 
-		commentsOfUser = commentService.findCommentsOfUser().size(); 
+		commentsOfUser = commentService.findCommentsOfUser().size();
 		Assert.isTrue(commentsOfUser.equals(2));
-		
-		commentsInTheLastHours =  commentService.findCommentsInTheLastHours(Calendar.getInstance().getTime()).size();
+
+		commentsInTheLastHours = commentService.findCommentsInTheLastHours(Calendar.getInstance().getTime()).size();
 		Assert.isTrue(commentsInTheLastHours.equals(0));
-		
+
 		findRatioOfCommentsOfUserInHilo = commentService.findRatioOfCommentsOfUserInHilo(7);
 		Assert.isTrue(findRatioOfCommentsOfUserInHilo.equals(33.0));
-		
+
 		countCommentsCreatedByUser = commentService.countCommentsCreatedByUser();
-		Assert.isTrue(countCommentsCreatedByUser==2);
-		
+		Assert.isTrue(countCommentsCreatedByUser == 2);
+
 		unauthenticate();
 	}
-	
-	
-	
-	
+
 	/**
 	 * @Test Edition of comments
-	 * @result We try to edit an comment so <code>IllegalArgumentException</code> is expected
+	 * @result We try to edit an comment so
+	 *         <code>IllegalArgumentException</code> is expected
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void negativeCRUDTes() {
 		authenticate("user1");
 		Comment comment;
-		
+
 		comment = commentService.findOne(10);
 		comment.setText("Test");
-		
+
 		commentService.save(comment);
-		
+
 		unauthenticate();
 	}
-	
+
 	/**
 	 * @Test Comments created by User
-	 * @result We try to get the comments of null user so <code>IllegalArgumentException</code> is expected
+	 * @result We try to get the comments of null user so
+	 *         <code>IllegalArgumentException</code> is expected
 	 */
-	@SuppressWarnings("unused")
 	@Test(expected = IllegalArgumentException.class)
 	public void negativeCommentOtherMethodsTest() {
-		int countCommentsCreatedByUser;
-		
-		countCommentsCreatedByUser = commentService.countCommentsCreatedByUser();
+		commentService.countCommentsCreatedByUser();
 	}
-	
+
 	/**
 	 * @Test Comments created by Given User
-	 * @result We try to get the comments of null user so <code>IllegalArgumentException</code> is expected
+	 * @result We try to get the comments of null user so
+	 *         <code>IllegalArgumentException</code> is expected
 	 */
-	@SuppressWarnings("unused")
 	@Test(expected = IllegalArgumentException.class)
 	public void negativeCommentOtherMethodsTest1() {
-		int countCommentsCreatedByUser;
-		
-		countCommentsCreatedByUser = commentService.countCommentsCreatedByUserGiven(null);
+		commentService.countCommentsCreatedByUserGiven(null);
 	}
-	
+
 }
