@@ -48,7 +48,7 @@ import services.UserService;
 @RequestMapping("/thread")
 public class ThreadController extends AbstractController {
 
-	// Supporting services -----------------------
+	// Supporting services ----------------------------------------------------
 
 	@Autowired
 	private ThreadService threadService;
@@ -74,8 +74,7 @@ public class ThreadController extends AbstractController {
 		super();
 	}
 
-	// Listing
-	// ------------------------------------------------------------------
+	// Listing ----------------------------------------------------------------
 
 	@RequestMapping("/list")
 	public ModelAndView messagesReceived(@RequestParam int page) {
@@ -94,9 +93,8 @@ public class ThreadController extends AbstractController {
 
 		return result;
 	}
-	// Displaying ---------------------------------------------------------
+	// Displaying -------------------------------------------------------------
 	
-	// devuelve hilo mas sus comentarios
 	@RequestMapping(value = "/display", method = RequestMethod.GET)
 	public ModelAndView seeThread(@RequestParam int id, @RequestParam Integer p) {
 		ModelAndView result;
@@ -116,8 +114,7 @@ public class ThreadController extends AbstractController {
 
 	}
 
-	// Creation
-	// --------------------------------------------------------------------------
+	// Creation ---------------------------------------------------------------
 
 	@RequestMapping(value = "/saveComment", method = RequestMethod.POST)
 	public ModelAndView saveComment(@Valid Comment comment, BindingResult binding) {
@@ -165,8 +162,7 @@ public class ThreadController extends AbstractController {
 		return result;
 	}
 
-	// Edition
-	// ------------------------------------------------------------------------
+	// Edition ----------------------------------------------------------------
 
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
 	public ModelAndView edit(@RequestParam int threadId) {

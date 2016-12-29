@@ -35,6 +35,8 @@ public abstract class AbstractTest {
 		if (populate) {
 			PopulateDatabase.main(null);
 			populate = false;
+			
+			UtilTest.mapBeansToIds();
 		}
 
 		unauthenticate();

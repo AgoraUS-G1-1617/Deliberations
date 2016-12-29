@@ -177,6 +177,7 @@
 		<property name="title" value="¿Cambiar la fecha de la feria?"></property>
 		<property name="lastUpdate" value="11/08/2016 06:41"></property>
 		<property name="decription" value="¿Estaríais a favor? ¿En contra? ¿Por qué?"></property>
+		<property name="closed" value="true"/>
 		<property name="comments">
 			<list>
 			</list>

@@ -19,6 +19,7 @@ import domain.Thread;
 import domain.User;
 import repositories.ThreadRepository;
 import security.LoginService;
+import security.UserAccount;
 
 @Service
 @Transactional
@@ -43,14 +44,18 @@ public class ThreadService {
 	// Simple CRUD methods ----------------------------------------------------
 
 	public Thread create() {
+		// Associated business rules:
+		//	- It must be an authenticated user who performs this use case
 		Thread result;
 		User user;
 		Collection<Comment> comments;
 		Collection<Rating> ratings;
 		Date date;
 
-		result = new Thread();
 		user = userService.findOneByPrincipal();
+		Assert.notNull(user);
+		
+		result = new Thread();
 		comments = new ArrayList<Comment>();
 		ratings = new ArrayList<Rating>();
 		date = new Date(System.currentTimeMillis() - 1000);
@@ -66,23 +71,44 @@ public class ThreadService {
 	}
 
 	public Thread findOne(int threadId) {
-		return threadRepository.findOne(threadId);
+		// Associated business rules:
+		//	- The id passed as parameter must be greater than 0
+		//	- The id passed as parameter must be associated to an existing thread
+		Assert.isTrue(threadId > 0);
+		
+		Thread result;
+		
+		result = threadRepository.findOne(threadId);
+		Assert.notNull(result);
+		
+		return result;
 	}
 
 	public Page<Thread> findAll(Pageable page) {
-		return threadRepository.findAllSortedByDate(page);
+		// Associated business rules:
+		//	- The Pageable object passed as parameter must not be null
+		Assert.notNull(page);
+		
+		Page<Thread> result;
+		
+		result = threadRepository.findAllSortedByDate(page);
+		
+		return result;
 	}
 
-	public void save(Thread thread) {
-		User actUser;
+	public Thread save(Thread thread) {
+		// Associated business rules:
+		//	- It must be a logged in user who performs this use case
+		//	- The thread passed as parameter must be associated to the user that is logged in
+		User principal;
 		Thread dbThread;
 		
-		actUser = userService.findOneByPrincipal();
+		principal = userService.findOneByPrincipal();
+		Assert.notNull(principal);
 
 		if (thread.getId() == 0){
 			dbThread = this.create();
-			
-		} else {			
+		} else {
 			dbThread = this.findOne(thread.getId());
 		}
 		
@@ -91,29 +117,31 @@ public class ThreadService {
 		
 		thread = dbThread;
 		
-		Assert.isTrue(actUser.equals(thread.getUser()), "threadService.save not propietary");
+		Assert.isTrue(principal.equals(thread.getUser()), "threadService.save not propietary");
 //		Assert.isTrue(!thread.getClosed(), "threadService.save is closed");
 
-
-		threadRepository.save(thread);
+		return threadRepository.save(thread);
 	}
 
 	// Other business methods -------------------------------------------------
 
-	public void refreshLastUpdate(Thread t){
+	public void refreshLastUpdate(Thread thread){
+		// Associated business rules:
+		//	- The thread passed as parameter must not be null
+		Assert.notNull(thread);
+		
 		Date date;
 
-		t = this.findOne(t.getId());
+		thread = this.findOne(thread.getId());
 		date = new Date(System.currentTimeMillis() - 1000);
-		t.setLastUpdate(date);
+		thread.setLastUpdate(date);
 
-		threadRepository.save(t);
+		threadRepository.save(thread);
 	}
 
 	public Collection<Thread> findThreadWithMoreComments() {
 		Collection<Thread> result;
 
-		result = new ArrayList<Thread>();
 		result = threadRepository.findThreadWithMoreComments();
 
 		return result;
@@ -122,35 +150,40 @@ public class ThreadService {
 	public Collection<Thread> findThreadWithLessComments() {
 		Collection<Thread> result;
 
-		result = new ArrayList<Thread>();
 		result = threadRepository.findThreadWithLessComments();
 
 		return result;
 	}
 
 	public Collection<Thread> findThreadOfUser() {
+		// Associated business rules:
+		//	- It must be a logged in user who performs this use case
 		Collection<Thread> result;
+		UserAccount principal;
+		
+		principal = LoginService.getPrincipal();
+		Assert.notNull(principal);
 
-		result = new ArrayList<Thread>();
-		result = threadRepository.findThreadOfUser(LoginService.getPrincipal().getId());
+		result = threadRepository.findThreadOfUser(principal.getId());
 
 		return result;
 	}
 
 	public Collection<Thread> findThreadWithTitle(String title) {
+		// Associated business rules:
+		//	- The title passed as parameter must not be null
+		Assert.notNull(title);
+		
 		Collection<Thread> result;
 
-		result = new ArrayList<Thread>();
 		result = threadRepository.findThreadWithTitle(title);
 
 		return result;
 	}
 
-
 	public Collection<Thread> findThreadMoreRating() {
 		Collection<Thread> result;
 
-		result = new ArrayList<Thread>();
 		result = threadRepository.findThreadMoreRating();
 
 		return result;
@@ -159,13 +192,12 @@ public class ThreadService {
 	public Collection<Thread> findThreadLessRating() {
 		Collection<Thread> result;
 
-		result = new ArrayList<Thread>();
 		result = threadRepository.findThreadLessRating();
 
 		return result;
 	}
 
-	public List<Comment> findCommentsByPage(Integer valueOf, Integer p) {
+	public List<Comment> findCommentsByPage(int valueOf, int p) {
 		domain.Thread hilo;
 		Integer numberRows;
 		List<Comment> paginatedComments;
@@ -239,26 +271,29 @@ public class ThreadService {
 		return result;
 	}
 	
-	public int countThreadCreatedByUser(){
-		int res;
-		User user;
+	public int countThreadsCreatedByPrincipal(){
+		// Associated business rules:
+		//	- It must be a logged in user who performs this use case
+		int result;
+		User principal;
 		
-		user = userService.findOneByPrincipal();
+		principal = userService.findOneByPrincipal();
+		Assert.notNull(principal);
 		
-		Assert.notNull(user);
+		result = countThreadsCreatedByGivenUser(principal);
 		
-		res = threadRepository.countThreadCreatedByUserId(user.getId());
-		
-		return res;
+		return result;
 	}
 	
-	public int countThreadCreatedByUserGiven(User user){
-		int res;
-		
+	public int countThreadsCreatedByGivenUser(User user){
+		// Associated business rules:
+		//	- The user passed as parameter must not be null
 		Assert.notNull(user);
 		
-		res = threadRepository.countThreadCreatedByUserIdGiven(user.getId());
+		int result;
 		
-		return res;
+		result = threadRepository.countThreadCreatedByUserId(user.getId());
+		
+		return result;
 	}
 }
