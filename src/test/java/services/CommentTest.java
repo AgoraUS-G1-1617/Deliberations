@@ -75,14 +75,10 @@ public class CommentTest extends AbstractTest {
 	@Test
 	public void possitiveCommentOtherMethodsTest() {
 		authenticate("user1");
-		Integer commentsOfHilo;
 		Integer commentsOfUser;
 		Integer commentsInTheLastHours;
 		Double findRatioOfCommentsOfUserInHilo;
 		int countCommentsCreatedByUser;
-
-		commentsOfHilo = commentService.findCommentsOfHilo(7).size();
-		Assert.isTrue(commentsOfHilo.equals(3));
 
 		commentsOfUser = commentService.findCommentsOfUser().size();
 		Assert.isTrue(commentsOfUser.equals(2));

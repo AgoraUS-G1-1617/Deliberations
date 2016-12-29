@@ -386,7 +386,7 @@ public class ThreadController extends AbstractController {
 		Integer loggedUserId;
 
 		hilo = threadService.findOne(id);
-		comments = threadService.findCommentsByPage(id, p);
+		comments = commentService.findCommentsByPage(id, p);
 		lastPage = threadService.calculateLastPage(null, hilo);
 		commentsKarma = karmaService.karmaOfThread(id, p);
 		loggedUserId = userService.findOneByPrincipal().getId();

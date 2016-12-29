@@ -3,6 +3,8 @@ package repositories;
 import java.util.Collection;
 import java.util.Date;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -40,4 +42,6 @@ public interface CommentRepository extends JpaRepository<Comment, Integer> {
 	@Query("select count(c) from Comment c where c.user.id = ?1")
 	int countCommentsCreatedByUserIdGiven(int id);
 
+	@Query("select c from Comment c where c.thread.id = ?1 order by c.creationMoment asc")
+	Page<Comment> findPaginatedByThreadId(int threadId, Pageable page);
 }

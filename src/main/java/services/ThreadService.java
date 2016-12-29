@@ -3,7 +3,6 @@ package services;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
-import java.util.List;
 
 import javax.transaction.Transactional;
 
@@ -195,26 +194,6 @@ public class ThreadService {
 		result = threadRepository.findThreadLessRating();
 
 		return result;
-	}
-
-	public List<Comment> findCommentsByPage(int valueOf, int p) {
-		domain.Thread hilo;
-		Integer numberRows;
-		List<Comment> paginatedComments;
-
-		hilo = findOne(valueOf);
-		numberRows = p * 10;
-		paginatedComments = new ArrayList<Comment>();
-
-		for (int i = numberRows - 10; i <= hilo.getComments().size() - 1; i++) {
-			if (i < numberRows) {
-				paginatedComments.add((Comment) hilo.getComments().toArray()[i]);
-			} else {
-				break;
-			}
-		}
-
-		return paginatedComments;
 	}
 
 	public Integer calculateLastPage(Comment comment, domain.Thread hilo) {

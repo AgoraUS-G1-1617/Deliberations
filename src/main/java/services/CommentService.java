@@ -7,6 +7,8 @@ import java.util.Date;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
@@ -77,15 +79,15 @@ public class CommentService {
 
 	// Other business methods -------------------------------------------------
 
-	public Collection<Comment> findCommentsOfHilo(int idHilo) {
+	public Collection<Comment> findCommentsByPage(int threadId, int page) {
 		Collection<Comment> result;
-
-		result = new ArrayList<Comment>();
-		result = commentRepository.findCommentsOfHilo(idHilo);
-
+		Pageable pageable = new PageRequest(page - 1, 10);
+		
+		result = commentRepository.findPaginatedByThreadId(threadId,pageable).getContent();
+		
 		return result;
 	}
-
+	
 	public Collection<Comment> findCommentsOfUser() {
 		Collection<Comment> result;
 		
