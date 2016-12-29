@@ -20,6 +20,7 @@ import domain.User;
 import repositories.KarmaRepository;
 import repositories.ThreadRepository;
 import utilities.AbstractTest;
+import utilities.UtilTest;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {
@@ -58,34 +59,20 @@ public class KarmaTest extends AbstractTest{
 	// Test cases -------------------------------------------------------------	
 	
 	@Test
-	public void test_setKarma_ok_valueUp() throws InstantiationException{
+	public void test_setKarma_ok_valueUp(){
 		Karma karma;
 		String value;
 		Comment comment;
-		int idUser, preValue;
+		int preValue, id_comment, id_karma;
 		
 		authenticate("user2");
 		
-		idUser = userService.findOneByPrincipal().getId();
-		comment = null;
-		karma = null;
+		id_comment = UtilTest.getIdFromBeanName("comment2");
+		id_karma = UtilTest.getIdFromBeanName("karma3");
 		
-		// Buscamos un karma y comentario que cumpla con los requisitos
-		for(Comment a:commentService.findAll()){
-			if(a.getUser().getId() != idUser){
-				karma = karmaService.karmaOfUserAtComment(a.getId());
-				if(karma != null && karma.getValue() < 0){
-					comment = a;
-					break;
-				}
-			}
-		}
+		comment = commentService.findOne(id_comment);
+		karma = karmaService.findOne(id_karma);
 		
-		if(comment == null){
-			throw new InstantiationException("No se ha encontrado un karma para realizar el test");  
-		}
-		
-
 		value = "up";
 		preValue = karma.getValue();
 		
@@ -99,32 +86,19 @@ public class KarmaTest extends AbstractTest{
 	
 	
 	@Test
-	public void test_setKarma_ok_valueDown() throws InstantiationException{
+	public void test_setKarma_ok_valueDown(){
 		Karma karma;
 		String value;
 		Comment comment;
-		int idUser, preValue;
+		int preValue, id_comment, id_karma;
 		
 		authenticate("user2");
 		
-		idUser = userService.findOneByPrincipal().getId();
-		comment = null;
-		karma = null;
+		id_comment = UtilTest.getIdFromBeanName("comment2");
+		id_karma = UtilTest.getIdFromBeanName("karma4");
 		
-		// Buscamos un karma y comentario que cumpla con los requisitos
-		for(Comment a:commentService.findAll()){
-			if(a.getUser().getId() != idUser){
-				karma = karmaService.karmaOfUserAtComment(a.getId());
-				if(karma != null && karma.getValue() > 0){
-					comment = a;
-					break;
-				}
-			}
-		}
-		
-		if(comment == null){
-			throw new InstantiationException("No se ha encontrado un karma para realizar el test");  
-		}
+		comment = commentService.findOne(id_comment);
+		karma = karmaService.findOne(id_karma);
 		
 		
 		value = "down";
@@ -140,33 +114,19 @@ public class KarmaTest extends AbstractTest{
 	
 	
 	@Test(expected = IllegalArgumentException.class)
-	public void test_setKarma_error_invalidValue() throws InstantiationException{
+	public void test_setKarma_error_invalidValue(){
 		Karma karma;
 		String value;
 		Comment comment;
-		int idUser, preValue;
+		int preValue, id_comment, id_karma;
 		
 		authenticate("user2");
 		
-		idUser = userService.findOneByPrincipal().getId();
-		comment = null;
-		karma = null;
+		id_comment = UtilTest.getIdFromBeanName("comment2");
+		id_karma = UtilTest.getIdFromBeanName("karma4");
 		
-		// Buscamos un karma y comentario que cumpla con los requisitos
-		for(Comment a:commentService.findAll()){
-			if(a.getUser().getId() != idUser){
-				karma = karmaService.karmaOfUserAtComment(a.getId());
-				if(karma != null){
-					comment = a;
-					break;
-				}
-			}
-		}
-		
-		if(comment == null){
-			throw new InstantiationException(); 
-		}
-		
+		comment = commentService.findOne(id_comment);
+		karma = karmaService.findOne(id_karma);		
 		
 		value = "random";
 		preValue = karma.getValue();
