@@ -272,6 +272,12 @@
 		<property name="comment" ref="comment2"/>
 	</bean>
 	
+	<bean id="karma4" class="domain.Karma">
+		<property name="value" value="1"/>
+		<property name="user" ref="user3"/>
+		<property name="comment" ref="comment2"/>
+	</bean>
+	
 	<!-- Ranks -->
 
 	<bean id="rank0" class="domain.Rank">
