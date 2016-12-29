@@ -88,7 +88,7 @@ public class UserProfileController extends AbstractController {
 		/*Datos necesario para las estadisticas del usuario*/
 		messagesSent = messageService.countMessagesSentByUser();
 		messagesReceived = messageService.countMessagesReceivedtByUser();
-		threadsCreated   = threadService.countThreadCreatedByUserGiven(user);
+		threadsCreated   = threadService.countThreadsCreatedByGivenUser(user);
 		commentsCreated  = commentService.countCommentsCreatedByUserGiven(user);
 		ratingsCreated	 = ratingService.countRatingCreatedByUserGiven(user);
 		nextRanks = new ArrayList<Rank>();

@@ -79,7 +79,7 @@ public class RankService {
 		Collection<Rank> requirementsRanks = new ArrayList<Rank>();	
 		
 		//Ratings del user
-		nThreads = threadService.countThreadCreatedByUserGiven(user);
+		nThreads = threadService.countThreadsCreatedByGivenUser(user);
 		//Threads del user
 		nComments = commentService.countCommentsCreatedByUserGiven(user);
 		//Comments del user
