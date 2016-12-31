@@ -42,8 +42,6 @@ public class MessageTest extends AbstractTest {
 	
 	// Test cases ------------------------------------------------------------
 	
-
-
 	/**
 	 * @Test New messages for others users
 	 * @result We persist successfully messages to the database and we check.
@@ -69,6 +67,7 @@ public class MessageTest extends AbstractTest {
 		assertEquals(true, messageService.findOne(newMessage.getId()).getRecipient().equals(recipient));
 		unauthenticate();
 	}
+	
 	
 	/**
 	 * @Test New messages for others users
@@ -123,9 +122,6 @@ public class MessageTest extends AbstractTest {
 		
 		unauthenticate();
 	}
-	
-	
-	
 	
 	/**
 	 * @Test New messages for others users, 
@@ -204,13 +200,6 @@ public class MessageTest extends AbstractTest {
 		assertEquals(true, messageService.findOne(newMessage.getId()).getRecipient().equals(recipient));
 		unauthenticate();
 	}
-	
-	
-	
-	
-	
-	
-	
 	
 	
 }

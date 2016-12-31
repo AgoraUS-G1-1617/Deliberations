@@ -46,7 +46,6 @@ public class RatingTest extends AbstractTest {
 	// Test cases ------------------------------------------------------------
 	
 
-
 	/**
 	 * @Test New rating a thread and remove this
 	 * @result We persist successfully rating to the database and we check.
