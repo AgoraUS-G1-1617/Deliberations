@@ -19,6 +19,7 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page import ="services.RankService" %>
 <%@ page import ="domain.User" %>
 <%@ page import ="domain.Rank" %>
@@ -27,18 +28,6 @@
 
 <script
 	src="scripts/jquery.bootpag.min.js">
-</script>
-
-<script>
-function updateStars(id) {
-	for (i = 1; i <= 5; i++) { 
-	    document.getElementById('star'+i).src = 'images/star_n.png';
-	}
-	
-	for (i = 1; i <= id; i++) { 
-	    document.getElementById('star'+i).src = 'images/star.png';
-	}
-}
 </script>
 
 <br />
@@ -58,26 +47,34 @@ function updateStars(id) {
 						<jstl:set var="principalsRating" value="${item.rate}" />
 					</jstl:if>
 				</jstl:forEach>
-				
+				<div class="rating_thread_in">
 				<jstl:forEach var="i" begin="1" end="5">
 					<a href="rating/edit.do?threadId=${hilo.id}&value=${i}">
 						<jstl:choose>
 							<jstl:when test="${principalsRating != 0}">
 								<jstl:choose>
 									<jstl:when test="${principalsRating < i}">
-										<img src='images/star_n.png' alt='*' height='20px' id='star${i}' onmouseover="updateStars(${i})"/>
+										<img class="img_rate" src='images/star_n.svg' alt='*' height='20px' id='star${i}' onmouseover="updateStars(${i})"/>
 									</jstl:when>
 									<jstl:otherwise>
-										<img src='images/star.png' alt='*' height='20px' id='star${i}' onmouseover="updateStars(${i})"/>
+										<img class="img_rate" src='images/star.svg' alt='*' height='20px' id='star${i}' onmouseover="updateStars(${i})"/>
 									</jstl:otherwise>
 								</jstl:choose>
 							</jstl:when>
 							<jstl:otherwise>
-								<img src='images/star_n.png' alt='*' height='20px' id='star${i}' onmouseover="updateStars(${i})"/>
+								<img class="img_rate" src='images/star_n.svg' alt='*' height='20px' id='star${i}' onmouseover="updateStars(${i})"/>
 							</jstl:otherwise>
 						</jstl:choose>
 					</a>
 				</jstl:forEach>
+				
+				<a class="emerge">
+					<img src="images/help.svg" style="width:20px">
+					<span style="bottom:20px;left:20px;" class="threadRatingHelp"></span>
+				</a>
+				
+				</div>
+				
 				<!-- ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ -->
 				
 				<br/>
@@ -94,6 +91,11 @@ function updateStars(id) {
 								<a href="thread/close.do?threadId=${hilo.id}"><spring:message code="thread.close"/></a>
 							</jstl:otherwise>
 						</jstl:choose>
+						
+						<a class="emerge">
+							<img src="images/help.svg" style="width:20px">
+							<span style="bottom:20px;left:20px;" class="threadLockingHelp"></span>
+						</a>
 					</jstl:if>
 				</security:authorize>
 				
@@ -112,8 +114,8 @@ function updateStars(id) {
 			<div class="row">
 				<div class="col-sm-1">
 					<div class="thumbnail">
-						<img class="img-responsive user-photo"
-							src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png">
+						<a href="user/profile.do?userId=${hilo.user.id}"><img class="img-responsive user-photo"
+							src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png"></a>
 					</div>
 					<!-- /thumbnail -->
 				</div>
@@ -124,11 +126,9 @@ function updateStars(id) {
 					<div class="panel panel-default">
 						<div class="panel-heading" style="background-color: #286090;">
 							<jstl:set var="rank" value="${rankService.calculateRank(hilo.user)}"/>
-							<img class="iconRankUser" src="${rank.icon}" title="${rank.title}">
-							<strong class="hilo-first-font"> <jstl:out
-									value="${hilo.user.userAccount.username }"></jstl:out>
-							</strong> <span class="text-muted" style="color: white;"><jstl:out
-									value="${hilo.creationMoment}"></jstl:out></span>
+							<a href="user/profile.do?userId=${hilo.user.id}"><img class="iconRankUser" src="${rank.icon}" title="${rank.title}"></a>
+							<a href="user/profile.do?userId=${hilo.user.id}"><strong class="hilo-first-font"> <jstl:out value="${hilo.user.userAccount.username }"></jstl:out></strong></a> <span class="text-muted comment-date" style="color: white;">
+							<fmt:formatDate value="${hilo.creationMoment}" pattern="dd/MM/yyyy HH:mm"/></span>
 						</div>
 						<div class="panel-body">
 							<jstl:out value="${hilo.decription}"></jstl:out>
@@ -151,8 +151,8 @@ function updateStars(id) {
 			<div class="row">
 				<div class="col-sm-1">
 					<div class="thumbnail">
-						<img class="img-responsive user-photo"
-							src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png">
+						<a href="user/profile.do?userId=${row.user.id}"><img class="img-responsive user-photo"
+							src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png"></a>
 					</div>
 					<!-- /thumbnail -->
 				</div>
@@ -176,11 +176,11 @@ function updateStars(id) {
 					<div class="panel panel-default">
 						<div class="panel-heading">
 							<jstl:set var="rank" value="${rankService.calculateRank(row.user)}"/>
-							<img class="iconRankUser" src="${rank.icon}" title="${rank.title}">
-							<strong> <jstl:out
+							<a href="user/profile.do?userId=${row.user.id}"><img class="iconRankUser" src="${rank.icon}" title="${rank.title}"></a>
+							<a href="user/profile.do?userId=${row.user.id}"><strong> <jstl:out
 									value="${row.user.userAccount.username }"></jstl:out>
-							</strong> <span class="text-muted"><jstl:out
-									value="${row.creationMoment}"></jstl:out></span>
+							</strong></a> <span class="text-muted comment-date"><fmt:formatDate value="${row.creationMoment}" pattern="dd/MM/yyyy HH:mm"/>
+							</span>
 						</div>
 						<div class="panel-body">
 							<jstl:out value="${row.text}"></jstl:out>
@@ -195,28 +195,6 @@ function updateStars(id) {
 			</div>
 			<!-- /row -->
 		</jstl:forEach>
-
-
-		<%-- <display:table name="comments" id="row" requestURI="thread/display.do" --%>
-		<%-- 	pagesize="5" class="table table-responsive table-striped"> --%>
-
-
-		<%-- 	<spring:message var="dateHeader" code="thread.date" /> --%>
-		<%-- 	<display:column title="${dateHeader}"> --%>
-		<%-- 		<jstl:out value="${row.creationMoment}"></jstl:out> --%>
-		<%-- 	</display:column> --%>
-
-		<%-- 	<spring:message var="authorHeader" code="thread.author" /> --%>
-		<%-- 	<display:column title="${authorHeader}"> --%>
-		<%-- 		<jstl:out value="${row.user.name }"></jstl:out> --%>
-		<%-- 	</display:column> --%>
-
-		<%-- 	<spring:message var="textHeader" code="thread.text" /> --%>
-		<%-- 	<display:column title="${textHeader}"> --%>
-		<%-- 		<jstl:out value="${row.text }"></jstl:out> --%>
-		<%-- 	</display:column> --%>
-
-		<%-- </display:table> --%>
 
 		<jstl:if test="${hilo.closed == false}">
 			<form:form action="thread/saveComment.do?p=${lastPage}" method="post"
@@ -238,6 +216,9 @@ function updateStars(id) {
 								<button type="submit" name="save" class="btn btn-primary"><spring:message code="comment.save" /></button>  
 							</span>
 						</div>
+						<jstl:if test="${commentLengthError != null}">
+							<span class="error"><spring:message code="${commentLengthError}" /></span>
+						</jstl:if>	
 					</div>
 				</div>
 			</form:form>
@@ -278,4 +259,45 @@ function updateStars(id) {
 		$("#karma-div-"+id).html(inputText);
 
 	}
+	
+	function updateStars(id) {
+		for (i = 1; i <= 5; i++) { 
+		    document.getElementById('star'+i).src = 'images/star_n.svg';
+		}
+		
+		for (i = 1; i <= id; i++) { 
+		    document.getElementById('star'+i).src = 'images/star.svg';
+		}
+	}
+
+	function setThreadRatingHelp(){
+		language = getCookie("language");
+		
+		var ratingElements = document.getElementsByClassName("threadRatingHelp");
+		var lockingElements = document.getElementsByClassName("threadLockingHelp");
+		
+		if(language=="es") {
+			for(var i=0; i<ratingElements.length; i++) {
+				ratingElements[i].innerHTML = 'Haciendo clic en las estrellas puedes valorar este hilo. Por defecto, se guarda \
+			    tu valoración, si la hay.';
+			}
+			
+			for(var i=0; i<lockingElements.length; i++) {
+				lockingElements[i].innerHTML = 'Si ha creado este hilo y lo desea, puede cerrarlo de tal forma que ningún usuario pueda \
+				comentar en él. En el futuro puede volver a abrirlo.';
+			}
+		} else {
+			for(var i=0; i<ratingElements.length; i++) {
+				ratingElements[i].innerHTML = 'By clicking on the stars you can rate this thread. By default, your rating is shown, \
+			    if exists.';
+			}
+			
+			for(var i=0; i<lockingElements.length; i++) {
+				lockingElements[i].innerHTML = 'If you have created this thread and you wish so, you can lock it so that no user will \
+				be able to comment on it. In the future, you can reopen it.';
+			}
+		}
+	}
+
+	window.onload = setThreadRatingHelp();
 </script>

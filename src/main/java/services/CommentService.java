@@ -7,6 +7,8 @@ import java.util.Date;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
@@ -28,6 +30,9 @@ public class CommentService {
 	
 	@Autowired
 	private UserService userService;
+
+	@Autowired
+	private ThreadService threadService;
 
 	// Constructors -----------------------------------------------------------
 
@@ -53,12 +58,19 @@ public class CommentService {
 		return commentRepository.findAll();
 	}
 
-	public void save(Comment comment) {
+	public Comment save(Comment comment) {
 		// Associated business rules:
 		//	- The thread that is associated to the comment passed as parameter must not be closed
-		Assert.isTrue(!comment.getThread().isClosed());
+		Assert.isTrue(!comment.getThread().getClosed());
 		
-		commentRepository.save(comment);
+		// No se puede editar un comentario
+		Assert.isTrue(comment.getId() == 0);
+		Comment result;
+
+		result = commentRepository.save(comment);
+		threadService.refreshLastUpdate(comment.getThread());
+		
+		return result;
 	}
 
 	public void delete(Comment comment) {
@@ -67,15 +79,15 @@ public class CommentService {
 
 	// Other business methods -------------------------------------------------
 
-	public Collection<Comment> findCommentsOfHilo(int idHilo) {
+	public Collection<Comment> findCommentsByPage(int threadId, int page) {
 		Collection<Comment> result;
-
-		result = new ArrayList<Comment>();
-		result = commentRepository.findCommentsOfHilo(idHilo);
-
+		Pageable pageable = new PageRequest(page - 1, 10);
+		
+		result = commentRepository.findPaginatedByThreadId(threadId,pageable).getContent();
+		
 		return result;
 	}
-
+	
 	public Collection<Comment> findCommentsOfUser() {
 		Collection<Comment> result;
 		

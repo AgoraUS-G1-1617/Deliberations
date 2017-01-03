@@ -6,6 +6,7 @@ import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
 import javax.persistence.Index;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -47,6 +48,7 @@ public class Comment extends DomainEntity {
 	}
 
 	@NotBlank
+	@Lob
 	public String getText() {
 		return text;
 	}

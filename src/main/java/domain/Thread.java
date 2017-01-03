@@ -10,6 +10,7 @@ import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
 import javax.persistence.Index;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -25,7 +26,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Access(AccessType.PROPERTY)
-@Table(name = "hilo", indexes={ @Index(columnList= "title, erase" ) })
+@Table(name = "hilo", indexes={ @Index(columnList= "title" ) })
 public class Thread extends DomainEntity {
 
 	// Constructors ------------------------------------------------------------
@@ -38,8 +39,8 @@ public class Thread extends DomainEntity {
 
 	private String title;
 	private Date creationMoment;
+	private Date lastUpdate;
 	private String decription;
-	private Boolean erase;
 	private boolean closed;
 	// Although it might seem irrelevant, the attribute 'rating' must be
 	// explicitly declared so that Hibernate knows the name of the getter
@@ -69,7 +70,20 @@ public class Thread extends DomainEntity {
 		this.creationMoment = creationMoment;
 	}
 
+	@Past
+	@NotNull
+	@Temporal(TemporalType.TIMESTAMP)
+	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
+	public Date getLastUpdate() {
+		return lastUpdate;
+	}
+
+	public void setLastUpdate(Date lastUpdate) {
+		this.lastUpdate = lastUpdate;
+	}
+
 	@NotBlank
+	@Lob
 	public String getDecription() {
 		return decription;
 	}
@@ -78,15 +92,8 @@ public class Thread extends DomainEntity {
 		this.decription = decription;
 	}
 	
-	public Boolean getErase() {
-		return erase;
-	}
-
-	public void setErase(Boolean erase) {
-		this.erase = erase;
-	}
 	
-	public boolean isClosed() {
+	public boolean getClosed() {
 		return closed;
 	}
 

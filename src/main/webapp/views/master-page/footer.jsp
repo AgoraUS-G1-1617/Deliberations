@@ -15,11 +15,13 @@
 
 <script>
 	window.onload = function () {
-		var documentURL = document.URL.replace(/\?language=e[sn]/gi,'');
+		var documentURL = document.URL.replace(/\language=e[sn]/gi,'');
 		var append = '';
 		
 		if (documentURL.includes('?')) {
-			append = '&';
+			if (documentURL.slice(-1)!='&') {
+				append = '&';
+			}
 		} else {
 			append = '?';
 		}

@@ -24,9 +24,12 @@
 <script type="text/javascript" src="scripts/jquery.simplePagination.js"></script>
 
 
+<br />
 <div class="container">
 	<div class="row">
+	<h3><spring:message code="publicProfile.title" /></h3>
 		<div class="col-md-offset-2 col-md-8 col-lg-offset-3 col-lg-6">
+		
 			<div class="well profile">
 				<div class="col-sm-12">
 					<div class="col-xs-12 col-sm-8 information">
@@ -35,22 +38,23 @@
 						</h2>
 						<p class="user-basic-information">
 							<strong>
-								<spring:message code="user.genre" />:
+								<spring:message code="user.genre" />
 						    </strong>
 						    <jstl:out value="${user.genre}"></jstl:out>
 						    	
 						</p>
 						<p class="user-basic-information">
 							<strong>
-								<spring:message code="user.email"/>:
-							</strong>
-							<jstl:out value=" ${user.email}"/>							
-						</p>
-						<p class="user-basic-information">
-							<strong>
 								<spring:message code="user.autonomous.community"/>:
 							</strong>
 							<jstl:out value=" ${user.autonomous_community}"/>							
+						</p>
+						<p class="user-basic-information">
+							<br>
+							<a href="message/user/create.do?username=${user.userAccount.username}">
+								<i class="material-icons">mail</i>
+								<spring:message code="user.sendpm"/>
+							</a>
 						</p>
 					</div>
 					<div class="col-xs-12 col-sm-4 text-center">
@@ -64,10 +68,6 @@
 										${karmaOfUser[0]}
 										</button> 
 								</div>
-								<a class="emerge">
-									<img src="images/help.svg" style="width:20px">
-									<span style="bottom:20px;left:20px;" id="karmaHelp"></span>
-								</a>
 							</figcaption>
 						</figure>
 					</div>
@@ -109,88 +109,64 @@
 							</small>
 						</p>
 					</div>
-					<div class="col-xs-12 col-sm-4 emphasis">
-						<h2>
-							<strong>
-								<jstl:out value=" ${messagesReceived}" />
-							</strong>
-						</h2>
-						<p>
-							<small>
-								<spring:message code="user.messagesReceived" />
-							</small>
-						</p>
-					</div>
-					<div class="col-xs-12 col-sm-4 emphasis">
-						<h2>
-							<strong>
-								<jstl:out value=" ${messagesSent}" />
-							</strong>
-						</h2>
-						<p>
-							<small>
-								<spring:message code="user.messagesSent" />
-							</small>
-						</p>
-					</div>
+				
 				</div>
+				
+				
+				
+				<div class="col-xs-12 divider text-center">
+					<table style="margin: 0 auto;">
+			<tr>
+				<td><img src="${rank.icon}" style="width: 70%;"></td>
+			</tr>
+			<tr>
+				<td>
+					<jstl:set var="titleParts" value="${fn:split(rank.title, ' / ')}" />
+					<div class="spanishRankDescription">
+						<b><jstl:out value="(${rank.number}) "/><jstl:out value="${titleParts[1]}"/></b>	
+	   				</div>
+	   				<div class="englishRankDescription">
+						<b><jstl:out value="(${rank.number}) "/><jstl:out value="${titleParts[0]}"/></b>		
+   					</div>
+				</td>
+				
+			</tr>
+		</table>
+				
+				</div>
+				
+				
+				
+				
+				
 			</div>
 		</div>
 	</div>
 </div>
-	<div class="container">
 	
-	<br />
-	<div class="thumbnail">
-
-		<table style="margin: 0 auto;">
-			<tr>
-				<td><img src="${rank.icon}"></td>
-				<td style='padding: 3%' WIDTH="500">
-					<jstl:set var="titleParts" value="${fn:split(rank.title, ' / ')}" />
-					<div class="spanishRankDescription">
-						<b><jstl:out value="(${rank.number}) "/><jstl:out value="${titleParts[1]}: "/></b>	
-	   					<jstl:out value="${rank.descriptionEs}"/>
-	   				</div>
-	   				<div class="englishRankDescription">
-						<b><jstl:out value="(${rank.number}) "/><jstl:out value="${titleParts[0]}: "/></b>		
-	   					<jstl:out value="${rank.descriptionEn}"/>
-   					</div>
-				</td>
-				<%-- Siguientes rangos, para cada uno de ellos ventana emergente --%>
-				<!-- License: Flaticon Basic License. By Madebyoliver(http://www.flaticon.com/authors/madebyoliver) -->
-					<jstl:forEach items="${nextRanks}" var="rankTemp">
-						<jstl:set var="titleTempParts" value="${fn:split(rankTemp.title, ' / ')}" />
-						<td><a class="emerge"><img class="darkRank" src="${rankTemp.icon}">
-							<span >
-							<img class="iconCenter" src="${rankTemp.icon}">
-							
-							<div class="spanishRankDescription">
-								<b><jstl:out value="(${rankTemp.number}) "/><jstl:out value="${titleTempParts[1]}: "/></b>	
-								<jstl:out value=" ${rank.descriptionEs}" />
-							</div>
-							<div class="englishRankDescription">
-								<b><jstl:out value="(${rankTemp.number}) "/><jstl:out value="${titleTempParts[0]}: "/></b>
-								<jstl:out value=" ${rank.descriptionEn}" />
-							</div>
-							
-						</span>
-						</a></td>
-						<jstl:if test="${rankTemp.number != numRanks-1}">
-							<td><img src="images/rightIcon.png"></td>
-						</jstl:if>
-
-					</jstl:forEach>
-			</tr>
-		</table>
-	</div>
-
-</div>
 <br />
 <script>
+
 	function karmaDetails(positive, negative) {
+
 		inputText = 'Karma: <span class="positive-karma-user">'+positive+'</span> <span class="karma-user-bar">/</span> <span class="negative-karma">'+negative+'</span>';
 		$(".karma-user-div").html(inputText);
+
+	}
+	
+	function getCookie(cname) {
+	    var name = cname + "=";
+	    var ca = document.cookie.split(';');
+	    for(var i = 0; i <ca.length; i++) {
+	        var c = ca[i];
+	        while (c.charAt(0)==' ') {
+	            c = c.substring(1);
+	        }
+	        if (c.indexOf(name) == 0) {
+	            return c.substring(name.length,c.length);
+	        }
+	    }
+	    return "";
 	}
 	
 	function setRankDescriptions(){
@@ -201,19 +177,13 @@
 			for(var i=0; i<elements.length; i++) {
 			    elements[i].innerHTML = '';
 			}
-			
-			document.getElementById("karmaHelp").innerHTML = "Todos los usuarios tienen un karma asociado, que consiste \
-			en el balance de votos positivos y negativos que ha recibido en sus comentarios por parte de otros usuarios."
 		} else {
 			var elements = document.getElementsByClassName("spanishRankDescription");
 			for(var i=0; i<elements.length; i++) {
 			    elements[i].innerHTML = '';
 			}
-			
-			document.getElementById("karmaHelp").innerHTML = "All users have a certain karma level associated, which consists of \
-			the number of positive and negative votes that have been received in his or her comments by other users."
 		}
 	}
 	
-	window.onload = setRankDescriptions();
+	window.onload = setRankDescriptions()
 </script>

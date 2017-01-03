@@ -57,8 +57,9 @@ public class RankService {
 		return rankRepository.findAll();
 	}
 
-	public void save(Rank rank) {
-		rankRepository.save(rank);
+	public Rank save(Rank rank) {
+		return rankRepository.save(rank);
+		
 	}
 
 	public void delete(Rank rank) {
@@ -78,7 +79,7 @@ public class RankService {
 		Collection<Rank> requirementsRanks = new ArrayList<Rank>();	
 		
 		//Ratings del user
-		nThreads = threadService.countThreadCreatedByUserGiven(user);
+		nThreads = threadService.countThreadsCreatedByGivenUser(user);
 		//Threads del user
 		nComments = commentService.countCommentsCreatedByUserGiven(user);
 		//Comments del user

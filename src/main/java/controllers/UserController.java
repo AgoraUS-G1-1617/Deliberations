@@ -92,7 +92,7 @@ public class UserController extends AbstractController {
 
 			// Se recupera la respuesta a la petición
 
-			response = objectMapper.readValue(new URL("http://www.egcaj.tk/Auth/api/checkToken?token=" + tokenToVerify),
+			response = objectMapper.readValue(new URL("https://autha.agoraus1.egc.duckdns.org/api/index.php?method=checkToken&token=" + tokenToVerify),
 					Token.class);
 
 			// Se comprueba que la respuesta recibida sea válida
@@ -130,7 +130,7 @@ public class UserController extends AbstractController {
 					DaoAuthenticationProvider authenticator;
 					Authentication authentication;
 					
-					usuario = objectMapper.readValue(new URL("http://www.egcaj.tk/Auth/api/getUser?user=" + userAccount.getUsername()),
+					usuario = objectMapper.readValue(new URL("https://autha.agoraus1.egc.duckdns.org/api/index.php?method=getUser&user=" + userAccount.getUsername()),
 							User.class);
 					usuario = userService.setUserProperties(usuario, userAccount);
 					usuario = userService.save(usuario);

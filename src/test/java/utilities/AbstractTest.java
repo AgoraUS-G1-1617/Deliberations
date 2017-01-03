@@ -28,10 +28,18 @@ public abstract class AbstractTest {
 	private LoginService loginService;
 	
 	// Set up and tear down -------------------------------
-	
+	private static boolean populate = true;
+
 	@Before
 	public void setUp() {
-		PopulateDatabase.main(null);
+		if (populate) {
+			PopulateDatabase.main(null);
+			populate = false;
+			
+			UtilTest.mapBeansToIds();
+		}
+
+		unauthenticate();
 	}
 	
 	@After

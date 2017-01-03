@@ -3,11 +3,12 @@ package services;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
-import java.util.List;
 
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
@@ -17,6 +18,7 @@ import domain.Thread;
 import domain.User;
 import repositories.ThreadRepository;
 import security.LoginService;
+import security.UserAccount;
 
 @Service
 @Transactional
@@ -41,51 +43,104 @@ public class ThreadService {
 	// Simple CRUD methods ----------------------------------------------------
 
 	public Thread create() {
+		// Associated business rules:
+		//	- It must be an authenticated user who performs this use case
 		Thread result;
 		User user;
 		Collection<Comment> comments;
 		Collection<Rating> ratings;
 		Date date;
 
-		result = new Thread();
 		user = userService.findOneByPrincipal();
+		Assert.notNull(user);
+		
+		result = new Thread();
 		comments = new ArrayList<Comment>();
 		ratings = new ArrayList<Rating>();
-		date = new Date();
+		date = new Date(System.currentTimeMillis() - 1000);
 
 		result.setUser(user);
 		result.setComments(comments);
 		result.setRatings(ratings);
 		result.setCreationMoment(date);
+		result.setLastUpdate(date);
+		result.setClosed(false);
 
 		return result;
 	}
 
 	public Thread findOne(int threadId) {
-		return threadRepository.findOne(threadId);
+		// Associated business rules:
+		//	- The id passed as parameter must be greater than 0
+		//	- The id passed as parameter must be associated to an existing thread
+		Assert.isTrue(threadId > 0);
+		
+		Thread result;
+		
+		result = threadRepository.findOne(threadId);
+		Assert.notNull(result);
+		
+		return result;
 	}
 
-	public Collection<Thread> findAll() {
-		return threadRepository.findAll();
+	public Page<Thread> findAll(Pageable page) {
+		// Associated business rules:
+		//	- The Pageable object passed as parameter must not be null
+		Assert.notNull(page);
+		
+		Page<Thread> result;
+		
+		result = threadRepository.findAllSortedByDate(page);
+		
+		return result;
 	}
 
-	public void save(Thread thread) {
-		Date date;
+	public Thread save(Thread thread) {
+		// Associated business rules:
+		//	- It must be a logged in user who performs this use case
+		//	- The thread passed as parameter must be associated to the user that is logged in
+		User principal;
+		Thread dbThread;
+		
+		principal = userService.findOneByPrincipal();
+		Assert.notNull(principal);
 
-		date = new Date(System.currentTimeMillis() - 1000);
-		thread.setCreationMoment(date);
-		// Make sure the thread is not closed at creation irregardless of POST hacking issues
-		thread.setClosed(false);
+		if (thread.getId() == 0){
+			dbThread = this.create();
+		} else {
+			dbThread = this.findOne(thread.getId());
+		}
+		
+		dbThread.setTitle(thread.getTitle());
+		dbThread.setDecription(thread.getDecription());
+		
+		thread = dbThread;
+		
+		Assert.isTrue(principal.equals(thread.getUser()), "threadService.save not propietary");
+//		Assert.isTrue(!thread.getClosed(), "threadService.save is closed");
 
-		threadRepository.save(thread);
+		return threadRepository.save(thread);
 	}
 
 	// Other business methods -------------------------------------------------
 
+	public void refreshLastUpdate(Thread thread){
+		// Associated business rules:
+		//	- The thread passed as parameter must not be null
+		Assert.notNull(thread);
+		
+		Date date;
+
+		thread = this.findOne(thread.getId());
+		date = new Date(System.currentTimeMillis() - 1000);
+		thread.setLastUpdate(date);
+
+		threadRepository.save(thread);
+	}
+
 	public Collection<Thread> findThreadWithMoreComments() {
 		Collection<Thread> result;
 
-		result = new ArrayList<Thread>();
 		result = threadRepository.findThreadWithMoreComments();
 
 		return result;
@@ -94,35 +149,33 @@ public class ThreadService {
 	public Collection<Thread> findThreadWithLessComments() {
 		Collection<Thread> result;
 
-		result = new ArrayList<Thread>();
 		result = threadRepository.findThreadWithLessComments();
 
 		return result;
 	}
 
 	public Collection<Thread> findThreadOfUser() {
+		// Associated business rules:
+		//	- It must be a logged in user who performs this use case
 		Collection<Thread> result;
+		UserAccount principal;
+		
+		principal = LoginService.getPrincipal();
+		Assert.notNull(principal);
 
-		result = new ArrayList<Thread>();
-		result = threadRepository.findThreadOfUser(LoginService.getPrincipal().getId());
+		result = threadRepository.findThreadOfUser(principal.getId());
 
 		return result;
 	}
 
 	public Collection<Thread> findThreadWithTitle(String title) {
+		// Associated business rules:
+		//	- The title passed as parameter must not be null
+		Assert.notNull(title);
+		
 		Collection<Thread> result;
 
-		result = new ArrayList<Thread>();
 		result = threadRepository.findThreadWithTitle(title);
-
-		return result;
-	}
-
-	public Collection<Thread> findThreadAvailables() {
-		Collection<Thread> result;
-
-		result = new ArrayList<Thread>();
-		result = threadRepository.findThreadAvailables();
 
 		return result;
 	}
@@ -130,7 +183,6 @@ public class ThreadService {
 	public Collection<Thread> findThreadMoreRating() {
 		Collection<Thread> result;
 
-		result = new ArrayList<Thread>();
 		result = threadRepository.findThreadMoreRating();
 
 		return result;
@@ -139,31 +191,9 @@ public class ThreadService {
 	public Collection<Thread> findThreadLessRating() {
 		Collection<Thread> result;
 
-		result = new ArrayList<Thread>();
 		result = threadRepository.findThreadLessRating();
 
 		return result;
-	}
-
-	public List<Comment> findCommentsByPage(Integer valueOf, Integer p) {
-		domain.Thread hilo;
-		Integer numberRows;
-		List<Comment> paginatedComments;
-
-		hilo = findOne(valueOf);
-		numberRows = p * 10;
-		paginatedComments = new ArrayList<Comment>();
-
-		for (int i = numberRows - 10; i <= hilo.getComments().size() - 1; i++) {
-			if (i < numberRows) {
-				System.out.println((Comment) hilo.getComments().toArray()[i]);
-				paginatedComments.add((Comment) hilo.getComments().toArray()[i]);
-			} else {
-				break;
-			}
-		}
-
-		return paginatedComments;
 	}
 
 	public Integer calculateLastPage(Comment comment, domain.Thread hilo) {
@@ -193,7 +223,7 @@ public class ThreadService {
 		//	- The thread passed as parameter must have been created by the current principal
 		//	- The given thread must be closed
 		Assert.isTrue(thread.getUser().equals(userService.findOneByPrincipal()));
-		Assert.isTrue(thread.isClosed());
+		Assert.isTrue(thread.getClosed());
 		
 		Thread result;
 		
@@ -209,7 +239,7 @@ public class ThreadService {
 		//	- The thread passed as parameter must have been created by the current principal
 		//	- The given thread must not be already closed
 		Assert.isTrue(thread.getUser().equals(userService.findOneByPrincipal()));
-		Assert.isTrue(!thread.isClosed());
+		Assert.isTrue(!thread.getClosed());
 		
 		Thread result;
 		
@@ -220,26 +250,29 @@ public class ThreadService {
 		return result;
 	}
 	
-	public int countThreadCreatedByUser(){
-		int res;
-		User user;
+	public int countThreadsCreatedByPrincipal(){
+		// Associated business rules:
+		//	- It must be a logged in user who performs this use case
+		int result;
+		User principal;
 		
-		user = userService.findOneByPrincipal();
+		principal = userService.findOneByPrincipal();
+		Assert.notNull(principal);
 		
-		Assert.notNull(user);
+		result = countThreadsCreatedByGivenUser(principal);
 		
-		res = threadRepository.countThreadCreatedByUserId(user.getId());
-		
-		return res;
+		return result;
 	}
 	
-	public int countThreadCreatedByUserGiven(User user){
-		int res;
-		
+	public int countThreadsCreatedByGivenUser(User user){
+		// Associated business rules:
+		//	- The user passed as parameter must not be null
 		Assert.notNull(user);
 		
-		res = threadRepository.countThreadCreatedByUserIdGiven(user.getId());
+		int result;
 		
-		return res;
+		result = threadRepository.countThreadCreatedByUserId(user.getId());
+		
+		return result;
 	}
 }

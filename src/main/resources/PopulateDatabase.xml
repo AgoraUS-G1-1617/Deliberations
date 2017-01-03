@@ -49,17 +49,14 @@
 		</property>
 	</bean>
 
-
 	<!-- Other domain beans come here -->
-
-
 
 	<!-- User -->
 	<bean id="user1" class="domain.User">
 
-		<property name="name" value="nombre" />
-		<property name="surname" value="surname" />
-		<property name="email" value="caballeroalba@gmail.com" />
+		<property name="name" value="Francisco" />
+		<property name="surname" value="Martínez Robles" />
+		<property name="email" value="franciscomarrob01@gmail.com" />
 		<property name="autonomous_community" value="Andalucía" />
 		<property name="userAccount" ref="userAccount1" />
 		<property name="genre" value="Hombre" />
@@ -82,81 +79,107 @@
 	</bean>
 
 	<bean id="user2" class="domain.User">
-
-		<property name="name" value="Fran" />
-		<property name="surname" value="Developer" />
-		<property name="email" value="frandeveloper@gmail.com" />
+		<property name="name" value="Nuria" />
+		<property name="surname" value="Jurado Mateos" />
+		<property name="email" value="nuriamatju01@gmail.com" />
 		<property name="autonomous_community" value="Madrid" />
 		<property name="userAccount" ref="userAccount2" />
-		<property name="genre" value="Hombre" />
+		<property name="genre" value="Mujer" />
 		<property name="threads">
 			<list>
 				<ref bean="thread2" />
+				<ref bean="thread3" />
 			</list>
 		</property>
 		<property name="ratings">
 			<list>
-
+				<ref bean="rating2" />
+				<ref bean="rating3" />
 			</list>
 		</property>
 		<property name="comments">
 			<list>
 				<ref bean="comment3" />
+				<ref bean="comment4" />
+				<ref bean="comment5" />
 			</list>
 		</property>
 	</bean>
+	
 <bean id="user3" class="domain.User">
-
-		<property name="name" value="user3" />
-		<property name="surname" value="user3" />
-		<property name="email" value="user3@gmail.com" />
-		<property name="autonomous_community" value="Madrid" />
+		<property name="name" value="Alfonso" />
+		<property name="surname" value="Jiménez Vega" />
+		<property name="email" value="alfonjimveg01@gmail.com" />
+		<property name="autonomous_community" value="Valencia" />
 		<property name="userAccount" ref="userAccount3" />
 		<property name="genre" value="Hombre" />
 		<property name="threads">
 			<list>
-				<ref bean="thread2" />
 			</list>
 		</property>
 		<property name="ratings">
 			<list>
-
 			</list>
 		</property>
 		<property name="comments">
 			<list>
-				<ref bean="comment3" />
+				<ref bean="comment6" />
 			</list>
 		</property>
 	</bean>
+	
 	<!-- Thread -->
 
 	<bean id="thread1" class="domain.Thread">
 		<property name="user" ref="user1"></property>
-		<property name="creationMoment" value="11/11/2004 12:12"></property>
-		<property name="title" value="titulo"></property>
-		<property name="decription" value="text"></property>
+		<property name="creationMoment" value="07/09/2016 14:41"></property>
+		<property name="title" value="He votado al PP y..."></property>
+		<property name="decription" value="Me han subido los impuestos. ¿Qué hago ahora?"></property>
+		<property name="lastUpdate" value="07/09/2016 14:41"></property>
 		<property name="comments">
 			<list>
 				<ref bean="comment1" />
-				<ref bean="comment2" />
-			</list>
+				<ref bean="comment3" />
+				<ref bean="comment6" />
+ 			</list>
 		</property>
 		<property name="ratings">
 			<list>
 				<ref bean="rating1" />
+				<ref bean="rating2" />
 			</list>
 		</property>
 	</bean>
 
 	<bean id="thread2" class="domain.Thread">
 		<property name="user" ref="user2"></property>
-		<property name="creationMoment" value="12/11/2004 14:18"></property>
-		<property name="title" value="Hilando"></property>
-		<property name="decription" value="text2"></property>
+		<property name="creationMoment" value="11/08/2016 10:23"></property>
+		<property name="title" value="¿Terceras elecciones?"></property>
+		<property name="lastUpdate" value="11/08/2016 10:27"></property>
+		<property name="decription" value="Pues eso. ¿Pensáis que va a haber terceras elecciones?"></property>
 		<property name="comments">
 			<list>
-				<ref bean="comment3" />
+				<ref bean="comment2" />
+				<ref bean="comment4" />
+				<ref bean="comment5" />
+			</list>
+		</property>
+		<property name="ratings">
+			<list>
+				<ref bean="rating3" />
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="thread3" class="domain.Thread">
+		<property name="user" ref="user3"></property>
+		<property name="creationMoment" value="10/08/2016 01:48"></property>
+		<property name="title" value="¿Cambiar la fecha de la feria?"></property>
+		<property name="lastUpdate" value="11/08/2016 06:41"></property>
+		<property name="decription" value="¿Estaríais a favor? ¿En contra? ¿Por qué?"></property>
+		<property name="closed" value="true"/>
+		<property name="comments">
+			<list>
 			</list>
 		</property>
 		<property name="ratings">
@@ -169,23 +192,44 @@
 
 	<bean id="comment1" class="domain.Comment">
 		<property name="user" ref="user1"></property>
-		<property name="creationMoment" value="11/11/2004 12:15"></property>
-		<property name="text" value="tex1t"></property>
+		<property name="creationMoment" value="07/09/2016 17:28"></property>
+		<property name="text" value="¿Nadie? :/"></property>
 		<property name="thread" ref="thread1" />
 	</bean>
-
+	
 	<bean id="comment2" class="domain.Comment">
 		<property name="user" ref="user1"></property>
-		<property name="creationMoment" value="11/11/2004 12:16"></property>
-		<property name="text" value="text2"></property>
-		<property name="thread" ref="thread1" />
+		<property name="creationMoment" value="10/08/2016 10:02"></property>
+		<property name="text" value="Bueno... a este paso yo creo que sí eh..."></property>
+		<property name="thread" ref="thread2" />
 	</bean>
-
+	
 	<bean id="comment3" class="domain.Comment">
 		<property name="user" ref="user2"></property>
-		<property name="creationMoment" value="13/11/2004 12:18"></property>
-		<property name="text" value="text3"></property>
+		<property name="creationMoment" value="07/09/2016 18:03"></property>
+		<property name="text" value="Vaya tela... ¡siempre hacen lo mismo estos políticos!"></property>
+		<property name="thread" ref="thread1" />
+	</bean>
+	
+	<bean id="comment4" class="domain.Comment">
+		<property name="user" ref="user2"></property>
+		<property name="creationMoment" value="10/08/2016 10:57"></property>
+		<property name="text" value="Yo pienso igual... ¡espero que nos equivoquemos!"></property>
 		<property name="thread" ref="thread2" />
+	</bean>
+	
+	<bean id="comment5" class="domain.Comment">
+		<property name="user" ref="user2"></property>
+		<property name="creationMoment" value="10/08/2016 10:59"></property>
+		<property name="text" value="¿Alguien más?"></property>
+		<property name="thread" ref="thread2" />
+	</bean>
+	
+	<bean id="comment6" class="domain.Comment">
+		<property name="user" ref="user3"></property>
+		<property name="creationMoment" value="07/09/2016 18:04"></property>
+		<property name="text" value="Mejor que te suban los impuestos a que te quiten las pensiones como quiere hacer coleta morada. Guiño guiño."></property>
+		<property name="thread" ref="thread1" />
 	</bean>
 
 	<!-- Rating -->
@@ -196,7 +240,45 @@
 		<property name="thread" ref="thread1" />
 	</bean>
 	
-	<!-- Rank -->
+	<bean id="rating2" class="domain.Rating">
+		<property name="rate" value="5"></property>
+		<property name="user" ref="user2"></property>
+		<property name="thread" ref="thread1" />
+	</bean>
+	
+	<bean id="rating3" class="domain.Rating">
+		<property name="rate" value="2"></property>
+		<property name="user" ref="user1"></property>
+		<property name="thread" ref="thread2" />
+	</bean>
+	
+	<!-- Karma -->
+	
+	<bean id="karma1" class="domain.Karma">
+		<property name="value" value="1"/>
+		<property name="user" ref="user2"/>
+		<property name="comment" ref="comment1"/>
+	</bean>
+	
+	<bean id="karma2" class="domain.Karma">
+		<property name="value" value="1"/>
+		<property name="user" ref="user3"/>
+		<property name="comment" ref="comment1"/>
+	</bean>
+	
+	<bean id="karma3" class="domain.Karma">
+		<property name="value" value="-1"/>
+		<property name="user" ref="user2"/>
+		<property name="comment" ref="comment2"/>
+	</bean>
+	
+	<bean id="karma4" class="domain.Karma">
+		<property name="value" value="1"/>
+		<property name="user" ref="user3"/>
+		<property name="comment" ref="comment2"/>
+	</bean>
+	
+	<!-- Ranks -->
 
 	<bean id="rank0" class="domain.Rank">
 		<property name="title" value="Stone / Piedra"/>
@@ -263,6 +345,5 @@
 		<property name="minComments" value="50"/>
 		<property name="minRatings" value="30"/>
 	</bean>
-
 
 </beans>

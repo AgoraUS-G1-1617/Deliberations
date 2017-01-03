@@ -80,7 +80,7 @@
 					<!---->
 
 					<security:authorize access="isAuthenticated()">
-						<li><a href="thread/list.do"> <span
+						<li><a href="thread/list.do?page=1"> <span
 								class="glyphicon glyphicon-tasks " aria-hidden="true"></span> <spring:message
 									code="master.page.forum" />
 						</a></li>

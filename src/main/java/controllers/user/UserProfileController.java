@@ -4,12 +4,13 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import controllers.AbstractController;
@@ -59,33 +60,36 @@ public class UserProfileController extends AbstractController {
 	// ------------------------------------------------------------------------
 
 	@RequestMapping("/profile")
-	public ModelAndView profile(HttpServletRequest  request) {
+	public ModelAndView profile(HttpServletRequest request, @RequestParam(required=false) Integer userId) {
 		ModelAndView result;
 		User user;
 		Rank rank;
 		Rank rankTemp;
 		Integer numRanks;
-		Cookie[] cookies;
-		String cookieValue;
 		int messagesSent, messagesReceived, threadsCreated, commentsCreated,ratingsCreated;
 		Collection<Rank> nextRanks;
 		Integer cont;
 		List<Integer> karmaOfUser;
 
-		/*Por defecto la aplicación está en ingles y obtenemos cookies*/
-		cookieValue = "en";
-		cookies = request.getCookies();
-
 		/*Datos necesario para la vista de su rango*/
-		user = userService.findOneByPrincipal();
+		if(userId != null){
+			user = userService.findOne(userId);
+			Assert.notNull(user);
+			result = new ModelAndView("user/publicProfile");
+		}else{
+			user = userService.findOneByPrincipal();
+			Assert.notNull(user);
+			result = new ModelAndView("user/profile");
+		}
+		
 		rank = rankService.calculateRank(user);
 		numRanks = rankService.sortAllRanks().size();
 		
 		/*Datos necesario para las estadisticas del usuario*/
 		messagesSent = messageService.countMessagesSentByUser();
 		messagesReceived = messageService.countMessagesReceivedtByUser();
-		threadsCreated   = threadService.countThreadCreatedByUser();
-		commentsCreated  = commentService.countCommentsCreatedByUser();
+		threadsCreated   = threadService.countThreadsCreatedByGivenUser(user);
+		commentsCreated  = commentService.countCommentsCreatedByUserGiven(user);
 		ratingsCreated	 = ratingService.countRatingCreatedByUserGiven(user);
 		nextRanks = new ArrayList<Rank>();
 		cont = rank.getNumber();
@@ -95,22 +99,12 @@ public class UserProfileController extends AbstractController {
 			rankTemp = rankService.findRankForNumber(cont + 1);
 			nextRanks.add(rankTemp);
 			cont = cont + 1;
-
 		}
 		
-		for(Cookie i: cookies){
-			if(i.getName().equals("language")){
-				cookieValue = i.getValue();
-			}
-			
-		}
-
-		result = new ModelAndView("user/profile");
 		result.addObject("user", user);
 		result.addObject("rank", rank);
 		result.addObject("nextRanks", nextRanks);
 		result.addObject("numRanks", numRanks);
-		result.addObject("cookieValue", cookieValue);
 		result.addObject("messagesSent", messagesSent);
 		result.addObject("messagesReceived", messagesReceived);
 		result.addObject("threadsCreated", threadsCreated);
@@ -120,7 +114,4 @@ public class UserProfileController extends AbstractController {
 
 		return result;
 	}
-
-
-	
 }

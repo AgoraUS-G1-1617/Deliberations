@@ -8,76 +8,142 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@taglib prefix="acme" tagdir="/WEB-INF/tags"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-
-<script type="text/javascript" src="scripts/jquery.js"></script>
-<script type="text/javascript" src="scripts/jquery.simplePagination.js"></script>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 
-<br />
-<br />
+<link rel="stylesheet" href="styles/thread_style.css" media="screen"
+	type="text/css" />
+<script src="scripts/jquery.bootpag.min.js"></script>
+
 <div class="container">
-
-	<h3><spring:message code="thread.head" /></h3>
+	<h3 class="title-forum">
+		<spring:message code="thread.head" />
+	</h3>
 
 	<div id="create-button" style="text-align: right">
 		<a href="thread/create.do" class="btn btn-primary" role="button"><span
-			class="glyphicon glyphicon-pencil" aria-hidden="true"></span><spring:message code="list.new" /></a>
+			class="glyphicon glyphicon-pencil" aria-hidden="true"></span> <spring:message
+				code="list.new" /></a>
 	</div>
-<div class="table-responsive">
-	<display:table name="threads" id="row" requestURI="thread/list.do" pagesize="15" class="table table-striped">
+	<div id="bbpress-forums">
+		<ul id="forums-list-0" class="bbp-forums" style="padding-right: 40px;">
+			<li class="bbp-header">
+				<ul class="forum-titles">
+					<li class="bbp-forum-info"><spring:message code="thread.title" /></li>
+					<li class="bbp-forum-topic-messages"><spring:message code="thread.answers" /></li>
+					<li class="bbp-forum-topic-rating"></li>
+					<li class="bbp-forum-freshness"><spring:message code="thread.lastComment" /></li>
+				</ul>
+			</li>
+			<jstl:forEach items="${threads}" var="threadRow">
+				<li class="bbp-body">
+					<ul id="bbp-forum-6"
+						class="loop-item-0 odd bbp-forum-status-open bbp-forum-visibility-publish post-6 forum type-forum status-publish hentry">
+						<li class="bbp-forum-info">
+							
+							<a class="bbp-forum-title" href="thread/display.do?id=${threadRow.id}&p=1">
+							<jstl:out value="${threadRow.title }"/>
+							</a>
+							<!-- Chunk for closed threads -->
+							<jstl:if test="${threadRow.closed}">
+				  				<span id="lock-icon" class="glyphicon glyphicon-lock" aria-hidden="true" ></span>
+							</jstl:if>
+							<!-- ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^  -->
+							<security:authorize  access="isAuthenticated()">
+								<jstl:if test="${threadRow.user.id == actUserId}">
+									&nbsp 
+									(<a href="thread/edit.do?threadId=${threadRow.id}">
+											<spring:message code="thread.edit" />
+									</a>)
+								</jstl:if>
+							</security:authorize>
+							
+							<div class="bbp-forum-content">
+								<spring:message code="thread.created" />
+								<a href="user/profile.do?userId=${threadRow.user.id}">
+									<jstl:out value="${threadRow.user.name }"/>
+								</a> 
+								<fmt:formatDate value="${threadRow.creationMoment}" pattern="dd/MM/yyyy"/>
+								
+							</div>
+							
+						</li>
+						
+						<li class="bbp-forum-topic-messages">
+							<span class="badge"> 
+								<jstl:out value="${threadRow.comments.size()}"/>
+							</span>
+						</li>
+						<li class="bbp-forum-topic-rating">
+							<jstl:forEach var="i" begin="1" end="${threadRow.rating}">
+								
+								<img src='images/star.svg' alt='*' height='20px' />
+							
+							</jstl:forEach> <jstl:forEach var="i" begin="${threadRow.rating}" end="4">
+								
+								<img src='images/star_n.svg' alt='*' height='20px' />
+							
+							</jstl:forEach>
+							
+							<a class="emerge">
+								<img src="images/help.svg" style="width:20px">
+								<span style="bottom:20px;left:20px;" class="threadRatingHelp"></span>
+							</a>
 
-		<spring:message var="titleHeader" code="thread.title" />
-		<display:column title="${titleHeader}">
-			<a href="thread/display.do?id=${row.id}&p=1"><jstl:out
-					value="${row.title }"></jstl:out></a>
-			<!-- Chunk for closed threads -->
-			<jstl:if test="${row.closed}">
-  				<span id="lock-icon" class="glyphicon glyphicon-lock" aria-hidden="true" ></span>
-			</jstl:if>
-			<!-- ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^  -->
-			<security:authorize  access="isAuthenticated()">
-				<jstl:if test="${row.user.id == actUserId}">
-					&nbsp (<a href="thread/edit.do?threadId=${row.id}">edit</a>)
-				</jstl:if>
-			</security:authorize>
-		</display:column>
-
-		<spring:message var="authorHeader" code="thread.author" />
-		<display:column title="${authorHeader}">
-			<jstl:out value="${row.user.name }"></jstl:out>
-		</display:column>
-
-		<spring:message var="dateHeader" code="thread.creationMoment" />
-		<display:column title="${dateHeader}" property="creationMoment"
-			format="{0,date,dd/MM/yyyy HH:mm}">
-			<jstl:out value="${row.creationMoment}"></jstl:out>
-		</display:column>
-		
-		<spring:message var="lastCommentHeader" code="thread.lastComment" />
-		<display:column title="${lastCommentHeader}">
-			<jstl:if test="${row.lastComment!=null}">
-			<fmt:formatDate value="${row.lastComment.creationMoment}" pattern="dd/MM/yyyy HH:mm"/>
-			</jstl:if>
-		</display:column>
-		
-		<spring:message var="answersHeader" code="thread.answers" />
-		<display:column title="${answersHeader}">
-			<span class="badge"> <jstl:out value="${row.comments.size()}"></jstl:out>
-			</span>
-		</display:column>
-		
-		<display:column>
-			<!-- Chunk for thread rating -->
-			<jstl:forEach var="i" begin="1" end="${row.rating}">
-				<img src='images/star.png' alt='*' height='20px' />
+						</li>
+						<li class="bbp-forum-freshness">
+							<jstl:if test="${threadRow.lastComment!=null}">
+								<fmt:formatDate value="${threadRow.lastComment.creationMoment}" pattern="dd/MM/yyyy HH:mm"/>
+							</jstl:if>						
+						</li>
+					</ul>
+				</li>
 			</jstl:forEach>
-			<jstl:forEach var="i" begin="${row.rating}" end="4">
-				<img src='images/star_n.png' alt='*' height='20px' />
-			</jstl:forEach>
-			<!-- ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ -->
-		</display:column>	
-	</display:table>
+
+		</ul>
+	</div>
 </div>
+
+<div id="pagination" class="copyright">
+
+	<script>
+		$('#pagination').bootpag({
+			total : <jstl:out value="${total_pages}"></jstl:out>,
+			page : <jstl:out value="${p}"></jstl:out>,
+			maxVisible : 5,
+			leaps : true,
+			firstLastUse : true,
+			first : '<',
+	        last: '>',
+			wrapClass : 'pagination',
+			activeClass : 'active',
+			disabledClass : 'disabled',
+			nextClass : 'next',
+			prevClass : 'prev',
+			lastClass : 'last',
+			firstClass : 'first'
+		}).on('page', function(event, num) {
+			window.location.href = "thread/list.do?page=" + num + "";
+			page = 1
+		});
+		
+		function setThreadRatingHelp(){
+			language = getCookie("language");
+			
+			var elements = document.getElementsByClassName("threadRatingHelp");
+			
+			if(language=="es") {
+				for(var i=0; i<elements.length; i++) {
+				    elements[i].innerHTML = 'Las estrellas muestran la valoración que los usuarios han dado al hilo.';
+				}
+			} else {
+				for(var i=0; i<elements.length; i++) {
+				    elements[i].innerHTML = 'The stars show the rating that the users have given the thread.';
+				}
+			}
+		}
+		
+		window.onload = setThreadRatingHelp();
+	</script>
+
 </div>
-<br />

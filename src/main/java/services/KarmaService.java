@@ -31,9 +31,6 @@ public class KarmaService {
 	private UserService userService;
 	
 	@Autowired
-	private ThreadService threadService;
-	
-	@Autowired
 	private CommentService commentService;
 
 	// Constructors -----------------------------------------------------------
@@ -187,7 +184,7 @@ public class KarmaService {
 		List<Comment> comments;
 		
 		result = new HashMap<Integer, List<Integer>>();
-		comments = new ArrayList<Comment>(threadService.findCommentsByPage(threadId, page));
+		comments = new ArrayList<Comment>(commentService.findCommentsByPage(threadId, page));
 		
 		for(Comment c: comments){
 			result.put(c.getId(), karmaOfComment(c.getId()));

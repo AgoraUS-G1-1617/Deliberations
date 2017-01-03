@@ -3,7 +3,6 @@ package services;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.Collection;
 import java.util.Date;
 
 import org.codehaus.jackson.JsonParseException;
@@ -12,6 +11,9 @@ import org.codehaus.jackson.map.ObjectMapper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.transaction.TransactionConfiguration;
@@ -29,7 +31,7 @@ import utilities.AbstractTest;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:spring/datasource.xml", "classpath:spring/config/packages.xml" })
 @Transactional
-@TransactionConfiguration(defaultRollback = false)
+@TransactionConfiguration(defaultRollback = true)
 public class ServiceTest extends AbstractTest {
 
 	// Service under test ------------------------------------------------
@@ -67,7 +69,7 @@ public class ServiceTest extends AbstractTest {
 
 		userService.save(result);
 
-		System.out.println("El usuario ha sido creado correctamente.");
+		System.out.println("testCreateUser executed");
 
 	}
 
@@ -87,7 +89,7 @@ public class ServiceTest extends AbstractTest {
 
 		threadService.save(result);
 
-		System.out.println("El hilo ha sido creado correctamente.");
+		System.out.println("testCreateThread executed");
 		unauthenticate();
 
 	}
@@ -102,18 +104,21 @@ public class ServiceTest extends AbstractTest {
 		Comment result;
 		domain.Thread hilo;
 
-		result = new Comment();
+		result = commentService.create();
 
-		hilo = threadService.findOne(6);
-		result.setCreationMoment(new Date());
+		hilo = threadService.findOne(7);
 
+		Assert.notNull(hilo);
+		
 		result.setThread(hilo);
+		result.setCreationMoment(new Date());
 		result.setUser(userService.findOneByPrincipal());
 		result.setText("Texto comentario");
+		result.setErase(false);
 
 		commentService.save(result);
 
-		System.out.println("El comentario ha sido creado correctamente.");
+		System.out.println("testCreateComment executed");
 		unauthenticate();
 
 	}
@@ -126,11 +131,14 @@ public class ServiceTest extends AbstractTest {
 
 		authenticate("user1");
 
-		Collection<domain.Thread> result;
+		Page<domain.Thread> result;
+		Pageable pageable = new PageRequest(0, 5);
+		
+		result = threadService.findAll(pageable);
 
-		result = threadService.findAll();
-
-		System.out.println("La lista de hilos es: " + result);
+//		System.out.println("La lista de hilos es: " + result);
+		
+		System.out.println("testListAllThreads executed");
 		unauthenticate();
 
 	}
@@ -157,10 +165,11 @@ public class ServiceTest extends AbstractTest {
 		tokenToVerify = loginService.verifyToken(userAccount);
 
 		// Se realiza la petición de consulta
-		resultOfToken = objectMapper.readValue(new URL("http://localhost/Auth/api/checkToken?token=" + tokenToVerify),
+		resultOfToken = objectMapper.readValue(new URL("https://autha.agoraus1.egc.duckdns.org/api/index.php?method=checkToken&token=" + tokenToVerify),
 				Token.class);
 
-		System.out.println("resultado del token: " + resultOfToken.isValid());
+//		System.out.println("resultado del token: " + resultOfToken.isValid());
+		System.out.println("testAuthConnection executed");
 
 		Assert.isTrue(resultOfToken.isValid());
 	}

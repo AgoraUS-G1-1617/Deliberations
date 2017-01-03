@@ -7,6 +7,7 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -15,6 +16,9 @@ import org.codehaus.jackson.JsonParseException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.core.Authentication;
@@ -44,7 +48,7 @@ import services.UserService;
 @RequestMapping("/thread")
 public class ThreadController extends AbstractController {
 
-	// Supporting services -----------------------
+	// Supporting services ----------------------------------------------------
 
 	@Autowired
 	private ThreadService threadService;
@@ -70,27 +74,27 @@ public class ThreadController extends AbstractController {
 		super();
 	}
 
-	// Listing
-	// ------------------------------------------------------------------
+	// Listing ----------------------------------------------------------------
 
-	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public ModelAndView list() {
+	@RequestMapping("/list")
+	public ModelAndView messagesReceived(@RequestParam int page) {
 		ModelAndView result;
-		Collection<domain.Thread> threads;
-		
-		threads = threadService.findAll();
-		
+		Page<Thread> items;
+		Pageable pageable;
+		pageable = new PageRequest(page - 1, 5);
+
+		items = threadService.findAll(pageable);
+
 		result = new ModelAndView("thread/list");
-		result.addObject("threads", threads);
-		result.addObject("allThreads", threadService.findAll());
+		result.addObject("threads", items.getContent());
+		result.addObject("p", page);
+		result.addObject("total_pages", items.getTotalPages());
 		result.addObject("actUserId",userService.findOneByPrincipal().getId());
-		
+
 		return result;
 	}
-
-	// Displaying ---------------------------------------------------------
+	// Displaying -------------------------------------------------------------
 	
-	// devuelve hilo mas sus comentarios
 	@RequestMapping(value = "/display", method = RequestMethod.GET)
 	public ModelAndView seeThread(@RequestParam int id, @RequestParam Integer p) {
 		ModelAndView result;
@@ -110,8 +114,7 @@ public class ThreadController extends AbstractController {
 
 	}
 
-	// Creation
-	// --------------------------------------------------------------------------
+	// Creation ---------------------------------------------------------------
 
 	@RequestMapping(value = "/saveComment", method = RequestMethod.POST)
 	public ModelAndView saveComment(@Valid Comment comment, BindingResult binding) {
@@ -125,11 +128,20 @@ public class ThreadController extends AbstractController {
 			result = createListModelAndView(comment.getThread().getId(), page, comment);
 
 		} else {
-			result = new ModelAndView("redirect:display.do?id=" + comment.getThread().getId() + "&p=" + page);
-			try {
-				commentService.save(comment);
-			} catch (Throwable op) {
-				op.printStackTrace();
+			if(comment.getText().length()>65535){
+
+				result = createListModelAndView(comment.getThread().getId(), page, comment);
+				result.addObject("commentLengthError", "comment.length.error");
+				
+			}else{
+				
+				result = new ModelAndView("redirect:display.do?id=" + comment.getThread().getId() + "&p=" + page);
+				
+				try {
+					commentService.save(comment);
+				} catch (Throwable op) {
+					op.printStackTrace();
+				}
 			}
 		}
 		return result;
@@ -150,14 +162,20 @@ public class ThreadController extends AbstractController {
 		return result;
 	}
 
-	// Edition
-	// ------------------------------------------------------------------------
+	// Edition ----------------------------------------------------------------
 
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
 	public ModelAndView edit(@RequestParam int threadId) {
-		domain.Thread thread = threadService.findOne(threadId);
+		domain.Thread thread;
+		ModelAndView result;
+		
+		thread = threadService.findOne(threadId);
 
-		ModelAndView result = createEditModelAndView(thread);
+		if(thread.getUser().equals(userService.findOneByPrincipal())){
+			result = createEditModelAndView(thread);
+		}else{
+			result = messagesReceived(1);
+		}
 
 		return result;
 	}
@@ -167,15 +185,27 @@ public class ThreadController extends AbstractController {
 		ModelAndView result;
 
 		if (binding.hasErrors()) {
-			System.out.println(binding.getAllErrors().get(0));
 			result = createEditModelAndView(thread);
 		} else {
 			try {
-				threadService.save(thread);
-				result = new ModelAndView("redirect:list.do");
+				if(thread.getTitle().length()>255 || thread.getDecription().length()>65535){
+					Map<String, String> lengthErrors;
+					lengthErrors = new HashMap<String, String>();
+					if(thread.getTitle().length()>255){
+						lengthErrors.put("titleLengthError", "title.length.error");
+					}
+					if(thread.getDecription().length()>65535){
+						lengthErrors.put("descriptionLengthError", "comment.length.error");
+					}
+					result = new ModelAndView("thread/edit");
+					result.addObject("thread", thread);
+					result.addAllObjects(lengthErrors);
+				}else{
+					threadService.save(thread);
+					result = new ModelAndView("redirect:list.do?page=1");
+				}
 			} catch (Throwable oops) {
 				result = createEditModelAndView(thread, "commit.error");
-				System.out.println(oops.getStackTrace());
 			}
 		}
 
@@ -192,7 +222,7 @@ public class ThreadController extends AbstractController {
 			thread = threadService.findOne(threadId);
 			threadService.open(thread);
 			
-			result = new ModelAndView("redirect:list.do");
+			result = new ModelAndView("redirect:list.do?page=1");
 		} catch (Throwable oops) {
 			result = seeThread(threadId,1);
 			result.addObject("messageError","commit.error");
@@ -211,7 +241,7 @@ public class ThreadController extends AbstractController {
 				thread = threadService.findOne(threadId);
 				threadService.close(thread);
 				
-				result = new ModelAndView("redirect:list.do");
+				result = new ModelAndView("redirect:list.do?page=1");
 			} catch (Throwable oops) {
 				result = seeThread(threadId,1);
 				result.addObject("messageError","commit.error");
@@ -231,17 +261,13 @@ public class ThreadController extends AbstractController {
 	public ModelAndView loginFromCensus(String username, HttpServletRequest httpRequest)
 			throws JsonParseException, JsonMappingException, IOException {
 		ModelAndView result;
-
-		System.out.println(username);
-
 		// Encontrar en Censos con JSon
 
 		ObjectMapper objectMapper = new ObjectMapper();
 
 		// Document
 		// doc=Jsoup.connect("http://localhost:8080/ADMCensus/census/json_one_user.do?votacion_id=1&username="+username).get();
-		// System.out.println(doc.toString());
-
+		
 		// Si da error, el usuario no está en el censo
 
 		CensusUser censusUser = null;
@@ -253,10 +279,8 @@ public class ThreadController extends AbstractController {
 						new URL("http://localhost:8080/ADMCensus/census/findCensusByVote.do?idVotacion=" + 1),
 						CensusUser.class);
 			} catch (JsonParseException e) {
-				System.out.println(e.toString());
 				return loginFromCensusFrom();
 			}
-			System.out.println(censusUser.toString());
 			Assert.isTrue(censusUser.getUsername() != null);
 
 			for (String name : censusUser.getVoto_por_usuario().keySet()) {
@@ -317,8 +341,6 @@ public class ThreadController extends AbstractController {
 		try {
 			// Must be called from request filtered by Spring Security,
 			// otherwise SecurityContextHolder is not updated
-			System.out.println(request.toString());
-			System.out.println("contraseña pepe de base de datos: " + user.getPassword());
 			UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(user.getUsername(),
 					user.getPassword(), null);
 			token.setDetails(new WebAuthenticationDetails(request));
@@ -364,7 +386,7 @@ public class ThreadController extends AbstractController {
 		Integer loggedUserId;
 
 		hilo = threadService.findOne(id);
-		comments = threadService.findCommentsByPage(id, p);
+		comments = commentService.findCommentsByPage(id, p);
 		lastPage = threadService.calculateLastPage(null, hilo);
 		commentsKarma = karmaService.karmaOfThread(id, p);
 		loggedUserId = userService.findOneByPrincipal().getId();
@@ -404,7 +426,7 @@ public class ThreadController extends AbstractController {
 		nuevo.setComments(new ArrayList<Comment>());
 
 		threadService.save(nuevo);
-		return new ModelAndView("redirect:list.do");
+		return new ModelAndView("redirect:list.do?page=1");
 
 		// CreacionAdminVotaciones/#/create
 	}

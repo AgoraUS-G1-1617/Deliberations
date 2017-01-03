@@ -2,6 +2,8 @@ package repositories;
 
 import java.util.Collection;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -24,9 +26,6 @@ public interface ThreadRepository extends JpaRepository<Thread, Integer> {
 	@Query("select t from Thread t where t.title=?1")
 	Collection<Thread> findThreadWithTitle(String title);
 	
-	@Query("select t from Thread t where t.erase is false or t.erase is null")
-	Collection<Thread> findThreadAvailables();
-	
 	@Query("select r.thread from Rating r group by r.thread having sum(r.rate)>= all(select sum(w.rate) from Rating w group by w.thread)")
 	Collection<Thread> findThreadMoreRating();
 
@@ -36,7 +35,6 @@ public interface ThreadRepository extends JpaRepository<Thread, Integer> {
 	@Query("select count(t) from Thread t where t.user.id = ?1")
 	int countThreadCreatedByUserId(int id);
 	
-	@Query("select count(t) from Thread t where t.user.id = ?1")
-	int countThreadCreatedByUserIdGiven(int id);
-
+	@Query("select t from Thread t order by t.lastUpdate desc")
+	Page<Thread> findAllSortedByDate(Pageable page);
 }

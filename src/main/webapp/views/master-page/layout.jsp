@@ -36,13 +36,15 @@
 <link rel="stylesheet" href="styles/displaytag.css" type="text/css">
 <link rel="stylesheet" type="text/css" href="styles/manual.css" media="screen" />
 
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+
 
 
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<meta name="keywords" content="Chattle Responsive web template, Bootstrap Web Templates, Flat Web Templates, Andriod Compatible web template, Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyErricsson, Motorola web design" />
 		<script type="application/x-javascript"> addEventListener("load", function() {setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
-		<link rel="stylesheet" href="styles/flexslider.css" type="text/css" media="screen" />
 		<!--bootstrap-->
 			<link href="styles/bootstrap.min.css" rel="stylesheet" type="text/css" />
 		<!--coustom css-->
@@ -72,6 +74,21 @@
 	  		loc = b[0].href + loc;
 		}
 		window.location.replace(loc);
+	}
+	
+	function getCookie(cname) {
+	    var name = cname + "=";
+	    var ca = document.cookie.split(';');
+	    for(var i = 0; i <ca.length; i++) {
+	        var c = ca[i];
+	        while (c.charAt(0)==' ') {
+	            c = c.substring(1);
+	        }
+	        if (c.indexOf(name) == 0) {
+	            return c.substring(name.length,c.length);
+	        }
+	    }
+	    return "";
 	}
 
 </script>
