@@ -192,4 +192,20 @@ public class KarmaService {
 		
 		return result;
 	}
+	
+	public List<Integer> karmasOfUserAtThread(int threadId, int page, int user){
+		List<Integer> result;
+		List<Comment> comments;
+		
+		result = new ArrayList<Integer>();
+		comments = new ArrayList<Comment>(commentService.findCommentsByPage(threadId, page));
+		
+		for(Comment c: comments){
+			if(!karmaRepository.karmaOfUserAtComment(c.getId(), user).isEmpty()){
+				result.add(c.getId());
+			}
+		}
+		
+		return result;
+	}
 }

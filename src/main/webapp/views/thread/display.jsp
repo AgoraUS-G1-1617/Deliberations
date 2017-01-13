@@ -162,11 +162,15 @@
 				<button onclick="location.href='karma/setKarma.do?commentId=${row.id}&value=up'" class="up-button">
 				</button>
 				</jstl:if>
+				<jstl:forEach var="item" items="${karmasOfUserAtThread}">
+				<jstl:if test="${item==row.id}">
 				<div id="karma-div-${row.id}" class="karma-div">
 					<button onclick="karmaDetails(${row.id},${commentsKarma[row.id][1]},${commentsKarma[row.id][2]})" class="karma-button">
 						${commentsKarma[row.id][0]}
 					</button>
 				</div>
+				</jstl:if>
+				</jstl:forEach>
 				<jstl:if test="${row.user.id!=loggedUserId}">
 				<button onclick="location.href='karma/setKarma.do?commentId=${row.id}&value=down'" class="down-button">
 				</button>
